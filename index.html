@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>截图裁拼</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>">
+<style>
+:root{
+  --mat:#2D5A4E;
+  --mat-deep:#244A40;
+  --mat-text:#E8F0EC;
+  --mat-muted:#B3C8BE;
+  --paper:#F3F5F2;
+  --panel:#FFFFFF;
+  --line:#D9E0DC;
+  --ink:#18221E;
+  --muted:#65746D;
+  --tape:#F4C430;
+  --tape-ink:#3A2E00;
+  --danger:#B3261E;
+  --radius:6px;
+  --ctl-h:30px;
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0}
+body{background:var(--paper);color:var(--ink);font:14px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--mat);outline-offset:2px}
+.work :focus-visible{outline-color:var(--tape)}
+.work .guide :focus-visible,.work .help-card :focus-visible{outline-color:var(--mat)}
+kbd{display:inline-block;min-width:20px;font:inherit;font-size:11px;font-weight:600;line-height:16px;padding:1px 5px 0;margin:0 1px;text-align:center;color:var(--ink);background:#F7F9F8;border:1px solid #C9D2CD;border-bottom-width:2px;border-radius:4px;white-space:nowrap;vertical-align:1px}
+.mini-size{display:inline-block;font-size:11px;font-weight:600;line-height:17px;padding:0 5px;border-radius:3px;background:var(--tape);color:var(--tape-ink);white-space:nowrap;vertical-align:1px;font-variant-numeric:tabular-nums}
+.ui-btn{display:inline-block;font-size:11px;font-weight:600;line-height:18px;padding:0 7px;border-radius:4px;background:var(--ink);color:#fff;white-space:nowrap;vertical-align:1px}
+
+/* 顶栏 */
+.top{height:56px;display:flex;align-items:center;gap:16px;padding:0 20px;border-bottom:1px solid var(--line);background:var(--panel)}
+.top h1{font-size:18px;font-weight:700;margin:0;letter-spacing:.04em}
+.top-actions{margin-left:auto}
+
+/* 布局 */
+.app{display:grid;grid-template-columns:220px minmax(0,1fr) 340px;height:calc(100dvh - 56px)}
+h2{font-size:13px;font-weight:600;margin:0}
+.count{color:var(--muted);font-weight:400;margin-left:6px;font-variant-numeric:tabular-nums}
+.panel-head{display:flex;align-items:center;min-height:46px;padding:12px 14px 6px}
+.link{margin-left:auto;border:0;background:none;color:var(--muted);cursor:pointer;font-size:12px;padding:2px 6px;border-radius:4px}
+.link:hover{color:var(--danger);background:var(--paper)}
+
+/* 按钮 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid transparent;border-radius:var(--radius);padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;background:var(--ink);color:#fff;white-space:nowrap;line-height:1.4}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.onmat{background:transparent;border-color:rgba(255,255,255,.28);color:var(--mat-text)}
+.btn.onmat:hover:not(:disabled){background:rgba(255,255,255,.08)}
+.btn.line{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn.line:hover:not(:disabled){background:var(--paper)}
+.btn.tape{background:var(--tape);color:var(--tape-ink)}
+.btn.tape kbd{background:rgba(255,255,255,.55);border-color:rgba(58,46,0,.25);color:var(--tape-ink)}
+.btn.danger{background:var(--danger);color:#fff}
+.btn.wide{width:100%;padding:10px;font-size:14px}
+
+/* 左栏：截图 */
+.sources{border-right:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+#srcList{list-style:none;margin:0;padding:0 8px 8px;overflow:auto;flex:1}
+#srcList li{position:relative}
+.src-btn{display:flex;gap:10px;align-items:center;width:100%;padding:8px;border:0;background:none;text-align:left;border-radius:var(--radius);cursor:pointer}
+.src-btn:hover{background:var(--paper)}
+#srcList li.on .src-btn{background:#E3ECE7;box-shadow:inset 3px 0 0 var(--mat)}
+.src-btn img{width:44px;height:44px;object-fit:cover;object-position:top;border-radius:3px;border:1px solid var(--line);flex:none;background:#fff}
+.src-meta{min-width:0;display:flex;flex-direction:column;padding-right:18px}
+.src-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+.src-dim{white-space:nowrap;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.x{position:absolute;top:6px;right:6px;width:22px;height:22px;border:0;border-radius:4px;background:transparent;color:var(--muted);cursor:pointer;opacity:0;font-size:16px;line-height:1}
+#srcList li:hover .x,.x:focus-visible{opacity:1}
+.x:hover{background:#fff;color:var(--danger)}
+.src-empty{padding:8px 10px;color:var(--muted);font-size:13px}
+
+/* 中间：切割垫 */
+.work{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--mat)}
+.toolbar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--mat-deep);color:var(--mat-text);flex-wrap:wrap;min-height:48px}
+.cur-name{font-size:13px;max-width:32ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.sel-size{font-size:12px;color:var(--mat-muted);font-variant-numeric:tabular-nums}
+.spacer{flex:1}
+.toolbar select{background:transparent;border:1px solid rgba(255,255,255,.28);border-radius:4px;padding:3px 6px;color:var(--mat-text)}
+.toolbar select option{color:var(--ink)}
+.stage{
+  flex:1;overflow:auto;padding:36px 32px;position:relative;
+  background-color:var(--mat);
+  background-image:
+    linear-gradient(rgba(255,255,255,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.13) 1px,transparent 1px),
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:100px 100px,100px 100px,20px 20px,20px 20px;
+  background-attachment:local;
+}
+body.dropping .stage{box-shadow:inset 0 0 0 3px var(--tape)}
+.empty{position:absolute;inset:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:2px dashed rgba(255,255,255,.35);border-radius:10px;color:var(--mat-text);text-align:center;cursor:pointer;padding:20px}
+.empty:hover{border-color:var(--tape)}
+.empty strong{font-size:20px;font-weight:600}
+.empty span{color:var(--mat-muted)}
+.empty kbd{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:var(--mat-text)}
+.wrap{position:relative;margin:0 auto;touch-action:none;cursor:crosshair;box-shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.28);background:#fff;user-select:none;-webkit-user-select:none}
+.wrap img{display:block;width:100%;height:100%;pointer-events:none}
+.overlay{position:absolute;inset:0}
+.dim{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hole{position:absolute;box-shadow:0 0 0 99999px rgba(14,28,24,.45)}
+.sel{position:absolute;outline:2px solid var(--tape);cursor:move}
+.h{position:absolute;width:10px;height:10px;background:#fff;border:2px solid var(--tape);border-radius:2px;margin:-5px 0 0 -5px}
+.h::before{content:"";position:absolute;inset:-8px}
+.h-nw{left:0;top:0;cursor:nwse-resize}
+.h-n{left:50%;top:0;cursor:ns-resize}
+.h-ne{left:100%;top:0;cursor:nesw-resize}
+.h-e{left:100%;top:50%;cursor:ew-resize}
+.h-se{left:100%;top:100%;cursor:nwse-resize}
+.h-s{left:50%;top:100%;cursor:ns-resize}
+.h-sw{left:0;top:100%;cursor:nesw-resize}
+.h-w{left:0;top:50%;cursor:ew-resize}
+
+/* 选区尺寸标签：悬停可点，点击变成输入框 */
+.size{position:absolute;left:-2px;bottom:calc(100% + 6px);display:inline-flex;align-items:center;gap:4px;height:24px;background:var(--tape);color:var(--tape-ink);font-size:12px;font-weight:600;padding:0 7px;border:0;border-radius:4px;white-space:nowrap;font-variant-numeric:tabular-nums;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.size .pen{width:11px;height:11px;opacity:0;margin-right:-2px;transition:opacity .12s}
+button.size:hover{background:#fff;color:var(--ink);outline:2px solid var(--tape);outline-offset:0}
+button.size:hover .pen,button.size:focus-visible .pen{opacity:.7}
+.sel.low .size{bottom:auto;top:calc(100% + 6px)}
+.size.editing{background:#fff;color:var(--ink);outline:2px solid var(--tape);cursor:default;height:28px;padding:0 6px}
+.size.editing input{width:58px;height:20px;border:1px solid var(--line);border-radius:3px;padding:0 4px;font-size:12px;text-align:right;font-variant-numeric:tabular-nums;background:#fff}
+.size.editing input::-webkit-inner-spin-button,.size.editing input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.size.editing input{-moz-appearance:textfield;appearance:textfield}
+.size.editing input:focus{outline:none;border-color:var(--ink)}
+.size.editing .u{color:var(--muted);font-weight:400}
+
+.done{position:absolute;outline:2px dashed var(--mat);background:rgba(45,90,78,.12);pointer-events:none}
+.done span{position:absolute;left:0;top:0;min-width:22px;height:22px;padding:0 6px;background:var(--mat);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;border-bottom-right-radius:4px;font-variant-numeric:tabular-nums}
+.done.new{animation:flash .8s ease-out}
+@keyframes flash{from{background:rgba(244,196,48,.6)}to{background:rgba(45,90,78,.12)}}
+
+/* 引导卡片 */
+.guide{position:absolute;right:20px;bottom:20px;width:252px;background:#fff;color:var(--ink);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.3);padding:12px 14px 12px;z-index:5}
+.g-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.g-step{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.g-dots{display:flex;gap:4px}
+.g-dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.g-dots i.on{background:var(--mat)}
+.g-x{margin-left:auto;width:22px;height:22px;border:0;border-radius:4px;background:transparent;color:var(--muted);cursor:pointer;font-size:16px;line-height:1}
+.g-x:hover{background:var(--paper);color:var(--ink)}
+.guide h3{font-size:14px;margin:0 0 2px}
+.guide p{font-size:13px;color:#3B4843;margin:0 0 10px;line-height:1.55}
+.g-foot{display:flex;gap:6px;justify-content:flex-end}
+.g-foot .btn{padding:4px 10px;font-size:12px}
+
+/* 帮助问号 */
+.help{position:absolute;right:20px;bottom:20px;z-index:5}
+.help-btn{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(20,40,34,.55);color:var(--mat-text);font-weight:700;font-size:15px;cursor:help;backdrop-filter:blur(4px)}
+.help.open .help-btn{background:var(--tape);color:var(--tape-ink);border-color:var(--tape)}
+.help-pop{position:absolute;right:0;bottom:100%;padding-bottom:10px;display:none}
+.help.open .help-pop{display:block}
+.help-card{width:328px;background:#fff;color:var(--ink);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.3);padding:12px 14px}
+.help-card h3{font-size:12px;font-weight:600;color:var(--muted);margin:10px 0 4px}
+.help-card h3:first-child{margin-top:0}
+.help-card dl{display:grid;grid-template-columns:118px 1fr;gap:5px 10px;margin:0;font-size:12.5px;align-items:baseline}
+.help-card dt{white-space:nowrap;color:var(--ink)}
+.help-card dd{margin:0;color:#3B4843}
+.help-foot{border-top:1px solid var(--line);margin-top:12px;padding-top:10px;display:flex;align-items:center;gap:8px}
+.help-foot .note{font-size:12px;color:var(--muted);flex:1}
+.replay{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px 0 8px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--mat);font-size:12px;font-weight:600;cursor:pointer}
+.replay svg{width:13px;height:13px}
+.replay:hover{background:var(--mat);border-color:var(--mat);color:#fff}
+
+/* 右栏 */
+.side{border-left:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+.crop-list{list-style:none;margin:0;padding:0 8px 8px;overflow:auto;flex:1;min-height:140px}
+.crop{display:flex;align-items:center;gap:10px;padding:6px;border-radius:var(--radius);cursor:grab;background:var(--panel)}
+.crop:hover{background:var(--paper)}
+.crop.dragging{opacity:.4}
+.crop.drop-before{box-shadow:0 -2px 0 var(--mat)}
+.crop.drop-after{box-shadow:0 2px 0 var(--mat)}
+.crop .num{width:22px;text-align:right;font-weight:700;color:var(--mat);font-variant-numeric:tabular-nums;flex:none}
+.thumb{width:56px;height:56px;padding:0;border:1px solid var(--line);border-radius:4px;background:#fff;cursor:pointer;flex:none;display:grid;place-items:center;overflow:hidden}
+.thumb img{max-width:100%;max-height:100%;display:block}
+.c-meta{flex:1;min-width:0;display:flex;flex-direction:column;font-size:13px;font-variant-numeric:tabular-nums}
+.c-src{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-act{display:flex;gap:2px;flex:none}
+.c-act button{width:26px;height:26px;border:0;border-radius:4px;background:transparent;cursor:pointer;color:var(--muted)}
+.c-act button:hover:not(:disabled){background:#E3ECE7;color:var(--ink)}
+.c-act button:disabled{opacity:.3;cursor:default}
+.c-act button[data-rm]:hover{color:var(--danger)}
+.crop-empty{padding:8px 10px;color:var(--muted);font-size:13px}
+
+/* 拼接设置：两列网格，标签列固定宽，控件列统一高度 */
+.settings{border-top:1px solid var(--line);padding:14px 16px 16px;display:grid;grid-template-columns:64px minmax(0,1fr);column-gap:12px;row-gap:12px;align-items:center}
+.settings > h2{grid-column:1 / -1;margin-bottom:2px}
+.s-label{font-size:13px;color:var(--muted);align-self:start;line-height:var(--ctl-h)}
+.s-ctrl{display:flex;flex-direction:column;gap:8px;min-width:0}
+.s-two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;height:var(--ctl-h);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
+.seg button{border:0;background:transparent;padding:0 4px;font-size:13px;cursor:pointer;border-left:1px solid var(--line);white-space:nowrap}
+.seg button:first-child{border-left:0}
+.seg button:hover{background:var(--paper)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.field-box{display:flex;align-items:center;height:var(--ctl-h);border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:0 8px;gap:6px;min-width:0;position:relative}
+.field-box:focus-within{border-color:var(--ink)}
+.field-box .pre{font-size:12px;color:var(--muted);white-space:nowrap}
+.field-box .suf{font-size:12px;color:var(--muted)}
+.field-box input[type=number]{flex:1;min-width:0;width:100%;border:0;background:transparent;text-align:right;font-size:13px;font-variant-numeric:tabular-nums;padding:0}
+.field-box input[type=number]:focus{outline:none}
+.color-box{cursor:pointer}
+.swatch{width:18px;height:18px;border-radius:4px;border:1px solid rgba(0,0,0,.18);flex:none}
+.hex{font-size:13px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.color-box input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
+.s-foot{grid-column:1 / -1;display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.out-info{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;min-height:18px;margin:0}
+.out-info.err{color:var(--danger)}
+
+/* 弹窗 */
+dialog::backdrop{background:rgba(14,28,24,.6)}
+dialog#preview{width:min(1100px,94vw);height:min(90dvh,1000px);padding:0;border:0;border-radius:10px;overflow:hidden}
+dialog#preview[open]{display:flex;flex-direction:column}
+.pv-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.pv-head h2{font-size:15px}
+#pvInfo{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.pv-body{flex:1;overflow:auto;padding:24px;text-align:center;background-color:var(--mat);
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:20px 20px;background-attachment:local}
+.pv-body img{max-width:100%;height:auto;box-shadow:0 10px 30px rgba(0,0,0,.3);vertical-align:top}
+dialog.confirm{width:min(340px,90vw);border:0;border-radius:10px;padding:18px 18px 14px;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+dialog.confirm form{margin:0}
+dialog.confirm h2{font-size:15px;margin-bottom:6px}
+dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
+.cf-foot{display:flex;justify-content:flex-end;gap:8px}
+
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,12px);background:var(--ink);color:#fff;padding:8px 14px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:10;max-width:90vw}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  .done.new{animation:none}
+  #toast,.size .pen{transition:none}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;height:auto}
+  .sources{border-right:0;border-bottom:1px solid var(--line)}
+  #srcList{display:flex;gap:4px;overflow-x:auto}
+  #srcList li{flex:none;width:190px}
+  .x{opacity:1}
+  .work{height:72dvh}
+  .side{border-left:0}
+  .crop-list{max-height:50dvh}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>截图裁拼</h1>
+  <div class="top-actions">
+    <label class="btn" for="fileInput">添加截图</label>
+    <input id="fileInput" type="file" accept="image/*" multiple hidden>
+  </div>
+</header>
+
+<main class="app">
+  <aside class="sources" aria-label="截图列表">
+    <div class="panel-head">
+      <h2>截图<span id="srcCount" class="count"></span></h2>
+      <button id="btnClearSrc" class="link" type="button">一键清除</button>
+    </div>
+    <ul id="srcList"></ul>
+  </aside>
+
+  <section class="work" aria-label="裁切区">
+    <div class="toolbar">
+      <span id="curName" class="cur-name"></span>
+      <select id="zoom" aria-label="缩放">
+        <option value="fit">适应宽度</option>
+        <option value="0.5">50%</option>
+        <option value="1">100%</option>
+        <option value="2">200%</option>
+      </select>
+      <span id="selSize" class="sel-size"></span>
+      <span class="spacer"></span>
+      <button id="btnWhole" class="btn onmat" type="button">整张加入</button>
+      <button id="btnClearSel" class="btn onmat" type="button">取消选区</button>
+      <button id="btnAdd" class="btn tape" type="button">加入裁切 <kbd>Enter</kbd></button>
+    </div>
+    <div id="stage" class="stage">
+      <label id="empty" class="empty" for="fileInput">
+        <strong>把截图拖到这里</strong>
+        <span>也可以按 <kbd class="mod">Ctrl</kbd> + <kbd>V</kbd> 粘贴，或点这里选择文件</span>
+      </label>
+      <div id="wrap" class="wrap" hidden>
+        <img id="srcImg" alt="" draggable="false">
+        <div id="overlay" class="overlay"></div>
+      </div>
+    </div>
+
+    <div id="guide" class="guide" role="dialog" aria-labelledby="gTitle" hidden>
+      <div class="g-head">
+        <span class="g-dots" id="gDots" aria-hidden="true"></span>
+        <span class="g-step" id="gStep"></span>
+        <button id="gClose" class="g-x" type="button" aria-label="关闭引导">×</button>
+      </div>
+      <h3 id="gTitle"></h3>
+      <p id="gText"></p>
+      <div class="g-foot">
+        <button id="gPrev" class="btn line" type="button">上一步</button>
+        <button id="gNext" class="btn" type="button">下一步</button>
+      </div>
+    </div>
+
+    <div id="help" class="help" hidden>
+      <div class="help-pop" id="helpPop">
+        <div class="help-card" role="tooltip">
+          <h3>框选</h3>
+          <dl>
+            <dt>拖动鼠标</dt><dd>画出选区，拖边角调整</dd>
+            <dt>点 <span class="mini-size">W × H</span></dt><dd>直接输入宽高</dd>
+            <dt><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></dt><dd>微调位置，<kbd>Shift</kbd> 加速</dd>
+          </dl>
+          <h3>裁切</h3>
+          <dl>
+            <dt><kbd>Enter</kbd></dt><dd>加入裁切，选区保留可复用</dd>
+            <dt><kbd>Esc</kbd></dt><dd>取消选区</dd>
+            <dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>没有选区时切换截图</dd>
+          </dl>
+          <h3>素材与顺序</h3>
+          <dl>
+            <dt><kbd class="mod">Ctrl</kbd> + <kbd>V</kbd></dt><dd>粘贴截图，也可以直接拖入</dd>
+            <dt>右侧列表</dt><dd>拖动或点 ↑ ↓ 调整顺序</dd>
+          </dl>
+          <div class="help-foot">
+            <span class="note">第一次用？</span>
+            <button id="replayGuide" class="replay" type="button"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7a4.5 4.5 0 1 0 1.4-3.3M2.5 1.8v2.4h2.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>重看引导</button>
+          </div>
+        </div>
+      </div>
+      <button id="helpBtn" class="help-btn" type="button" aria-label="帮助" aria-expanded="false" aria-controls="helpPop">?</button>
+    </div>
+  </section>
+
+  <aside class="side" aria-label="裁切顺序与拼接设置">
+    <div class="panel-head">
+      <h2>裁切顺序<span id="cropCount" class="count"></span></h2>
+      <button id="btnClearCrops" class="link" type="button">清空</button>
+    </div>
+    <ol id="cropList" class="crop-list"></ol>
+
+    <div class="settings">
+      <h2>拼接设置</h2>
+
+      <span class="s-label">方向</span>
+      <div class="s-ctrl">
+        <div class="seg" data-key="dir">
+          <button type="button" data-v="v">纵向长图</button>
+          <button type="button" data-v="h">横向拼接</button>
+        </div>
+      </div>
+
+      <span class="s-label" id="sizeLabel">统一宽度</span>
+      <div class="s-ctrl">
+        <div class="seg" data-key="size">
+          <button type="button" data-v="min">按最窄</button>
+          <button type="button" data-v="max">按最宽</button>
+          <button type="button" data-v="custom">自定义</button>
+          <button type="button" data-v="none">原尺寸</button>
+        </div>
+        <div class="s-two" id="customWrap" hidden>
+          <label class="field-box"><span class="pre" id="customPre">宽度</span><input id="customSize" type="number" min="16" step="1" value="1080"><span class="suf">px</span></label>
+        </div>
+      </div>
+
+      <span class="s-label" id="alignLabel">对齐</span>
+      <div class="s-ctrl" id="alignCtrl">
+        <div class="seg" data-key="align">
+          <button type="button" data-v="start">左</button>
+          <button type="button" data-v="center">中</button>
+          <button type="button" data-v="end">右</button>
+        </div>
+      </div>
+
+      <span class="s-label">间距</span>
+      <div class="s-ctrl">
+        <div class="s-two">
+          <label class="field-box"><span class="pre">段间</span><input id="gap" type="number" min="0" step="1" value="0"><span class="suf">px</span></label>
+          <label class="field-box"><span class="pre">四周</span><input id="pad" type="number" min="0" step="1" value="0"><span class="suf">px</span></label>
+        </div>
+      </div>
+
+      <span class="s-label">背景</span>
+      <div class="s-ctrl">
+        <div class="s-two">
+          <label class="field-box color-box"><span class="swatch" id="bgSwatch"></span><span class="hex" id="bgHex"></span><input id="bg" type="color" value="#ffffff" aria-label="背景颜色"></label>
+        </div>
+      </div>
+
+      <span class="s-label">格式</span>
+      <div class="s-ctrl">
+        <div class="s-two">
+          <div class="seg" data-key="format">
+            <button type="button" data-v="png">PNG</button>
+            <button type="button" data-v="jpeg">JPG</button>
+          </div>
+          <label class="field-box" id="qualityWrap"><span class="pre">质量</span><input id="quality" type="number" min="10" max="100" step="1" value="92"><span class="suf">%</span></label>
+        </div>
+      </div>
+
+      <div class="s-foot">
+        <p id="outInfo" class="out-info"></p>
+        <button id="btnMake" class="btn wide" type="button">生成长图</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<dialog id="preview" aria-labelledby="pvTitle">
+  <div class="pv-head">
+    <h2 id="pvTitle">长图预览</h2>
+    <span id="pvInfo"></span>
+    <span class="spacer"></span>
+    <button id="pvCopy" class="btn line" type="button">复制图片</button>
+    <button id="pvDownload" class="btn" type="button">下载</button>
+    <button id="pvClose" class="btn line" type="button">关闭</button>
+  </div>
+  <div class="pv-body"><img id="pvImg" alt="生成的长图"></div>
+</dialog>
+
+<dialog id="confirmDlg" class="confirm" aria-labelledby="cfTitle">
+  <form method="dialog">
+    <h2 id="cfTitle"></h2>
+    <p id="cfMsg"></p>
+    <div class="cf-foot">
+      <button class="btn line" value="cancel" autofocus>取消</button>
+      <button class="btn danger" value="ok" id="cfOk"></button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+const $ = s => document.querySelector(s);
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const HANDLES = ['nw','n','ne','e','se','s','sw','w'];
+const PEN = '<svg class="pen" viewBox="0 0 12 12" aria-hidden="true"><path d="M8.5 1.5l2 2L4 10H2V8z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+// Chrome / Firefox 的画布上限。Safari（尤其 iOS）更小，超了会在生成时报错。
+const MAX_SIDE = 32767;
+const MAX_AREA = 268435456;
+const GUIDE_KEY = 'cropStitch.guideDone';
+const IS_MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+const MOD = IS_MAC ? '⌘' : 'Ctrl';
+document.querySelectorAll('kbd.mod').forEach(k => { k.textContent = MOD; });
+
+let uid = 0, pasteN = 0;
+const nid = () => ++uid;
+
+const S = {
+  sources: [],   // {id, name, img, url, w, h}
+  crops: [],     // {id, srcId, x, y, w, h, thumb}
+  cur: null,
+  pending: null, // 选区，原图像素 {x, y, w, h}
+  editSize: false,
+  zoom: 'fit',
+  scale: 1,
+  flashId: null,
+  out: null,
+  opt: { dir:'v', size:'min', custom:1080, align:'center', gap:0, pad:0, bg:'#ffffff', format:'png', quality:92 }
+};
+
+const el = {};
+['fileInput','srcList','srcCount','btnClearSrc','curName','zoom','selSize','btnWhole','btnClearSel','btnAdd',
+ 'stage','empty','wrap','srcImg','overlay','cropList','cropCount','btnClearCrops','sizeLabel','customWrap',
+ 'customPre','customSize','alignLabel','alignCtrl','gap','pad','bg','bgSwatch','bgHex','qualityWrap','quality',
+ 'outInfo','btnMake','preview','pvImg','pvInfo','pvCopy','pvDownload','pvClose','confirmDlg','cfTitle','cfMsg','cfOk',
+ 'guide','gDots','gStep','gClose','gTitle','gText','gPrev','gNext','help','helpBtn','helpPop','replayGuide','toast'
+].forEach(id => { el[id] = document.getElementById(id); });
+
+const cur = () => S.sources.find(s => s.id === S.cur) || null;
+const srcById = id => S.sources.find(s => s.id === id);
+
+function toast(msg) {
+  el.toast.textContent = msg;
+  el.toast.classList.add('show');
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => el.toast.classList.remove('show'), 2400);
+}
+
+/* ---------- 二次确认弹窗 ---------- */
+function askConfirm(title, msg, okText) {
+  el.cfTitle.textContent = title;
+  el.cfMsg.textContent = msg;
+  el.cfOk.textContent = okText;
+  el.confirmDlg.returnValue = '';
+  el.confirmDlg.showModal();
+  return new Promise(res => {
+    el.confirmDlg.addEventListener('close', () => res(el.confirmDlg.returnValue === 'ok'), { once: true });
+  });
+}
+
+/* ---------- 读取图片 ---------- */
+async function addFiles(list) {
+  const files = [...list].filter(f => f && f.type && f.type.startsWith('image/'));
+  if (!files.length) { toast('没有找到图片文件'); return; }
+  let first = null, n = 0;
+  for (const f of files) {
+    const url = URL.createObjectURL(f);
+    const img = new Image();
+    img.src = url;
+    try { await img.decode(); }
+    catch { URL.revokeObjectURL(url); toast(`无法读取 ${f.name || '这张图片'}`); continue; }
+    const generic = !f.name || /^image\.(png|jpe?g|gif|webp)$/i.test(f.name);
+    const src = { id: nid(), name: generic ? `粘贴的截图 ${++pasteN}` : f.name, img, url, w: img.naturalWidth, h: img.naturalHeight };
+    S.sources.push(src);
+    if (!first) first = src;
+    n++;
+  }
+  if (first) {
+    selectSource(first.id);
+    renderSources();
+    toast(`已添加 ${n} 张截图`);
+  }
+}
+
+function selectSource(id) {
+  S.cur = id;
+  S.editSize = false;
+  const src = cur();
+  const p = S.pending;
+  if (src && p) {
+    if (p.w > src.w || p.h > src.h) S.pending = null;
+    else { p.x = clamp(p.x, 0, src.w - p.w); p.y = clamp(p.y, 0, src.h - p.h); }
+  }
+  renderSources();
+  renderStage();
+}
+
+async function removeSource(id) {
+  const n = S.crops.filter(c => c.srcId === id).length;
+  if (n && !(await askConfirm('移除这张截图？', `它有 ${n} 段裁切，会一起从裁切顺序里删掉。`, '移除'))) return;
+  const i = S.sources.findIndex(s => s.id === id);
+  if (i < 0) return;
+  const [src] = S.sources.splice(i, 1);
+  URL.revokeObjectURL(src.url);
+  S.crops = S.crops.filter(c => c.srcId !== id);
+  if (S.cur === id) {
+    const next = S.sources[i] || S.sources[i - 1];
+    S.cur = next ? next.id : null;
+    if (!next) S.pending = null;
+  }
+  renderAll();
+}
+
+async function clearSources() {
+  if (!S.sources.length) return;
+  const ok = await askConfirm(
+    '清除全部截图？',
+    `会移除 ${S.sources.length} 张截图${S.crops.length ? `和 ${S.crops.length} 段裁切` : ''}，这个操作不能撤销。`,
+    '全部清除'
+  );
+  if (!ok) return;
+  S.sources.forEach(s => URL.revokeObjectURL(s.url));
+  S.sources = []; S.crops = []; S.cur = null; S.pending = null; S.editSize = false;
+  el.srcImg.removeAttribute('src'); delete el.srcImg.dataset.id;
+  renderAll();
+  toast('已清除全部截图');
+}
+
+/* ---------- 渲染 ---------- */
+function renderAll() { renderSources(); renderStage(); renderCrops(); }
+
+function renderSources() {
+  el.srcCount.textContent = S.sources.length || '';
+  el.btnClearSrc.hidden = !S.sources.length;
+  if (!S.sources.length) {
+    el.srcList.innerHTML = '<li class="src-empty">还没有截图</li>';
+    return;
+  }
+  el.srcList.innerHTML = S.sources.map(s => {
+    const n = S.crops.filter(c => c.srcId === s.id).length;
+    return `<li class="${s.id === S.cur ? 'on' : ''}">
+      <button class="src-btn" type="button" data-id="${s.id}" title="${esc(s.name)}">
+        <img src="${s.url}" alt="">
+        <span class="src-meta">
+          <span class="src-name">${esc(s.name)}</span>
+          <span class="src-dim">${s.w} × ${s.h}${n ? `，已裁 ${n}` : ''}</span>
+        </span>
+      </button>
+      <button class="x" type="button" data-del="${s.id}" aria-label="移除 ${esc(s.name)}">×</button>
+    </li>`;
+  }).join('');
+}
+
+function computeScale(src) {
+  if (S.zoom === 'fit') {
+    const avail = Math.max(120, el.stage.clientWidth - 64);
+    S.scale = Math.min(1, avail / src.w);
+  } else {
+    S.scale = +S.zoom;
+  }
+}
+
+function renderStage() {
+  const src = cur();
+  el.empty.hidden = !!src;
+  el.wrap.hidden = !src;
+  el.btnWhole.disabled = !src;
+  if (!src) {
+    el.curName.textContent = '';
+    el.overlay.innerHTML = '';
+    updateSelInfo();
+    return;
+  }
+  if (el.srcImg.dataset.id !== String(src.id)) {
+    el.srcImg.src = src.url;
+    el.srcImg.dataset.id = src.id;
+  }
+  el.curName.textContent = `${S.sources.indexOf(src) + 1} / ${S.sources.length}　${src.name}`;
+  computeScale(src);
+  el.wrap.style.width = src.w * S.scale + 'px';
+  el.wrap.style.height = src.h * S.scale + 'px';
+  renderOverlay();
+}
+
+function box(r, s) {
+  return `left:${r.x * s}px;top:${r.y * s}px;width:${r.w * s}px;height:${r.h * s}px`;
+}
+
+function renderOverlay() {
+  const src = cur();
+  if (!src) { el.overlay.innerHTML = ''; updateSelInfo(); return; }
+  const s = S.scale;
+  let html = '';
+  S.crops.forEach((c, i) => {
+    if (c.srcId !== src.id) return;
+    html += `<div class="done${c.id === S.flashId ? ' new' : ''}" style="${box(c, s)}"><span>${i + 1}</span></div>`;
+  });
+  const p = S.pending;
+  if (p) {
+    const label = S.editSize
+      ? `<span class="size editing" data-size>
+           <input data-dim="w" type="number" min="1" max="${src.w}" value="${p.w}" aria-label="选区宽度">
+           ×
+           <input data-dim="h" type="number" min="1" max="${src.h}" value="${p.h}" aria-label="选区高度">
+           <span class="u">px</span>
+         </span>`
+      : `<button type="button" class="size" data-size title="点击修改宽高">${p.w} × ${p.h}${PEN}</button>`;
+    html += `<div class="dim"><div class="hole" style="${box(p, s)}"></div></div>`;
+    html += `<div class="sel${p.y * s < 34 ? ' low' : ''}" data-role="move" style="${box(p, s)}">`
+         + HANDLES.map(h => `<i class="h h-${h}" data-h="${h}"></i>`).join('')
+         + label + `</div>`;
+  }
+  el.overlay.innerHTML = html;
+  updateSelInfo();
+}
+
+function updateSelInfo() {
+  const p = S.pending, src = cur();
+  el.selSize.textContent = !src ? '' : p ? `选区 ${p.w} × ${p.h} px` : '在图上拖动鼠标框选';
+  el.btnAdd.disabled = !p;
+  el.btnClearSel.disabled = !p;
+}
+
+function renderCrops(scrollToId) {
+  el.cropCount.textContent = S.crops.length || '';
+  el.btnClearCrops.hidden = !S.crops.length;
+  if (!S.crops.length) {
+    el.cropList.innerHTML = '<li class="crop-empty">还没有裁切。框选后按 Enter，会按加入的顺序排在这里。</li>';
+  } else {
+    const last = S.crops.length - 1;
+    el.cropList.innerHTML = S.crops.map((c, i) => {
+      const s = srcById(c.srcId);
+      return `<li class="crop" draggable="true" data-id="${c.id}">
+        <span class="num">${i + 1}</span>
+        <button class="thumb" type="button" data-go="${c.id}" title="在原图中查看"><img src="${c.thumb}" alt=""></button>
+        <span class="c-meta"><span>${c.w} × ${c.h}</span><span class="c-src">${esc(s ? s.name : '')}</span></span>
+        <span class="c-act">
+          <button type="button" data-up="${c.id}" aria-label="上移" ${i === 0 ? 'disabled' : ''}>↑</button>
+          <button type="button" data-down="${c.id}" aria-label="下移" ${i === last ? 'disabled' : ''}>↓</button>
+          <button type="button" data-rm="${c.id}" aria-label="删除这段">×</button>
+        </span>
+      </li>`;
+    }).join('');
+    if (scrollToId) {
+      const li = el.cropList.querySelector(`[data-id="${scrollToId}"]`);
+      if (li) li.scrollIntoView({ block: 'nearest' });
+    }
+  }
+  updateOutInfo();
+}
+
+/* ---------- 裁切 ---------- */
+function makeThumb(src, c) {
+  const k = Math.min(1, 240 / c.w, 240 / c.h);
+  const cv = document.createElement('canvas');
+  cv.width = Math.max(1, Math.round(c.w * k));
+  cv.height = Math.max(1, Math.round(c.h * k));
+  const ctx = cv.getContext('2d');
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(src.img, c.x, c.y, c.w, c.h, 0, 0, cv.width, cv.height);
+  return cv.toDataURL('image/png');
+}
+
+function addCrop(rect) {
+  const src = cur();
+  if (!src) return;
+  if (S.editSize) applySize();
+  const r = rect || S.pending;
+  if (!r) { toast('先在截图上拖出一个选区'); return; }
+  const c = { id: nid(), srcId: src.id, x: r.x, y: r.y, w: r.w, h: r.h };
+  c.thumb = makeThumb(src, c);
+  S.crops.push(c);
+  flash(c.id);
+  renderSources();
+  renderCrops(c.id);
+}
+
+function flash(id) {
+  S.flashId = id;
+  renderOverlay();
+  clearTimeout(flash.t);
+  flash.t = setTimeout(() => { S.flashId = null; }, 900);
+}
+
+function moveCrop(id, delta) {
+  const i = S.crops.findIndex(c => c.id === id);
+  const j = i + delta;
+  if (i < 0 || j < 0 || j >= S.crops.length) return;
+  [S.crops[i], S.crops[j]] = [S.crops[j], S.crops[i]];
+  renderCrops();
+  renderOverlay();
+}
+
+/* ---------- 选区尺寸输入 ---------- */
+function startEditSize() {
+  if (!S.pending) return;
+  S.editSize = true;
+  renderOverlay();
+  const w = el.overlay.querySelector('input[data-dim="w"]');
+  if (w) { w.focus(); w.select(); }
+}
+
+function applySize() {
+  if (!S.editSize) return;
+  const src = cur(), p = S.pending;
+  const boxEl = el.overlay.querySelector('.size.editing');
+  S.editSize = false;
+  if (src && p && boxEl) {
+    let clipped = false;
+    const read = (dim, fallback, max) => {
+      const v = Math.round(+boxEl.querySelector(`[data-dim="${dim}"]`).value);
+      if (!Number.isFinite(v) || v < 1) return fallback;
+      if (v > max) clipped = true;
+      return Math.min(v, max);
+    };
+    const w = read('w', p.w, src.w), h = read('h', p.h, src.h);
+    if (clipped) toast(`超出原图范围，已限制为 ${w} × ${h}`);
+    p.w = w; p.h = h;
+    p.x = clamp(p.x, 0, src.w - w);
+    p.y = clamp(p.y, 0, src.h - h);
+  }
+  renderOverlay();
+}
+
+function cancelEditSize() {
+  if (!S.editSize) return;
+  S.editSize = false;
+  renderOverlay();
+}
+
+el.overlay.addEventListener('click', e => {
+  if (e.target.closest('button.size')) startEditSize();
+});
+el.overlay.addEventListener('keydown', e => {
+  if (!e.target.closest('.size.editing')) return;
+  e.stopPropagation();
+  if (e.key === 'Enter') { e.preventDefault(); applySize(); }
+  else if (e.key === 'Escape') { e.preventDefault(); cancelEditSize(); }
+});
+el.overlay.addEventListener('focusout', e => {
+  const boxEl = e.target.closest('.size.editing');
+  if (!boxEl) return;
+  setTimeout(() => {
+    if (S.editSize && !boxEl.contains(document.activeElement)) applySize();
+  }, 0);
+});
+
+/* ---------- 画框交互 ---------- */
+let drag = null;
+
+function toImg(e) {
+  const src = cur();
+  const r = el.wrap.getBoundingClientRect();
+  return {
+    x: clamp(Math.round((e.clientX - r.left) / S.scale), 0, src.w),
+    y: clamp(Math.round((e.clientY - r.top) / S.scale), 0, src.h)
+  };
+}
+
+function rectFrom(a, b) {
+  return { x: Math.min(a.x, b.x), y: Math.min(a.y, b.y), w: Math.abs(b.x - a.x), h: Math.abs(b.y - a.y) };
+}
+
+el.wrap.addEventListener('pointerdown', e => {
+  if (e.button !== 0 || !cur()) return;
+  if (e.target.closest('[data-size]')) return;  // 尺寸标签自己处理点击
+  if (S.editSize) applySize();
+  const pt = toImg(e);
+  const handle = e.target.dataset && e.target.dataset.h;
+  const onSel = e.target.closest('[data-role="move"]');
+  if (handle && S.pending) drag = { mode: 'resize', h: handle, start: { ...S.pending }, p0: pt };
+  else if (onSel && S.pending) drag = { mode: 'move', start: { ...S.pending }, p0: pt };
+  else { drag = { mode: 'new', p0: pt }; S.pending = { x: pt.x, y: pt.y, w: 0, h: 0 }; }
+  el.wrap.setPointerCapture(e.pointerId);
+  e.preventDefault();
+  renderOverlay();
+});
+
+el.wrap.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const src = cur();
+  const pt = toImg(e);
+  if (drag.mode === 'new') {
+    S.pending = rectFrom(drag.p0, pt);
+  } else if (drag.mode === 'move') {
+    const st = drag.start;
+    S.pending = {
+      x: clamp(st.x + pt.x - drag.p0.x, 0, src.w - st.w),
+      y: clamp(st.y + pt.y - drag.p0.y, 0, src.h - st.h),
+      w: st.w, h: st.h
+    };
+  } else {
+    const st = drag.start, h = drag.h;
+    const dx = pt.x - drag.p0.x, dy = pt.y - drag.p0.y;
+    let x1 = st.x, y1 = st.y, x2 = st.x + st.w, y2 = st.y + st.h;
+    if (h.includes('w')) x1 = clamp(x1 + dx, 0, src.w);
+    if (h.includes('e')) x2 = clamp(x2 + dx, 0, src.w);
+    if (h.includes('n')) y1 = clamp(y1 + dy, 0, src.h);
+    if (h.includes('s')) y2 = clamp(y2 + dy, 0, src.h);
+    S.pending = rectFrom({ x: x1, y: y1 }, { x: x2, y: y2 });
+  }
+  renderOverlay();
+});
+
+function endDrag() {
+  if (!drag) return;
+  drag = null;
+  if (S.pending && (S.pending.w < 3 || S.pending.h < 3)) S.pending = null;
+  renderOverlay();
+}
+el.wrap.addEventListener('pointerup', endDrag);
+el.wrap.addEventListener('pointercancel', endDrag);
+
+/* ---------- 按钮与键盘 ---------- */
+el.fileInput.addEventListener('change', () => { addFiles(el.fileInput.files); el.fileInput.value = ''; });
+el.btnAdd.addEventListener('click', () => addCrop());
+el.btnWhole.addEventListener('click', () => { const s = cur(); if (s) addCrop({ x: 0, y: 0, w: s.w, h: s.h }); });
+el.btnClearSel.addEventListener('click', () => { S.pending = null; S.editSize = false; renderOverlay(); });
+el.zoom.addEventListener('change', () => { S.zoom = el.zoom.value; renderStage(); });
+el.btnClearSrc.addEventListener('click', clearSources);
+
+el.srcList.addEventListener('click', e => {
+  const del = e.target.closest('[data-del]');
+  if (del) { removeSource(+del.dataset.del); return; }
+  const b = e.target.closest('[data-id]');
+  if (b) selectSource(+b.dataset.id);
+});
+
+el.cropList.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.dataset.up) moveCrop(+b.dataset.up, -1);
+  else if (b.dataset.down) moveCrop(+b.dataset.down, 1);
+  else if (b.dataset.rm) {
+    S.crops = S.crops.filter(c => c.id !== +b.dataset.rm);
+    renderSources(); renderCrops(); renderOverlay();
+  } else if (b.dataset.go) {
+    const c = S.crops.find(c => c.id === +b.dataset.go);
+    if (c) { selectSource(c.srcId); flash(c.id); }
+  }
+});
+
+el.btnClearCrops.addEventListener('click', async () => {
+  if (!S.crops.length) return;
+  if (!(await askConfirm('清空裁切顺序？', `会删除 ${S.crops.length} 段裁切，截图本身会保留。`, '清空'))) return;
+  S.crops = [];
+  renderSources(); renderCrops(); renderOverlay();
+});
+
+document.addEventListener('keydown', e => {
+  if (document.querySelector('dialog[open]')) return;
+  if (e.target.closest && e.target.closest('input, select, textarea')) return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const src = cur();
+  if (!src) return;
+  const p = S.pending;
+  if (e.key === 'Enter') {
+    if (e.target.closest && e.target.closest('button, label')) return;
+    e.preventDefault(); addCrop(); return;
+  }
+  if (e.key === 'Escape') { if (p) { S.pending = null; renderOverlay(); } return; }
+  const d = { ArrowLeft:[-1,0], ArrowRight:[1,0], ArrowUp:[0,-1], ArrowDown:[0,1] }[e.key];
+  if (!d) return;
+  e.preventDefault();
+  if (p) {
+    const k = e.shiftKey ? 10 : 1;
+    p.x = clamp(p.x + d[0] * k, 0, src.w - p.w);
+    p.y = clamp(p.y + d[1] * k, 0, src.h - p.h);
+    renderOverlay();
+  } else if (d[0]) {
+    const next = S.sources[S.sources.indexOf(src) + d[0]];
+    if (next) selectSource(next.id);
+  }
+});
+
+/* ---------- 粘贴与拖入文件 ---------- */
+document.addEventListener('paste', e => {
+  const files = [...(e.clipboardData ? e.clipboardData.items : [])]
+    .filter(i => i.kind === 'file').map(i => i.getAsFile()).filter(Boolean);
+  if (files.length) { e.preventDefault(); addFiles(files); }
+});
+
+const hasFiles = e => [...((e.dataTransfer && e.dataTransfer.types) || [])].includes('Files');
+window.addEventListener('dragover', e => { if (hasFiles(e)) { e.preventDefault(); document.body.classList.add('dropping'); } });
+window.addEventListener('dragleave', e => { if (!e.relatedTarget) document.body.classList.remove('dropping'); });
+window.addEventListener('drop', e => {
+  document.body.classList.remove('dropping');
+  if (hasFiles(e)) { e.preventDefault(); addFiles(e.dataTransfer.files); }
+});
+
+/* ---------- 列表拖动排序 ---------- */
+let dragId = null, dropAt = null;
+function clearMarks() {
+  el.cropList.querySelectorAll('.drop-before, .drop-after').forEach(li => li.classList.remove('drop-before', 'drop-after'));
+}
+el.cropList.addEventListener('dragstart', e => {
+  const li = e.target.closest('li.crop');
+  if (!li) return;
+  dragId = +li.dataset.id;
+  li.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', String(dragId));
+});
+el.cropList.addEventListener('dragover', e => {
+  if (dragId == null) return;
+  e.preventDefault();
+  clearMarks();
+  dropAt = null;
+  const li = e.target.closest('li.crop');
+  if (!li || +li.dataset.id === dragId) return;
+  const r = li.getBoundingClientRect();
+  const after = e.clientY > r.top + r.height / 2;
+  li.classList.add(after ? 'drop-after' : 'drop-before');
+  dropAt = { id: +li.dataset.id, after };
+});
+el.cropList.addEventListener('drop', e => {
+  if (dragId == null) return;
+  e.preventDefault();
+  e.stopPropagation();
+  if (dropAt) {
+    const from = S.crops.findIndex(c => c.id === dragId);
+    const [item] = S.crops.splice(from, 1);
+    let to = S.crops.findIndex(c => c.id === dropAt.id);
+    if (dropAt.after) to++;
+    S.crops.splice(to, 0, item);
+  }
+});
+el.cropList.addEventListener('dragend', () => {
+  dragId = null; dropAt = null;
+  renderCrops(); renderOverlay();
+});
+
+/* ---------- 拼接设置 ---------- */
+document.querySelectorAll('.seg').forEach(seg => {
+  seg.addEventListener('click', e => {
+    const b = e.target.closest('button[data-v]');
+    if (!b) return;
+    S.opt[seg.dataset.key] = b.dataset.v;
+    syncSettings();
+  });
+});
+
+function numVal(input, min, fallback) {
+  const v = Math.round(+input.value);
+  return Number.isFinite(v) && input.value !== '' ? Math.max(min, v) : fallback;
+}
+el.customSize.addEventListener('input', () => { S.opt.custom = numVal(el.customSize, 16, 1080); updateOutInfo(); });
+el.gap.addEventListener('input', () => { S.opt.gap = numVal(el.gap, 0, 0); updateOutInfo(); });
+el.pad.addEventListener('input', () => { S.opt.pad = numVal(el.pad, 0, 0); updateOutInfo(); });
+el.bg.addEventListener('input', () => { S.opt.bg = el.bg.value; syncBg(); });
+el.quality.addEventListener('input', () => { S.opt.quality = clamp(numVal(el.quality, 10, 92), 10, 100); });
+
+function syncBg() {
+  el.bgSwatch.style.background = S.opt.bg;
+  el.bgHex.textContent = S.opt.bg.toUpperCase();
+}
+
+function syncSettings() {
+  document.querySelectorAll('.seg').forEach(seg => {
+    seg.querySelectorAll('button[data-v]').forEach(b => {
+      b.setAttribute('aria-pressed', String(S.opt[seg.dataset.key] === b.dataset.v));
+    });
+  });
+  const v = S.opt.dir === 'v';
+  el.sizeLabel.textContent = v ? '统一宽度' : '统一高度';
+  el.customPre.textContent = v ? '宽度' : '高度';
+  const labels = v ? ['左', '中', '右'] : ['上', '中', '下'];
+  el.alignCtrl.querySelectorAll('button').forEach((b, i) => { b.textContent = labels[i]; });
+  const showAlign = S.opt.size === 'none';
+  el.alignLabel.hidden = !showAlign;
+  el.alignCtrl.hidden = !showAlign;
+  el.customWrap.hidden = S.opt.size !== 'custom';
+  el.qualityWrap.style.visibility = S.opt.format === 'jpeg' ? 'visible' : 'hidden';
+  updateOutInfo();
+}
+
+function layout() {
+  const o = S.opt, vert = o.dir === 'v';
+  const key = vert ? 'w' : 'h';
+  const dims = S.crops.map(c => c[key]);
+  let target = null;
+  if (o.size === 'min') target = Math.min(...dims);
+  else if (o.size === 'max') target = Math.max(...dims);
+  else if (o.size === 'custom') target = o.custom;
+
+  const items = S.crops.map(c => {
+    const k = target ? target / c[key] : 1;
+    return { c, dw: Math.max(1, Math.round(c.w * k)), dh: Math.max(1, Math.round(c.h * k)) };
+  });
+  const cross = Math.max(...items.map(i => vert ? i.dw : i.dh));
+  const main = items.reduce((a, i) => a + (vert ? i.dh : i.dw), 0) + o.gap * (items.length - 1);
+  let pos = o.pad;
+  items.forEach(i => {
+    const size = vert ? i.dw : i.dh;
+    const off = o.align === 'start' ? 0 : o.align === 'end' ? cross - size : Math.floor((cross - size) / 2);
+    if (vert) { i.x = o.pad + off; i.y = pos; pos += i.dh + o.gap; }
+    else { i.y = o.pad + off; i.x = pos; pos += i.dw + o.gap; }
+  });
+  return { W: (vert ? cross : main) + o.pad * 2, H: (vert ? main : cross) + o.pad * 2, items };
+}
+
+function tooBig(L) {
+  return L.W > MAX_SIDE || L.H > MAX_SIDE || L.W * L.H > MAX_AREA;
+}
+
+function updateOutInfo() {
+  el.btnMake.disabled = !S.crops.length;
+  el.outInfo.classList.remove('err');
+  if (!S.crops.length) { el.outInfo.textContent = '加入裁切后会显示输出尺寸'; return; }
+  const L = layout();
+  if (tooBig(L)) {
+    el.outInfo.classList.add('err');
+    el.outInfo.textContent = `输出 ${L.W} × ${L.H} px，超过浏览器画布上限。可以改成「按最窄」、调小宽度，或分成两张。`;
+  } else {
+    el.outInfo.textContent = `${S.crops.length} 段，输出 ${L.W} × ${L.H} px`;
+  }
+}
+
+/* ---------- 生成与导出 ---------- */
+function fmtSize(b) {
+  return b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB';
+}
+function stamp() {
+  const d = new Date(), p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+
+async function make() {
+  if (!S.crops.length) { toast('先加入至少一段裁切'); return; }
+  const L = layout();
+  if (tooBig(L)) { updateOutInfo(); toast('图片太大，超过浏览器画布上限'); return; }
+  el.btnMake.disabled = true;
+  el.btnMake.textContent = '生成中…';
+  await new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)));
+  try {
+    const cv = document.createElement('canvas');
+    cv.width = L.W; cv.height = L.H;
+    const ctx = cv.getContext('2d');
+    if (!ctx) throw new Error('no context');
+    ctx.fillStyle = S.opt.bg;
+    ctx.fillRect(0, 0, L.W, L.H);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    for (const it of L.items) {
+      const s = srcById(it.c.srcId);
+      ctx.drawImage(s.img, it.c.x, it.c.y, it.c.w, it.c.h, it.x, it.y, it.dw, it.dh);
+    }
+    const mime = S.opt.format === 'jpeg' ? 'image/jpeg' : 'image/png';
+    const blob = await new Promise(r => cv.toBlob(r, mime, S.opt.quality / 100));
+    if (!blob) throw new Error('toBlob failed');
+    showPreview(blob, cv, L);
+  } catch (err) {
+    console.error(err);
+    toast('生成失败，图片可能超出这个浏览器的画布上限。试试「按最窄」或分成两张。');
+  } finally {
+    el.btnMake.textContent = '生成长图';
+    el.btnMake.disabled = !S.crops.length;
+  }
+}
+
+function showPreview(blob, canvas, L) {
+  if (S.out) URL.revokeObjectURL(S.out.url);
+  const url = URL.createObjectURL(blob);
+  const ext = blob.type === 'image/jpeg' ? 'jpg' : 'png';
+  S.out = { blob, url, canvas, name: `长图-${stamp()}.${ext}` };
+  el.pvImg.src = url;
+  el.pvInfo.textContent = `${L.W} × ${L.H} px，${fmtSize(blob.size)}`;
+  el.preview.showModal();
+}
+
+el.btnMake.addEventListener('click', make);
+
+el.pvDownload.addEventListener('click', () => {
+  if (!S.out) return;
+  const a = document.createElement('a');
+  a.href = S.out.url;
+  a.download = S.out.name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+});
+
+el.pvCopy.addEventListener('click', async () => {
+  if (!S.out || !S.out.canvas) return;
+  try {
+    const png = S.out.blob.type === 'image/png'
+      ? Promise.resolve(S.out.blob)
+      : new Promise(r => S.out.canvas.toBlob(r, 'image/png'));
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': png })]);
+    toast('已复制，可以直接粘贴到聊天或文档里');
+  } catch (err) {
+    console.error(err);
+    toast('这个浏览器不支持复制图片，请用下载');
+  }
+});
+
+el.pvClose.addEventListener('click', () => el.preview.close());
+el.preview.addEventListener('click', e => { if (e.target === el.preview) el.preview.close(); });
+el.preview.addEventListener('close', () => {
+  if (S.out && S.out.canvas) { S.out.canvas.width = 0; S.out.canvas.height = 0; S.out.canvas = null; }
+});
+
+/* ---------- 引导与帮助 ---------- */
+const STEPS = [
+  { t: '添加截图', d: `把截图拖进来，或者按 <kbd>${MOD}</kbd> + <kbd>V</kbd> 直接粘贴。` },
+  { t: '框选需要的部分', d: '在图上拖出选区，拖边角调整。点选区上方的 <span class="mini-size">W × H</span> 可以直接输入宽高。' },
+  { t: '加入裁切', d: '按 <kbd>Enter</kbd> 加入右侧列表。选区会保留，切到下一张截图能复用同一位置。' },
+  { t: '排序并生成', d: '在右侧拖动调整顺序，设置好后点 <span class="ui-btn">生成长图</span>。' }
+];
+let gi = 0;
+
+function storageGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
+function storageSet(k, v) { try { localStorage.setItem(k, v); } catch { /* 无痕模式等情况下忽略 */ } }
+
+function renderGuide() {
+  const s = STEPS[gi];
+  el.gStep.textContent = `${gi + 1} / ${STEPS.length}`;
+  el.gDots.innerHTML = STEPS.map((_, i) => `<i class="${i === gi ? 'on' : ''}"></i>`).join('');
+  el.gTitle.textContent = s.t;
+  el.gText.innerHTML = s.d;
+  el.gPrev.hidden = gi === 0;
+  el.gNext.textContent = gi === STEPS.length - 1 ? '知道了' : '下一步';
+}
+function openGuide() {
+  gi = 0;
+  renderGuide();
+  el.help.hidden = true;
+  el.guide.hidden = false;
+}
+function closeGuide() {
+  el.guide.hidden = true;
+  el.help.hidden = false;
+  storageSet(GUIDE_KEY, '1');
+}
+el.gPrev.addEventListener('click', () => { gi = Math.max(0, gi - 1); renderGuide(); });
+el.gNext.addEventListener('click', () => {
+  if (gi === STEPS.length - 1) closeGuide();
+  else { gi++; renderGuide(); }
+});
+el.gClose.addEventListener('click', closeGuide);
+el.replayGuide.addEventListener('click', () => { closeHelp(); openGuide(); });
+
+/* 帮助浮窗的安全三角：
+   指针离开问号时，以离开点为顶点，连到浮窗四条边，得到一个覆盖“问号到浮窗”整片区域的凸多边形。
+   指针在这个区域里朝浮窗移动时浮窗保持显示；停在半路不动超过 700ms，或者移出区域，才会关闭。 */
+const HELP = { apex: null, timer: 0 };
+const inRect = (p, r) => p.x >= r.left && p.x <= r.right && p.y >= r.top && p.y <= r.bottom;
+function inTri(p, a, b, c) {
+  const d1 = (p.x - b.x) * (a.y - b.y) - (a.x - b.x) * (p.y - b.y);
+  const d2 = (p.x - c.x) * (b.y - c.y) - (b.x - c.x) * (p.y - c.y);
+  const d3 = (p.x - a.x) * (c.y - a.y) - (c.x - a.x) * (p.y - a.y);
+  const neg = d1 < 0 || d2 < 0 || d3 < 0, pos = d1 > 0 || d2 > 0 || d3 > 0;
+  return !(neg && pos);
+}
+function inSafeZone(p, apex, r) {
+  const tl = { x: r.left, y: r.top }, tr = { x: r.right, y: r.top };
+  const br = { x: r.right, y: r.bottom }, bl = { x: r.left, y: r.bottom };
+  return [[tl, tr], [tr, br], [br, bl], [bl, tl]].some(([u, v]) => inTri(p, apex, u, v));
+}
+function openHelp() {
+  clearTimeout(HELP.timer);
+  if (el.help.classList.contains('open')) return;
+  el.help.classList.add('open');
+  el.helpBtn.setAttribute('aria-expanded', 'true');
+  document.addEventListener('pointermove', trackHelp);
+}
+function closeHelp() {
+  clearTimeout(HELP.timer);
+  HELP.apex = null;
+  el.help.classList.remove('open');
+  el.helpBtn.setAttribute('aria-expanded', 'false');
+  document.removeEventListener('pointermove', trackHelp);
+}
+function closeHelpSoon(ms) {
+  clearTimeout(HELP.timer);
+  HELP.timer = setTimeout(closeHelp, ms);
+}
+function trackHelp(e) {
+  if (el.help.contains(document.activeElement) && e.pointerType !== 'mouse') return;
+  const p = { x: e.clientX, y: e.clientY };
+  const btnR = el.helpBtn.getBoundingClientRect();
+  const popR = el.helpPop.getBoundingClientRect();
+  if (inRect(p, btnR)) { HELP.apex = p; clearTimeout(HELP.timer); return; }
+  if (inRect(p, popR)) { HELP.apex = null; clearTimeout(HELP.timer); return; }
+  if (HELP.apex && inSafeZone(p, HELP.apex, popR)) { closeHelpSoon(700); return; }
+  HELP.apex = null;
+  closeHelpSoon(120);
+}
+el.helpBtn.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') openHelp(); });
+el.helpBtn.addEventListener('click', () => {
+  if (el.help.classList.contains('open') && !HELP.apex) closeHelp(); else openHelp();
+});
+el.help.addEventListener('focusin', openHelp);
+el.help.addEventListener('focusout', e => { if (!el.help.contains(e.relatedTarget)) closeHelp(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && el.help.classList.contains('open')) closeHelp(); });
+document.addEventListener('pointerdown', e => { if (el.help.classList.contains('open') && !el.help.contains(e.target)) closeHelp(); });
+
+/* ---------- 窗口尺寸变化 ---------- */
+let rq = 0;
+window.addEventListener('resize', () => {
+  cancelAnimationFrame(rq);
+  rq = requestAnimationFrame(() => { if (S.zoom === 'fit' && !S.editSize) renderStage(); });
+});
+
+syncBg();
+syncSettings();
+renderAll();
+if (storageGet(GUIDE_KEY)) el.help.hidden = false; else openGuide();
+})();
+</script>
+</body>
+</html>
