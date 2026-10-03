@@ -480,6 +480,127 @@ dialog.tx-dlg[open]{display:flex;flex-direction:column}
 .tc-box li b{display:block;color:var(--ink);font-size:13px}
 .tc-foot{display:flex;justify-content:flex-end;gap:8px}
 @media (prefers-reduced-motion:reduce){.tl-spin,.tl-steps li[data-st="active"] i{animation-duration:2.5s}.tl-bar div{transition:none}}
+/* 第三轮：拆分模式、插图裁切窗口、批量选取、聊天框范围 */
+.crop.editing{background:#FFF8DC;box-shadow:inset 3px 0 0 var(--tape)}
+.c-meta em{margin-left:6px;font-style:normal;font-size:11px;font-weight:600;color:#8A6D00}
+.tool-grp{display:inline-flex;gap:4px}
+.wrap.selecting .msg{pointer-events:none}
+.wrap.dragging-ins .ins::before{opacity:.55}
+.wrap.dragging-ins .ins{height:22px;margin-top:-11px}
+.wrap.dragging-ins .ins::before{top:10px}
+.wrap.dragging-ins .ins.over::before{opacity:1;height:3px}
+.wrap.dragging-ins .ins-pop{display:none!important}
+.ins-chip{cursor:grab}
+.pi-img{flex:1;min-width:0;padding:0;border:0;background:none;cursor:pointer;display:block}
+.pi-img img{width:100%;max-height:90px;object-fit:contain;object-position:left;border-radius:3px;border:1px solid var(--line);background:var(--paper);display:block}
+.pi-img:hover img{border-color:var(--mat)}
+.lu.is-ins{cursor:grab}
+.box-ask{position:absolute;left:50%;top:60px;transform:translateX(-50%);z-index:5;width:min(420px,90%);padding:14px 16px;border-radius:10px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.box-ask p{margin:0 0 12px;font-size:13px;line-height:1.5}
+.box-ask p b{display:block;font-size:14px}
+.box-ask p span{color:var(--muted);font-size:12.5px}
+.box-btns{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+.box-btns .link{margin-right:auto}
+dialog.cr-dlg{width:min(1000px,94vw);height:min(86dvh,860px);padding:0;border:0;border-radius:10px;overflow:hidden}
+dialog.cr-dlg[open]{display:flex;flex-direction:column}
+.cr-stage{flex:1;display:grid;place-items:center;overflow:hidden;background-color:var(--mat);background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:20px 20px}
+.cr-empty{display:flex;flex-direction:column;align-items:center;gap:6px;padding:40px 60px;border:2px dashed rgba(255,255,255,.35);border-radius:12px;color:var(--mat-text);cursor:pointer;text-align:center}
+.cr-empty strong{font-size:16px}
+.cr-empty span{font-size:13px;color:var(--mat-muted)}
+.cr-wrap{position:relative;cursor:crosshair;touch-action:none;user-select:none}
+.cr-wrap img{display:block;width:100%;height:100%}
+.cr-sel{position:absolute;outline:2px solid var(--tape);box-shadow:0 0 0 9999px rgba(10,20,17,.55);pointer-events:none}
+.cr-sel span{position:absolute;left:-2px;bottom:100%;margin-bottom:6px;background:var(--tape);color:var(--tape-ink);font-size:12px;font-weight:600;padding:0 7px;line-height:22px;border-radius:4px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cr-wrap{overflow:visible}
+.cr-stage{position:relative}
+/* 第四轮：左侧工具栏、隐私、名单、右栏层级 */
+.work{position:relative}
+.stage{padding-left:84px}
+.tool-rail{position:absolute;left:10px;top:62px;z-index:4;display:flex;flex-direction:column;gap:4px;padding:5px;border-radius:10px;background:rgba(20,40,34,.82);box-shadow:0 4px 14px rgba(0,0,0,.25);backdrop-filter:blur(4px)}
+.rail-btn{display:flex;flex-direction:column;align-items:center;gap:3px;width:56px;padding:7px 2px 6px;border:0;border-radius:7px;background:transparent;color:var(--mat-text);cursor:pointer;font-size:11px;line-height:1.2}
+.rail-btn svg{width:18px;height:18px}
+.rail-btn:hover{background:rgba(255,255,255,.1)}
+.rail-btn{position:relative}
+.rail-btn[aria-pressed="true"]{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+.rail-btn[aria-pressed="true"]::before{content:"";position:absolute;left:-5px;top:9px;bottom:9px;width:3px;border-radius:0 2px 2px 0;background:var(--tape)}
+.rail-btn[aria-pressed="true"] svg{color:var(--tape)}
+.rail-btn:focus-visible{outline:2px solid var(--tape);outline-offset:1px}
+body[data-view="long"] .tool-rail .shot-only{display:none!important}
+.mode-tip{left:calc(50% + 36px)}
+/* 右栏：设置区换底色，取色按钮降一级 */
+.side .settings{background:#EEF3F0;border-top:1px solid #B8C6BF}
+.ch-pick{box-shadow:none;border-top:1px solid var(--line)}
+.ch-pick .ch-add{color:var(--muted);box-shadow:none;border-color:#D3DBD7;font-weight:500}
+.ch-pick .ch-add:hover:not(:disabled){color:var(--mat);border-color:var(--mat)}
+/* 隐私 */
+.priv-row{display:flex;gap:14px;flex-wrap:wrap}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+.chk input{width:15px;height:15px;accent-color:var(--mat);margin:0}
+.priv-more{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.pv-blk{position:absolute;display:flex;align-items:center;justify-content:center;border-radius:4px;font-weight:600;white-space:nowrap;overflow:hidden;line-height:1}
+.pv-mz{position:absolute;background-size:100% 100%;image-rendering:pixelated}
+/* 名单 */
+dialog.nm-dlg{width:min(560px,94vw);max-height:84dvh;padding:0;border:0;border-radius:10px;overflow:hidden}
+dialog.nm-dlg[open]{display:flex;flex-direction:column}
+.nm-note{margin:0;padding:10px 18px;font-size:12.5px;color:var(--muted);line-height:1.55;background:var(--paper)}
+.nm-cols{display:grid;grid-template-columns:minmax(0,1fr) 52px 120px 34px 44px;gap:10px;padding:8px 18px 4px;font-size:11.5px;color:var(--muted)}
+.nm-list{list-style:none;margin:0;padding:0 10px 12px;overflow:auto}
+.nm{display:grid;grid-template-columns:minmax(0,1fr) 52px 120px 34px 44px;gap:10px;align-items:center;padding:6px 8px;border-radius:var(--radius)}
+.nm:hover{background:var(--paper)}
+.nm.off .nm-img{opacity:.4}
+.nm-img{display:block;background:#1B2420;border-radius:4px;padding:3px 6px;overflow:hidden}
+.nm-img img{display:block;max-width:100%;height:auto}
+.nm-n{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.nm-alias{width:100%;height:28px;padding:0 8px;border:1px solid var(--line);border-radius:5px;font-size:13px;background:#fff}
+.nm-alias:disabled,.nm-sw:has(input:disabled){opacity:.4}
+.nm-sw{position:relative;width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,0,0,.2);cursor:pointer}
+.nm-sw input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;border:0;padding:0}
+.nm-empty{padding:20px;color:var(--muted);text-align:center}
+/* 1.16：名单手动添加、合并、跳到没打码的行 */
+.nm-img{display:flex;flex-direction:column;gap:3px}
+.nm-split{align-self:flex-start;border:0;background:none;padding:0;color:#9FD4C2;font-size:11px;cursor:pointer;text-decoration:underline}
+.nm[draggable="true"]{cursor:grab}
+.nm.dragging{opacity:.4}
+.nm.merge-to{box-shadow:inset 0 0 0 2px var(--mat);background:#E3ECE7}
+.nm-add{padding:6px 8px 2px}
+.nm-add button{display:flex;align-items:center;gap:8px;width:100%;padding:9px 12px;border:1px dashed #C9D2CD;border-radius:var(--radius);background:#fff;color:var(--mat);font-size:13px;font-weight:600;cursor:pointer}
+.nm-add button:hover{border-color:var(--mat);background:var(--paper)}
+.nm-add i{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--mat);color:#fff;font-style:normal}
+.miss-btn{border:0;background:none;padding:0;color:#9A6B00;font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.msg.flash{animation:msgflash .6s ease-in-out 4;box-shadow:inset 0 0 0 2px var(--tape)}
+@keyframes msgflash{50%{background:rgba(244,196,48,.35)}}
+/* 名单拖动：排序让位、合并时只剩名字 */
+.nm{grid-template-columns:14px minmax(0,1fr) 52px 120px 34px 44px;transition:margin .16s ease}
+.nm-cols{grid-template-columns:14px minmax(0,1fr) 52px 120px 34px 44px}
+.nm-cols::before{content:""}
+.nm[draggable]{cursor:default}
+.nm-grip{display:grid;gap:3px;justify-items:center;width:14px;cursor:grab;padding:6px 0;touch-action:none}
+.nm-grip i{display:block;width:10px;height:2px;border-radius:1px;background:#B8C6BF}
+.nm-grip:hover i{background:var(--mat)}
+.nm-img{cursor:grab;touch-action:none}
+.nm.gap-before{margin-top:46px}
+.nm.gap-after{margin-bottom:46px}
+.nm.nm-lifted{opacity:.25}
+.nm.merge-to .nm-img{outline:2px dashed var(--mat);outline-offset:3px;border-radius:5px;background:#24453B}
+.nm.merge-to{background:#E3ECE7}
+.nm-ghost{position:fixed;z-index:50;margin:0;list-style:none;background:#fff;border-radius:8px;box-shadow:0 10px 28px rgba(0,0,0,.28);pointer-events:none;transition:width .15s ease,transform .15s ease}
+.nm-ghost.merge{width:auto!important;display:flex;padding:4px;transform:scale(.96)}
+.nm-ghost.merge>*:not(.nm-img){display:none}
+.nm-ghost.merge .nm-split{display:none}
+.nm-ghost .nm-split{display:none}
+@media (prefers-reduced-motion:reduce){.nm,.nm-ghost{transition:none}}
+/* 名单：删除、重新框选、撤销重做 */
+.nm,.nm-cols{grid-template-columns:14px minmax(0,1fr) 52px 110px 34px 44px 52px}
+.nm-act{display:flex;gap:2px;justify-content:flex-end}
+.nm-ic{width:24px;height:24px;display:grid;place-items:center;border:0;border-radius:5px;background:transparent;color:var(--muted);cursor:pointer;padding:0}
+.nm-ic svg{width:15px;height:15px}
+.nm-ic:hover{background:#E3ECE7;color:var(--ink)}
+.nm-del:hover{background:#FBE9E7;color:var(--danger)}
+.nm-hist{width:34px;padding:0;display:grid;place-items:center}
+.nm-hist svg{width:16px;height:16px}
+.nm-hist:disabled{opacity:.35;cursor:default}
+.nm-ghost .nm-act{display:none}
+dialog.nm-dlg{width:min(620px,94vw)}
 
 /* 弹窗 */
 dialog::backdrop{background:rgba(14,28,24,.6)}
@@ -563,11 +684,11 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
       <span id="longHint" class="sel-size long-only"></span>
       <span class="spacer"></span>
       <button id="btnText" class="btn onmat long-only" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3.5h10M3 6.5h10M3 9.5h7M3 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>图片转文本</button>
-      <button id="btnMosaic" class="btn onmat" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 2h4v4H2zM6 6h4v4H6zM10 2h4v4h-4zM2 10h4v4H2zM10 10h4v4h-4z" fill="currentColor" opacity=".85"/></svg>马赛克</button>
       <button id="btnWhole" class="btn onmat crop-only shot-only" type="button">整张加入</button>
       <button id="btnClearSel" class="btn onmat crop-only shot-only" type="button">取消选区</button>
       <button id="btnAdd" class="btn tape crop-only shot-only" type="button">加入裁切 <kbd>Enter</kbd></button>
-      <button id="btnDraw" class="btn onmat chat-only shot-only" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.4 1.8"/><path d="M5 6.5h6M5 9.5h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>手动框聊天框</button>
+      <button id="btnDraw" class="btn onmat chat-only shot-only" type="button" aria-pressed="false" title="自动识别不准时，手动框出聊天范围"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5v10.5h10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.5 4H12v10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>裁切聊天框</button>
+
     </div>
     <div id="stage" class="stage">
       <label id="empty" class="empty" for="fileInput">
@@ -615,7 +736,8 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
             <dt><kbd class="mod">Ctrl</kbd> + <kbd>V</kbd></dt><dd>粘贴截图，也可以直接拖入</dd>
             <dt>左侧截图</dt><dd>按住拖动调整顺序</dd>
             <dt>长图视图</dt><dd>看拼接结果，拖动插图调整位置</dd>
-            <dt>插入点</dt><dd>两条之间悬停，点「＋ 在这里插入图片」</dd>
+            <dt>插入图片</dt><dd>聊天两条之间悬停，点「＋ 在这里插入图片」</dd>
+            <dt>重新裁</dt><dd>点右侧列表或插图卡片里的缩略图</dd>
             <dt>马赛克</dt><dd>工具栏打开后在图上拖出区域</dd>
             <dt><kbd class="mod">Ctrl</kbd> + <kbd>Z</kbd></dt><dd>撤销，加 <kbd>Shift</kbd> 重做</dd>
           </dl>
@@ -627,8 +749,22 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
       </div>
       <button id="helpBtn" class="help-btn" type="button" aria-label="帮助" aria-expanded="false" aria-controls="helpPop">?</button>
     </div>
+    <div id="toolRail" class="tool-rail" role="toolbar" aria-orientation="vertical" aria-label="工具">
+      <button id="btnPointer" class="rail-btn" type="button" aria-pressed="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2l9 5.2-4 1 2.3 4.3-1.6.9-2.3-4.3-3.4 2.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span class="crop-only">框选</span><span class="chat-only">点选</span></button>
+      <button id="btnSel" class="rail-btn chat-only shot-only" type="button" aria-pressed="false" title="拖过的消息都保留"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.2 8.2l2 2 3.8-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>选取</span></button>
+      <button id="btnDesel" class="rail-btn chat-only shot-only" type="button" aria-pressed="false" title="拖过的消息都排除"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 8h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>取消选取</span></button>
+      <button id="btnMosaic" class="rail-btn" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 2h4v4H2zM6 6h4v4H6zM10 2h4v4h-4zM2 10h4v4H2zM10 10h4v4h-4z" fill="currentColor" opacity=".85"/></svg><span>马赛克</span></button>
+    </div>
     <div id="modeTip" class="mode-tip" hidden><span id="modeText"></span><button id="modeCancel" type="button">取消 Esc</button></div>
     <div id="busy" class="busy" hidden>识别中…</div>
+    <div id="boxAsk" class="box-ask" hidden role="group" aria-labelledby="boxAskT">
+      <p id="boxAskT"><b>这个聊天框用在哪些截图上？</b><span>别的截图聊天窗口位置不一样的话，选「只用于这张」。</span></p>
+      <div class="box-btns">
+        <button id="boxCancel" class="link" type="button">取消</button>
+        <button id="boxAll" class="btn line" type="button">应用到全部截图</button>
+        <button id="boxOne" class="btn" type="button">只用于这张</button>
+      </div>
+    </div>
   </section>
 
   <aside class="side" aria-label="频道、拼接顺序与拼接设置">
@@ -646,6 +782,11 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
     <div class="ch-pick chat-only">
       <button id="btnPick" class="ch-add" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.2 2.3l3.5 3.5-1.6 1.6-.9-.9-5.6 5.6H3.5v-2.1l5.6-5.6-.9-.9z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>从图上取色，添加频道</button>
     </div>
+    <div class="panel-head crop-only">
+      <h2>裁切顺序<span id="cropCount" class="count"></span></h2>
+      <button id="btnClearCrops" class="link" type="button">清空</button>
+    </div>
+    <ol id="cropList" class="crop-list crop-only"></ol>
 
     <div class="settings">
       <h2>拼接设置</h2>
@@ -692,6 +833,21 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
       <div class="s-ctrl">
         <div class="s-two">
           <label class="field-box color-box"><span class="swatch" id="bgSwatch"></span><span class="hex" id="bgHex"></span><input id="bg" type="color" value="#ffffff" aria-label="背景颜色"></label>
+        </div>
+      </div>
+
+      <span class="s-label chat-only">隐私</span>
+      <div class="s-ctrl chat-only">
+        <div class="priv-row">
+          <label class="chk"><input id="privId" type="checkbox"> 遮角色 ID</label>
+          <label class="chk"><input id="privTime" type="checkbox"> 遮时间</label>
+        </div>
+        <div id="privMore" class="priv-more" hidden>
+          <div class="seg" data-key="privStyle">
+            <button type="button" data-v="mosaic">马赛克</button>
+            <button type="button" data-v="block">色块 + 代称</button>
+          </div>
+          <button id="btnNames" class="link" type="button">名单</button>
         </div>
       </div>
 
@@ -790,6 +946,34 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
     </div>
   </div>
   <div id="txBody" class="tx-body" spellcheck="false"></div>
+</dialog>
+
+<dialog id="crDlg" class="cr-dlg" aria-labelledby="crTitle">
+  <div class="pv-head">
+    <h2 id="crTitle">插入图片</h2>
+    <span id="crInfo" class="tx-status"></span>
+    <span class="spacer"></span>
+    <label class="btn line" for="crFile">换一张图</label>
+    <input id="crFile" type="file" accept="image/*" hidden>
+    <button id="crCancel" class="btn line" type="button">取消</button>
+    <button id="crWhole" class="btn line" type="button">整张插入</button>
+    <button id="crOk" class="btn" type="button">插入 <kbd>Enter</kbd></button>
+  </div>
+  <div id="crStage" class="cr-stage">
+    <label id="crEmpty" class="cr-empty" for="crFile"><strong>把要插入的图片拖到这里</strong><span>也可以按 <kbd class="mod">Ctrl</kbd> + <kbd>V</kbd> 粘贴，或点这里选择文件</span></label>
+    <div id="crWrap" class="cr-wrap" hidden><img id="crImg" alt="" draggable="false"><div id="crSel" class="cr-sel"><span id="crSize"></span></div></div>
+  </div>
+</dialog>
+
+<dialog id="nameDlg" class="nm-dlg" aria-labelledby="nameTitle">
+  <div class="pv-head"><h2 id="nameTitle">名单</h2><span class="spacer"></span>
+    <button id="nameUndo" class="btn line nm-hist" type="button" title="撤销（Ctrl+Z）" aria-label="撤销"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5L2.5 6.5l3 3M2.5 6.5H10a3.5 3.5 0 010 7H7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button id="nameRedo" class="btn line nm-hist" type="button" title="重做（Ctrl+Shift+Z）" aria-label="重做"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 3.5l3 3-3 3M13.5 6.5H6a3.5 3.5 0 000 7h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button id="nameReset" class="btn line" type="button">恢复默认</button>
+    <button id="nameClose" class="btn" type="button">完成</button></div>
+  <p id="nameNote" class="nm-note"></p>
+  <div class="nm-cols" aria-hidden="true"><span>名字</span><span>出现</span><span>代称</span><span>颜色</span><span>遮挡</span><span></span></div>
+  <ul id="nameList" class="nm-list"></ul>
 </dialog>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -1036,9 +1220,10 @@ function glyphs(id, m, R, y, rows, fromX) {
     for (let yy = rows[0]; yy < rows[1]; yy++) {
       if (!m[yy * w + xx]) continue;
       any = true;
-      if (!cur) cur = { x: R.x + xx, px: [] };
+      if (!cur) cur = { x: R.x + xx, px: [], rows: new Uint16Array(rows[1]) };
       const i = ((y + yy) * W + R.x + xx) * 4;
       cur.px.push([d[i], d[i + 1], d[i + 2]]);
+      cur.rows[yy]++;
     }
     if (any) { gap = 0; cur.x1 = R.x + xx; }
     else if (cur && ++gap >= 2) flush();
@@ -1049,6 +1234,10 @@ function glyphs(id, m, R, y, rows, fromX) {
     const top = Math.max(...L);
     const core = g.px.filter((p, k) => L[k] >= top * 0.9);
     g.rgb = [0, 1, 2].map(c => core.reduce((a, p) => a + p[c], 0) / core.length);
+    // 字形的纵向范围和中间有没有断开：用来认冒号「：」和括号
+    let y0 = -1, y1 = -1, on = 0;
+    g.rows.forEach((n, r) => { if (n) { if (y0 < 0) y0 = r; y1 = r; on++; } });
+    g.y0 = y0; g.y1 = y1; g.span = y1 - y0 + 1; g.fill = on / Math.max(1, g.span); g.w = g.x1 - g.x + 1;
   });
   return out;
 }
@@ -1059,6 +1248,26 @@ function classify(rgb, pal, ign) {
   pal.forEach((p, j) => { const dd = Math.hypot(rgb[0] - p.rgb[0], rgb[1] - p.rgb[1], rgb[2] - p.rgb[2]); if (dd < bd) { bd = dd; best = { kind: 'ch', j }; } });
   ign.forEach(p => { const dd = Math.hypot(rgb[0] - p[0], rgb[1] - p[1], rgb[2] - p[2]); if (dd < bd) { bd = dd; best = { kind: 'ignore' }; } });
   return best;
+}
+
+/* 右方括号「]」占满整个字高，比数字高，所以从左往右找第一根满高的白色竖笔画 */
+function lineTsEnd(id, xs, top, gh, fallback) {
+  const { data: d, width: W, height: H } = id;
+  const run = x => {
+    let best = 0, cur = 0;
+    for (let y = Math.max(0, top - 1); y < Math.min(H, top + gh + 1); y++) {
+      if (isWhite(d, (y * W + x) * 4)) { cur++; if (cur > best) best = cur; } else cur = 0;
+    }
+    return best;
+  };
+  for (let x = xs + Math.round(gh * 1.2); x < Math.min(W - 1, xs + gh * 6); x++) {
+    if (run(x) >= gh - 2) {
+      let e = x;
+      while (e + 1 < W && run(e + 1) >= gh - 2) e++;
+      return e + 2;
+    }
+  }
+  return fallback;
 }
 
 /* 2. 在聊天框内按行切分 */
@@ -1079,6 +1288,8 @@ function segment(id, geo, region, palette, ignoreColors) {
   const endPh = +Object.keys(ph).sort((a, b) => ph[b] - ph[a])[0];       // 以字的下沿定相位（上沿可能被裁）
   const slotTopOf = k => endPh - gh - pad + k * pitch;
   const slotOf = b => Math.round((b[0] + b[1] - gh - pad - (endPh - gh - pad)) / pitch);
+  // 被截掉一半的时间戳（底边或输入框挡住了下半截）：这一行是被截断的新消息，不是上一条的续行
+  const cutSlots = new Set(merged.filter(b => b[1] >= 3 && b[1] < gh - 3).map(b => Math.round((b[0] - pad - (endPh - gh - pad)) / pitch)));
   const tsSlots = new Set(full.filter(b => { const r = (((b[0] + b[1] - endPh) % pitch) + pitch) % pitch; return r <= 1 || r >= pitch - 1; }).map(slotOf));
   // 可用的行：字高范围基本都在框内（上沿允许被裁掉 3px）
   const minSlot = Math.ceil((R.y - 3 - pad - (endPh - gh - pad)) / pitch);
@@ -1097,6 +1308,7 @@ function segment(id, geo, region, palette, ignoreColors) {
   let parent = null;
   for (const L of lines) {
     if (L.isTs) { parent = { y: L.y, slots: [L] }; out.push(parent); continue; }
+    if (cutSlots.has(L.k)) { parent = null; continue; }
     const cont = L.textN >= 12 && isContinuation(id, R.x, L.y, R.w, geo);
     if (!cont) { parent = null; continue; }
     if (parent) parent.slots.push(L);
@@ -1106,9 +1318,12 @@ function segment(id, geo, region, palette, ignoreColors) {
   // 频道：先看时间戳后面第一个有颜色的字；名字色（职业色）跳过；判断不出来再看整条的字
   out.forEach(msg => {
     const rows = [Math.max(0, pad - 1), Math.min(pitch, pad + gh + 1)];
+    // 每一行自己找时间戳的结尾：一位数小时 [7:05] 比两位数 [12:21] 窄一个字
+    msg.tsEnd = msg.orphan ? R.x : lineTsEnd(id, xs, msg.y + pad, gh, tsEnd);
+    const tsEndL = msg.tsEnd;
     const gl = [];
     msg.slots.forEach((s, si) => {
-      const from = si === 0 && !msg.orphan ? tsEnd : R.x;
+      const from = si === 0 && !msg.orphan ? tsEndL : R.x;
       glyphs(id, s.mask, R, s.y, rows, from).forEach(g => { g.cls = classify(g.rgb, pal, ign); gl.push(g); });
     });
     msg.channel = null; msg.how = null;
@@ -1119,6 +1334,9 @@ function segment(id, geo, region, palette, ignoreColors) {
       if (i === 0 || gl.slice(0, i).every(g => !g.cls || g.cls.kind === 'ignore')) { msg.channel = pal[c.j].id; msg.how = 'first'; }
       break;
     }
+    // 色表里没有的颜色：记下第一个有颜色的字，外面会据此自动新建频道
+    const firstG = gl.find(g => g.px.length >= 20 && !(g.cls && g.cls.kind === 'ignore'));
+    msg.firstRgb = firstG ? firstG.rgb : null;
     if (!msg.channel) {
       // 退回整条：越靠后的字权重越高（正文在最后）
       const tally = pal.map(() => 0);
@@ -1130,7 +1348,7 @@ function segment(id, geo, region, palette, ignoreColors) {
     // 输出范围：不越过聊天框
     const top = Math.max(msg.y, R.y), bot = Math.min(msg.y + msg.slots.length * pitch, R.y + R.h);
     msg.top = top; msg.h = bot - top;
-    msg.tsRect = msg.orphan ? null : { x: Math.max(0, xs - 3), y: Math.max(R.y, msg.y + pad - 2), w: tsEnd - xs + 6, h: gh + 4 };
+    msg.tsRect = msg.orphan ? null : { x: Math.max(0, xs - 3), y: Math.max(R.y, msg.y + pad - 2), w: tsEndL - xs + 6, h: gh + 4 };
   });
   return { lines: out, geo, region: R };
 }
@@ -1161,6 +1379,256 @@ function tsStrip(id, rects, scale = 3, gapPx = 14) {
     }
   });
   return { width: w, height: h, data: out, rows };
+}
+
+
+/* ================= 隐私：找出每条消息里时间和角色 ID 的位置（纯像素，不用 OCR） =================
+   可靠的情况：小队消息里名字是职业色；「名字✿服务器：」有冒号；这些位置直接定下来，同时学下名字和服务器的形状。
+   其余的（用户宏、系统消息、没有冒号的）拿学到的形状去比。 */
+const FLOWER = [168, 165, 246];
+const isFlower = g => Math.hypot(g.rgb[0] - FLOWER[0], g.rgb[1] - FLOWER[1], g.rgb[2] - FLOWER[2]) < 22 && g.w >= 10 && g.w <= 16;
+const SPEECH = ['party', 'say', 'tell', 'shout', 'yell', 'novice'];
+const isColon = (g, gh) => g.w <= 4 && g.span >= 5 && g.span <= gh - 3 && g.fill < 0.8;
+const isTallNarrow = (g, gh) => g.w <= 7 && g.span >= gh - 4;
+
+// 形状相似度：允许 1 像素的错位（不同截图里字的抗锯齿会有细微差别）。取双向命中率的较小值
+function maskIoU(a, aw, ax, b, bw, h) {
+  const A = (x, y) => { const xx = ax + x; return xx >= 0 && xx < aw && y >= 0 && y < h ? a[y * aw + xx] : 0; };
+  const B = (x, y) => x >= 0 && x < bw && y >= 0 && y < h ? b[y * bw + x] : 0;
+  const near = (f, x, y) => f(x, y) || f(x - 1, y) || f(x + 1, y) || f(x, y - 1) || f(x, y + 1);
+  let na = 0, ha = 0, nb = 0, hb = 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < bw; x++) {
+    if (A(x, y)) { na++; if (near(B, x, y)) ha++; }
+    if (B(x, y)) { nb++; if (near(A, x, y)) hb++; }
+  }
+  if (na < 8 || nb < 8) return 0;
+  return Math.min(ha / na, hb / nb);
+}
+function plainIoU(a, aw, ax, b, bw, h) {
+  let inter = 0, uni = 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < bw; x++) {
+    const xx = ax + x, p = xx >= 0 && xx < aw ? a[y * aw + xx] : 0, q = b[y * bw + x];
+    if (p || q) { uni++; if (p && q) inter++; }
+  }
+  return uni ? inter / uni : 0;
+}
+function sliceMask(a, aw, x0, w, h) {
+  const out = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const xx = x0 + x; out[y * w + x] = xx >= 0 && xx < aw ? a[y * aw + xx] : 0; }
+  return out;
+}
+
+// 第一遍：每条消息的时间位置、能直接确定的 ID 位置、整行掩码
+function privScan(id, seg, palette, ignoreColors) {
+  const R = seg.region, g = seg.geo, { pad, gh, xs } = g;
+  const pal = palette.map(p => ({ ...p, rgb: hex2rgb(p.color) }));
+  const ign = (ignoreColors || []).map(hex2rgb);
+  const rows = [Math.max(0, pad - 1), Math.min(g.pitch, pad + gh + 1)];
+  return seg.lines.filter(m => !m.orphan && m.h > 0).map(m => {
+    const sl = m.slots[0];
+    const band = { y: sl.y + rows[0], h: rows[1] - rows[0] };
+    const gl = glyphs(id, sl.mask, R, sl.y, rows, m.tsEnd).map(q => { q.cls = classify(q.rgb, pal, ign); return q; });
+    const lm = textMask(id, R.x, band.y, R.w, band.h);
+    // 每一行（续行也算）的掩码和字形，用来在整条消息里找名字、找跨行的名字
+    const slots = m.slots.map((q, k) => k === 0 ? { y: band.y, h: band.h, mask: lm, gl }
+      : { y: q.y + rows[0], h: band.h, mask: textMask(id, R.x, q.y + rows[0], R.w, band.h), gl: glyphs(id, q.mask, R, q.y, rows, R.x) });
+    const e = { m, band, lineMask: lm, gl, slots, ts: { x: Math.max(R.x, xs - 3), y: band.y, w: m.tsEnd - xs + 3, h: band.h }, span: null, how: null };
+    e.expect = SPEECH.includes(m.channel) || m.channel === 'macro';   // 这类消息开头应该有名字
+    // 小队：「(」编号框、职业图标、名字、「)」，按结构取中间那段
+    if (m.channel === 'party' && gl[0] && isTallNarrow(gl[0], gh)) {
+      // 「(」、编号框之后：名字是职业色的就从第一个职业色字开始；否则跳过矮一截的职业图标
+      let st = gl[2] && gl[2].span <= 11 ? 3 : 2;
+      const jc = gl.findIndex((q, i) => i >= 2 && i < 8 && q.cls && q.cls.kind === 'ignore');
+      if (jc >= 2) st = jc;
+      const ci = gl.findIndex((q, i) => i > st && i < 20 && isTallNarrow(q, gh) && q.cls && q.cls.kind === 'ch' && pal[q.cls.j].id === 'party');
+      if (ci > st) {
+        e.span = { x0: gl[st].x, x1: gl[ci - 1].x1 }; e.how = 'party';
+        const fi = gl.findIndex((q, i) => i >= st && i < ci && isFlower(q));
+        if (fi >= 0 && fi < ci - 1) e.server = { x0: gl[fi + 1].x, x1: gl[ci - 1].x1, fx: gl[fi].x1 };
+        return e;
+      }
+    }
+    if (!e.expect) return e;   // 系统消息等：名字不一定在开头，只拿学到的名字去比
+    // 跳过前缀：[新人]、[跨服贝3] 这类标签，>>、< 这类窄符号
+    let s0 = 0;
+    if (gl[0] && isTallNarrow(gl[0], gh)) {
+      let k = 1;
+      while (k < gl.length && k < 10 && !isTallNarrow(gl[k], gh)) k++;
+      if (k < gl.length && k < 10) s0 = k + 1;
+    }
+    while (s0 < gl.length && (gl[s0].w <= 8 || gl[s0].span <= 10) && !isColon(gl[s0], gh)) s0++;   // >>、<、★ 这类前缀
+    if (s0 >= gl.length) return e;
+    e.s0 = s0;
+    const fi = gl.findIndex((q, i) => i >= s0 && i < s0 + 12 && isFlower(q));
+    let ci = -1;
+    for (let i = s0 + 1; i < Math.min(gl.length, s0 + 16); i++) {
+      if (isColon(gl[i], gh)) { ci = i; break; }
+    }
+    const speech = SPEECH.includes(m.channel);
+    if (speech && ci > s0 && (fi < 0 || ci > fi + 1)) {
+      e.span = { x0: gl[s0].x, x1: gl[ci - 1].x1 }; e.how = fi >= 0 ? 'icon' : 'colon';
+      if (fi >= 0) e.server = { x0: gl[fi + 1].x, x1: gl[ci - 1].x1, fx: gl[fi].x1 };
+    } else if (fi > s0) e.open = { x0: gl[s0].x, fx: gl[fi].x1 };     // 有服务器图标，但不知道服务器名多长
+    return e;
+  });
+}
+
+// 第二遍：学到的服务器名补全「只有图标」的；学到的名字去比没找到 ID 的行
+function privMatch(entries, lib, R) {
+  const bh = entries[0] ? entries[0].band.h : 0;
+  const learn = (list, x0, x1, e, thr) => {
+    const w = x1 - x0 + 1;
+    if (w < 6) return null;
+    const mk = sliceMask(e.lineMask, R.w, x0 - R.x, w, bh);
+    let best = null, bv = thr || 0.86;
+    list.forEach(t => {
+      if (Math.abs(t.w - w) > 2) return;
+      const v = maskIoU(mk, w, 0, t.mask, t.w, bh) * 0.5 + maskIoU(t.mask, t.w, 0, mk, w, bh) * 0.5;
+      // 名字后面都带同样的服务器名时，模糊比对会把两个人当成一个：再用严格重合把关
+      if (v > bv && plainIoU(mk, w, 0, t.mask, t.w, bh) >= 0.55) { bv = v; best = t; }
+    });
+    if (best) { best.n++; return best; }
+    const t = { id: list.length + 1, w, mask: mk, n: 1, sample: { e, x0, x1 }, glyphs: e.gl.filter(q => q.x >= x0 - 1 && q.x1 <= x1 + 1).map(q => ({ x: q.x - x0, w: q.w })) };
+    list.push(t);
+    return t;
+  };
+  // 服务器名形状
+  entries.forEach(e => { if (e.server) learn(lib.servers, e.server.x0, e.server.x1, e); });
+  // 只有图标的：在图标后面比服务器名
+  entries.forEach(e => {
+    if (e.span || !e.open || e.m.channel === 'macro') return;   // 用户宏里可能有两个人，先按名字比
+    let best = null, bv = 0.86;
+    for (const t of lib.servers) for (let dx = 0; dx <= 4; dx++) {
+      const v = maskIoU(e.lineMask, R.w, e.open.fx + 1 + dx - R.x, t.mask, t.w, bh);
+      if (v > bv) { bv = v; best = { t, dx }; }
+    }
+    if (best) { e.span = { x0: e.open.x0, x1: e.open.fx + 1 + best.dx + best.t.w - 1 }; e.how = 'server'; }
+  });
+  // 名字（连服务器）形状：先登记确定的，再去比剩下的行
+  entries.forEach(e => { if (e.span) e.person = learn(lib.persons, e.span.x0, e.span.x1, e, 0.8); });
+  const tryServer = e => {
+    let best = null, bv = 0.86;
+    for (const t of lib.servers) for (let dx = 0; dx <= 4; dx++) {
+      const v = maskIoU(e.lineMask, R.w, e.open.fx + 1 + dx - R.x, t.mask, t.w, bh);
+      if (v > bv) { bv = v; best = { t, dx }; }
+    }
+    if (best) { e.span = { x0: e.open.x0, x1: e.open.fx + 1 + best.dx + best.t.w - 1 }; e.how = 'server'; e.person = learn(lib.persons, e.span.x0, e.span.x1, e, 0.8); }
+  };
+  entries.forEach(e => {
+    if (e.span) return;
+    const starts = e.gl.slice(0, 10).map(q => q.x);
+    let best = null, bv = 0.88;
+    for (const t of lib.persons) for (const x of starts) for (let dx = -1; dx <= 1; dx++) {
+      let v = maskIoU(e.lineMask, R.w, x + dx - R.x, t.mask, t.w, bh);
+      if (v > bv && plainIoU(e.lineMask, R.w, x + dx - R.x, t.mask, t.w, bh) < 0.5) v = 0;   // 笔画很密的字容易「模糊地像」，再用严格重合把关
+      if (v > bv) { bv = v; best = { t, x: x + dx }; }
+    }
+    if (best) { e.span = { x0: best.x, x1: best.x + best.t.w - 1 }; e.how = 'match'; e.person = best.t; best.t.n++; }
+    else if (e.open) tryServer(e);
+  });
+  return entries;
+}
+
+
+/* 第三遍：在整条消息里找名单上的名字（句中、续行、被换行拆成两半的） */
+function privFindAll(entries, persons, R, gh) {
+  const bh = entries[0] ? entries[0].band.h : 0;
+  gh = gh || bh - 2;
+  const score = (mask, x, t, tw, tm) => {
+    const v = maskIoU(mask, R.w, x - R.x, tm, tw, bh);
+    return v >= 0.86 && plainIoU(mask, R.w, x - R.x, tm, tw, bh) >= 0.5 ? v : 0;
+  };
+  const cut = (t, a, b) => sliceMask(t.mask, t.w, a, b - a, bh);
+  entries.forEach(e => {
+    e.hits = [];
+    if (e.span) e.hits.push({ slot: 0, x0: e.span.x0, x1: e.span.x1, person: e.person, main: true });
+    const free = (k, x0, x1) => !e.hits.some(h => h.slot === k && h.x0 <= x1 && x0 <= h.x1);
+    // 整个名字出现在某一行里
+    e.slots.forEach((sl, k) => {
+      for (const t of persons) {
+        if (!t.glyphs || !t.glyphs.length) continue;
+        const fw = t.glyphs[0].w;
+        // 候选起点：每个字的左边；两三个字粘在一起时，按字宽往里补几个起点
+        const starts = [];
+        for (const q of sl.gl) {
+          if (Math.abs(q.w - fw) <= 2) starts.push(q.x);
+          if (q.w > gh * 1.4) for (let x = q.x + gh + 1; x < q.x1 - 4; x += gh + 1) starts.push(x);
+          else if (Math.abs(q.w - fw) > 2 && q.w > fw) starts.push(q.x);
+        }
+        for (const sx of starts) {
+          if (!free(k, sx, sx + t.w - 1)) continue;
+          let best = 0, bx = 0;
+          for (let dx = -2; dx <= 2; dx++) { const v = score(sl.mask, sx + dx, t, t.w, t.mask); if (v > best) { best = v; bx = sx + dx; } }
+          if (best) { e.hits.push({ slot: k, x0: bx, x1: bx + t.w - 1, person: t }); t.n++; }
+        }
+      }
+    });
+    // 被换行拆开：前半截对上一行末尾，后半截对下一行开头，两边都要对上
+    for (let k = 0; k + 1 < e.slots.length; k++) {
+      const a = e.slots[k], b = e.slots[k + 1];
+      if (!a.gl.length || !b.gl.length) continue;
+      const endX = a.gl[a.gl.length - 1].x1, startX = b.gl[0].x;
+      for (const t of persons) {
+        if (!t.glyphs || t.glyphs.length < 2) continue;
+        for (let j = 1; j < t.glyphs.length; j++) {
+          const pw = t.glyphs[j - 1].x + t.glyphs[j - 1].w, s0 = t.glyphs[j].x;
+          const px = endX - pw + 1;
+          if (!free(k, px, endX) || !free(k + 1, startX, startX + t.w - s0)) continue;
+          const head = cut(t, 0, pw), tail = cut(t, s0, t.w);
+          const strict = (mask, x, w, m) => { const v = maskIoU(mask, R.w, x - R.x, m, w, bh); return v >= 0.88 && plainIoU(mask, R.w, x - R.x, m, w, bh) >= 0.55; };
+          let hx = null, tx = null;
+          for (let dx = -1; dx <= 1 && hx === null; dx++) if (strict(a.mask, px + dx, pw, head)) hx = px + dx;
+          if (hx === null) continue;
+          for (let dx = -1; dx <= 1 && tx === null; dx++) if (strict(b.mask, startX + dx, t.w - s0, tail)) tx = startX + dx;
+          if (tx === null) continue;
+          const longHead = pw >= t.w - s0;
+          e.hits.push({ slot: k, x0: hx, x1: hx + pw - 1, person: t, alias: longHead });
+          e.hits.push({ slot: k + 1, x0: tx, x1: tx + t.w - s0 - 1, person: t, alias: !longHead });
+          t.n++;
+          break;
+        }
+      }
+    }
+  });
+  return entries;
+}
+
+// 手动加名字：用户在某一行上框出一个范围，吸附到字的边界，做成名单里的一个名字
+function privTemplateAt(id, seg, rect) {
+  const R = seg.region, g = seg.geo, { pad, gh } = g;
+  const rows = [Math.max(0, pad - 1), Math.min(g.pitch, pad + gh + 1)], bh = rows[1] - rows[0];
+  const cy = rect.y + rect.h / 2;
+  for (const m of seg.lines) for (let k = 0; k < m.slots.length; k++) {
+    const sl = m.slots[k], y = sl.y + rows[0];
+    if (cy < y - 2 || cy > y + bh + 2) continue;
+    // 以用户框的左右边为准，只向里收到有笔画的列为止：字和字粘在一起（比如 wmhpy说）时也不会多吃或少吃
+    const lm = textMask(id, R.x, y, R.w, bh);
+    const lo = Math.max(k === 0 && !m.orphan ? m.tsEnd : R.x, Math.round(rect.x)), hi = Math.min(R.x + R.w - 1, Math.round(rect.x + rect.w));
+    const ink = x => { for (let yy = 0; yy < bh; yy++) if (lm[yy * R.w + x - R.x]) return true; return false; };
+    // 框的边如果正好压在字上，就在附近 ±3px 里找笔画最少的那一列切（两个字粘连处通常最细）
+    const inkN = x => { let n = 0; for (let yy = 0; yy < bh; yy++) n += lm[yy * R.w + x - R.x]; return n; };
+    const valley = (x, dir) => {
+      if (!ink(x)) return x;
+      let best = x, bn = inkN(x);
+      for (let d = 1; d <= 3; d++) for (const xx of [x - d, x + d]) { if (xx <= R.x || xx >= R.x + R.w - 1) continue; const n = inkN(xx); if (n < bn) { bn = n; best = xx; } }
+      return best + (bn ? dir : 0);
+    };
+    let x0 = valley(lo, 1), x1 = valley(hi, -1);
+    while (x0 <= x1 && !ink(x0)) x0++;
+    while (x1 >= x0 && !ink(x1)) x1--;
+    if (x1 - x0 < 3) return null;
+    const w = x1 - x0 + 1;
+    // 框内按空白列切出字形，用来做跨行匹配
+    const gl = [];
+    let st = -1;
+    for (let x = x0; x <= x1 + 1; x++) {
+      const on = x <= x1 && ink(x);
+      if (on && st < 0) st = x;
+      if (!on && st >= 0) { const last = gl[gl.length - 1]; if (last && st - (last.x + last.w) < 2) last.w = x - last.x; else gl.push({ x: st, w: x - st }); st = -1; }
+    }
+    return { w, mask: sliceMask(lm, R.w, x0 - R.x, w, bh), glyphs: gl.map(q => ({ x: q.x - x0, w: q.w })), x0, x1, y, h: bh, n: 0 };
+  }
+  return null;
 }
 
 /* 掩码相似度：交并比（只比字高那几行） */
@@ -1238,7 +1706,7 @@ function orderByTime(items) {
   return known.concat(unknown);
 }
 
-return { pixels, tsStrip, detect, segment, overlap, parseTime, cleanTimes, unwrapDay, orderByTime, hex2rgb, textMask };
+return { privScan, privMatch, privFindAll, privTemplateAt, glyphs, pixels, tsStrip, detect, segment, overlap, parseTime, cleanTimes, unwrapDay, orderByTime, hex2rgb, textMask };
 })();
 </script>
 <script>
@@ -1278,10 +1746,16 @@ const S = {
   out: null,
   view: 'shot',  // 'shot' 截图 | 'long' 长图
   longL: null,
-  marker: null,  // 插入点
+  marker: null,
   mosaicOn: false,
   mdraft: null,
-  opt: { dir:'v', size:'max', custom:1080, align:'start', gap:0, pad:0, bg:'#ffffff', format:'png', quality:92 }
+  editCrop: null,  // 正在重新裁的那一段
+  // 两个模式的拼接设置分开记
+  opts: {
+    crop: { dir:'v', size:'max', custom:1080, align:'start', gap:0, pad:0, bg:'#ffffff', format:'png', quality:92 },
+    chat: { dir:'v', size:'max', custom:1080, align:'start', gap:0, pad:0, bg:'#ffffff', format:'png', quality:92, privId:false, privTime:false, privStyle:'mosaic' }
+  },
+  get opt() { return this.opts[this.mode]; }
 };
 
 const el = {};
@@ -1291,7 +1765,7 @@ const el = {};
  'outInfo','btnMake','preview','pvImg','pvInfo','pvCopy','pvDownload','pvClose','confirmDlg','cfTitle','cfMsg','cfOk',
  'guide','gDots','gStep','gClose','gTitle','gText','gPrev','gNext','help','helpBtn','helpPop','replayGuide','toast',
  'modeSeg','emptyTitle','emptySub','emptyChat','orderNote','viewSeg','chatHint','btnPick','btnDraw','modeTip','modeText','modeCancel',
- 'busy','sideChat','chList','chMoreList','chMoreSum','btnResetCh','btnMosaic','viewMode','longHint','pvText','btnText','txDlg','txStatus','txTs','txPlain','txCopy','txClose','txBody','txFindBtn','txFindBar','txFind','txRepl','txReplAll','txHits','txUndoRepl','txTitle','txTools','txLoad','tlSub','tlS1','tlS2','tlS3','tlS1t','tlS2t','tlBar','tlFill','tlPct','tlEta','tlFirst','tlCancel','tlConfirm','tlKeep','tlStop'
+ 'busy','sideChat','chList','chMoreList','chMoreSum','btnResetCh','btnMosaic','viewMode','longHint','pvText','btnText','txDlg','txStatus','txTs','txPlain','txCopy','txClose','txBody','txFindBtn','txFindBar','txFind','txRepl','txReplAll','txHits','txUndoRepl','txTitle','txTools','txLoad','tlSub','tlS1','tlS2','tlS3','tlS1t','tlS2t','tlBar','tlFill','tlPct','tlEta','tlFirst','tlCancel','tlConfirm','tlKeep','tlStop','btnSel','btnDesel','boxAsk','boxOne','boxAll','boxCancel','crDlg','crTitle','crInfo','crFile','crCancel','crOk','crStage','crEmpty','crWrap','crImg','crSel','crSize','crWhole','btnPointer','toolRail','privId','privTime','privMore','btnNames','nameDlg','nameNote','nameList','nameClose','nameUndo','nameRedo','nameReset'
 ].forEach(id => { el[id] = document.getElementById(id); });
 
 const cur = () => S.sources.find(s => s.id === S.cur) || null;
@@ -1382,7 +1856,7 @@ async function clearSources() {
   S.sources.forEach(s => URL.revokeObjectURL(s.url));
   if (S.mode === 'chat') {
     S.sources = []; S.cur = null;
-    C.geos = {}; C.srcGeo.clear(); C.segs.clear(); C.times.clear(); C.dup.clear(); C.gap.clear(); C.overrides.clear(); C.manualOrder = false;
+    C.geos = {}; C.srcGeo.clear(); C.manualOne.clear(); C.inserts = []; privReset(); C.segs.clear(); C.times.clear(); C.dup.clear(); C.gap.clear(); C.overrides.clear(); C.manualOrder = false;
   } else { S.sources = []; S.crops = []; S.cur = null; S.pending = null; S.editSize = false; }
   el.srcImg.removeAttribute('src'); delete el.srcImg.dataset.id;
   renderAll();
@@ -1659,7 +2133,12 @@ document.addEventListener('keydown', e => {
     if (e.target.closest && e.target.closest('button, label')) return;
     e.preventDefault(); addCrop(); return;
   }
-  if (e.key === 'Escape') { if (S.mosaicOn) setCropMosaic(false); else if (p) { S.pending = null; renderOverlay(); } return; }
+  if (e.key === 'Escape') {
+    if (S.mosaicOn) setCropMosaic(false);
+    else if (S.editCrop) { S.editCrop = null; S.pending = null; syncAddBtn(); renderOverlay(); renderCrops(); }
+    else if (p) { S.pending = null; renderOverlay(); }
+    return;
+  }
   const d = { ArrowLeft:[-1,0], ArrowRight:[1,0], ArrowUp:[0,-1], ArrowDown:[0,1] }[e.key];
   if (!d) return;
   e.preventDefault();
@@ -1678,13 +2157,17 @@ document.addEventListener('keydown', e => {
 document.addEventListener('paste', e => {
   const files = [...(e.clipboardData ? e.clipboardData.items : [])]
     .filter(i => i.kind === 'file').map(i => i.getAsFile()).filter(Boolean);
-  if (files.length) { e.preventDefault(); addFiles(files); }
+  if (files.length && !document.querySelector('dialog[open]')) { e.preventDefault(); addFiles(files); }
 });
 
-const hasFiles = e => [...((e.dataTransfer && e.dataTransfer.types) || [])].includes('Files');
+let internalDrag = false;   // 拖的是页面里的东西（缩略图、名单、预览图），不是从电脑拖进来的文件
+document.addEventListener('dragstart', () => { internalDrag = true; }, true);
+document.addEventListener('dragend', () => { internalDrag = false; }, true);
+const hasFiles = e => !internalDrag && [...((e.dataTransfer && e.dataTransfer.types) || [])].includes('Files');
 window.addEventListener('dragover', e => { if (hasFiles(e)) { e.preventDefault(); document.body.classList.add('dropping'); } });
 window.addEventListener('dragleave', e => { if (!e.relatedTarget) document.body.classList.remove('dropping'); });
 window.addEventListener('drop', e => {
+  if (el.crDlg.open || internalDrag || document.querySelector('dialog[open]')) { e.preventDefault(); internalDrag = false; document.body.classList.remove('dropping'); return; }
   document.body.classList.remove('dropping');
   if (hasFiles(e)) { e.preventDefault(); addFiles(e.dataTransfer.files); }
 });
@@ -1787,16 +2270,19 @@ const OCR_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.
 function loadChannels() {
   try {
     const v = JSON.parse(storageGet(CH_KEY));
-    if (v && Array.isArray(v.channels) && v.channels.length) return { channels: v.channels, keepUnknown: !!v.keepUnknown };
+    if (v && Array.isArray(v.channels) && v.channels.length) return { channels: v.channels, keepUnknown: !!v.keepUnknown, dismissed: v.dismissed || [] };
   } catch { /* 用默认 */ }
-  return { channels: DEFAULT_CH.map(c => ({ ...c })), keepUnknown: false };
+  return { channels: DEFAULT_CH.map(c => ({ ...c })), keepUnknown: false, dismissed: [] };
 }
-function saveChannels() { storageSet(CH_KEY, JSON.stringify({ channels: C.channels, keepUnknown: C.keepUnknown })); }
+function saveChannels() { storageSet(CH_KEY, JSON.stringify({ channels: C.channels, keepUnknown: C.keepUnknown, dismissed: C.dismissed || [] })); }
 
 const C = {
   geos: {},              // 尺寸 → {geo, manual}：手动框的，或者这个尺寸下最常见的位置
   srcGeo: new Map(),     // srcId → 这张图用的聊天框位置
   segCache: new Map(),
+  manualOne: new Map(),  // srcId → 只用于这张的手动聊天框
+  pendingGeo: null,      // 刚框好、还没选「这张 / 全部」的聊天框
+  inserts: [],           // 聊天里的插图 {id, after, src, x, y, w, h, thumb}
   segs: new Map(),       // srcId → 识别结果
   dup: new Map(),        // srcId → 和上一张重复的条数
   gap: new Map(),        // srcId → 和上一张相隔的分钟数（超过 20 分钟才记）
@@ -1813,6 +2299,7 @@ const C = {
 const chatList = () => S.lists.chat;
 const sizeKey = s => `${s.w}x${s.h}`;
 const geoOf = s => {
+  if (C.manualOne.has(s.id)) return C.manualOne.get(s.id);
   const g = C.geos[sizeKey(s)];
   if (g && g.manual) return g.geo;
   return C.srcGeo.get(s.id) || (g ? g.geo : null);
@@ -1856,7 +2343,7 @@ async function chatAdd(list) {
   if (!chatList().cur) chatList().cur = first.id;
   renderAll();
   const bad = chatList().sources.filter(s => !C.segs.get(s.id)).length;
-  toast(bad ? `已添加 ${n} 张，有 ${bad} 张没认出聊天框，可以手动框一下` : `已添加 ${n} 张截图`);
+  toast(bad ? `已添加 ${n} 张，有 ${bad} 张没认出聊天框，可以点「裁切聊天框」手动框一下` : `已添加 ${n} 张截图`);
   chatOcr();
 }
 
@@ -1901,6 +2388,26 @@ function chatAnalyze() {
     if (T && T.sig === geoSig(g) && T.byY) seg.lines.forEach(m => { const t = T.byY.get(m.y); m.time = t == null ? null : t; });
     C.segs.set(s.id, seg);
   }
+  // 色表里没有的颜色：自动在「更多频道」里建一个，默认不保留（删掉过的不再自动建）
+  if (!chatAnalyze.again) {
+    const found = [];
+    for (const seg of C.segs.values()) seg.lines.forEach(m => { if (!m.channel && m.firstRgb) found.push(m.firstRgb); });
+    const near = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]) < 30;
+    const added = [];
+    for (const rgb of found) {
+      if (C.channels.some(c => near(Chat.hex2rgb(c.color), rgb)) || added.some(a => near(a, rgb))) continue;
+      const hex = '#' + rgb.map(v => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase();
+      if ((C.dismissed || []).some(h => near(Chat.hex2rgb(h), rgb))) continue;
+      added.push(rgb);
+      C.channels.push({ id: 'a' + hex.slice(1), name: `新频道 ${hex}`, color: hex, keep: false, more: true, custom: true, auto: true });
+    }
+    if (added.length) {
+      saveChannels();
+      chatAnalyze.again = true;
+      try { chatAnalyze(); } finally { chatAnalyze.again = false; }
+      return;
+    }
+  }
   if (!C.manualOrder) {
     const items = L.sources.map(s => {
       const T = C.times.get(s.id);
@@ -1909,6 +2416,7 @@ function chatAnalyze() {
     L.sources = Chat.orderByTime(items).map(i => i.s);
   }
   joints();
+  privDirty();
 }
 
 function joints() {
@@ -2016,7 +2524,10 @@ async function chatOcr() {
         changed = true;
         break;
       }
+      let k = 0;
       for (const s of todo) {
+        el.busy.textContent = `智能时间排序中 ${++k} / ${todo.length}`;
+        el.busy.hidden = false;
         const seg = C.segs.get(s.id);
         if (!seg || !chatList().sources.includes(s)) continue;
         const sig = geoSig(seg.geo);
@@ -2027,7 +2538,7 @@ async function chatOcr() {
         if (S.mode === 'chat') renderSources();
       }
     } while (ocrAgain);
-  } finally { ocrRunning = false; }
+  } finally { ocrRunning = false; el.busy.hidden = true; }
   if (changed) {
     chatAnalyze();
     if (S.mode === 'chat') renderAll();
@@ -2071,7 +2582,7 @@ function chatRenderSources() {
   });
   el.srcList.innerHTML = html;
   // 常驻一句提醒：排序靠识别时间戳，可能认错；怎么补救
-  const tip = '<span class="on-tip"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="4.9" r="1" fill="currentColor"/></svg><span>上传图片后将自动按时间排序。若识别有误，请点击右上角「手动框聊天框」，框选完整时间戳，以优化结果。</span></span>';
+  const tip = '<span class="on-tip"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="4.9" r="1" fill="currentColor"/></svg><span>上传图片后将自动按时间排序。若识别有误，请点击右上角「裁切聊天框」，框选完整时间戳，以优化结果。</span></span>';
   if (C.manualOrder) el.orderNote.innerHTML = '现在按你拖的顺序拼。<button type="button" id="btnAutoOrder">改回按时间排序</button>';
   else if (noTime) el.orderNote.innerHTML = `有 ${noTime} 张没认出时间，排在了最后。` + tip;
   else el.orderNote.innerHTML = tip;
@@ -2079,6 +2590,7 @@ function chatRenderSources() {
 }
 
 function chatRenderStage() {
+  if (S.view === 'long') { longRender(); return; }
   const src = cur();
   el.empty.hidden = !!src;
   el.wrap.hidden = !src;
@@ -2093,7 +2605,7 @@ function chatRenderStage() {
   if (el.srcImg.dataset.id !== String(src.id)) { el.srcImg.src = src.url; el.srcImg.dataset.id = src.id; }
   const seg = C.segs.get(src.id);
   const g = geoOf(src);
-  const R = C.view === 'chat' && g && C.tool !== 'draw' ? g.region : { x: 0, y: 0, w: src.w, h: src.h };
+  const R = C.view === 'chat' && g && C.tool !== 'draw' && !C.pendingGeo ? g.region : { x: 0, y: 0, w: src.w, h: src.h };
   const s = S.zoom === 'fit' ? Math.min(1, Math.max(120, el.stage.clientWidth - 64 - SIDE_GUTTER) / R.w) : +S.zoom;
   S.scale = s; C.viewR = R;
   el.wrap.style.width = R.w * s + 'px';
@@ -2101,14 +2613,15 @@ function chatRenderStage() {
   shiftForGutter(R.w * s);
   el.srcImg.style.cssText = `position:absolute;left:0;top:0;width:${src.w * s}px;height:${src.h * s}px;transform:translate(${-R.x * s}px,${-R.y * s}px);transform-origin:0 0;clip-path:inset(${R.y * s}px ${(src.w - R.x - R.w) * s}px ${(src.h - R.y - R.h) * s}px ${R.x * s}px)`;
   el.wrap.classList.toggle('picking', C.tool === 'pick');
-  el.wrap.classList.toggle('drawing', C.tool === 'draw');
+  el.wrap.classList.toggle('drawing', ['draw', 'sel', 'desel', 'name'].includes(C.tool));
+  el.wrap.classList.toggle('selecting', ['sel', 'desel', 'name'].includes(C.tool));
   el.wrap.classList.toggle('mosaicing', C.tool === 'mosaic');
-  el.chatHint.textContent = !g ? '没认出聊天框，点「手动框聊天框」' : seg ? '点某一条可以单独保留或排除' : '这张里没找到带时间戳的行';
+  el.chatHint.textContent = !g ? '没认出聊天框，点「裁切聊天框」' : seg ? '点某一条可以单独保留或排除' : '这张里没找到带时间戳的行';
 
   let html = '';
   if (R.w === src.w && R.h === src.h && g) {
     const r = g.region;
-    html += `<div class="region" style="left:${r.x * s}px;top:${r.y * s}px;width:${r.w * s}px;height:${r.h * s}px"><span>聊天框</span></div>`;
+    html += `<div class="region" style="left:${r.x * s}px;top:${r.y * s}px;width:${r.w * s}px;height:${r.h * s}px"><span>聊天框${C.manualOne.has(src.id) ? '（只用于这张）' : ''}</span></div>`;
   }
   if (seg && C.tool !== 'draw') {
     seg.lines.forEach((m, i) => {
@@ -2119,7 +2632,7 @@ function chatRenderStage() {
       const cls = st.dup ? 'dup' : st.keep ? 'keep' : 'drop';
       const tm = m.time != null ? `${hhmm(m.time)}　` : '';
       const tag = st.dup ? '和上一张重复' : `${tm}${name}${st.forced ? '（手动）' : ''}，${st.keep ? '点击排除' : '点击保留'}`;
-      html += `<button type="button" class="msg ${cls}${st.forced ? ' forced' : ''}" data-i="${i}"
+      html += `<button type="button" class="msg ${cls}${st.forced ? ' forced' : ''}${C.flashMsg === `${src.id}:${m.y}` ? ' flash' : ''}" data-i="${i}"
         style="top:${(m.top - R.y) * s}px;height:${m.h * s}px;left:${(seg.region.x - R.x) * s}px;width:${seg.region.w * s}px;--c:${ch ? ch.color : '#9AA7A1'}"
         aria-label="第 ${i + 1} 条，${esc(tag)}" ${st.dup ? 'tabindex="-1"' : ''}><span class="tag">${esc(tag)}</span></button>`;
     });
@@ -2173,6 +2686,8 @@ function setMode(m) {
   if (m === S.mode) return;
   if (S.mode === 'chat') chatTool(null, true); else setCropMosaic(false);
   S.editSize = false;
+  S.editCrop = null;
+  el.boxAsk.hidden = true; C.pendingGeo = null;
   S.mode = m;
   document.body.dataset.mode = m;
   el.modeSeg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
@@ -2188,6 +2703,7 @@ function setMode(m) {
   el.wrap.classList.remove('mosaicing');
   el.modeTip.hidden = true;
   syncAddBtn();
+  syncSettings();
   renderAll();
 }
 // 点完模式按钮就把焦点还给页面，否则紧接着按 Enter 会被按钮吃掉
@@ -2222,12 +2738,14 @@ el.sideChat.addEventListener('input', e => {
 el.sideChat.addEventListener('click', e => {
   const b = e.target.closest('[data-rmch]');
   if (!b) return;
+  const gone = chById(b.dataset.rmch);
+  if (gone && gone.auto) C.dismissed = (C.dismissed || []).concat(gone.color);
   C.channels = C.channels.filter(c => c.id !== b.dataset.rmch);
   saveChannels(); chatRefresh();
 });
 el.btnResetCh.addEventListener('click', e => {
   e.preventDefault();
-  C.channels = DEFAULT_CH.map(c => ({ ...c })); C.keepUnknown = false; C.overrides.clear();
+  C.channels = DEFAULT_CH.map(c => ({ ...c })); C.keepUnknown = false; C.overrides.clear(); C.dismissed = [];
   saveChannels(); chatRefresh(); toast('频道已恢复默认');
 });
 el.orderNote.addEventListener('click', e => {
@@ -2245,8 +2763,11 @@ function chatTool(m, quiet) {
   el.btnPick.setAttribute('aria-pressed', String(m === 'pick'));
   el.btnDraw.setAttribute('aria-pressed', String(m === 'draw'));
   el.modeTip.hidden = !m;
-  el.modeText.textContent = m === 'pick' ? '点一下图上某条消息的文字，用它的颜色新建频道' : m === 'draw' ? '在整张截图上拖出聊天框的范围（从最上面一条到最下面一条）' : m === 'mosaic' ? '拖出要打码的区域，悬停已有的马赛克可以去掉' : '';
+  el.modeText.textContent = m === 'pick' ? '点一下图上某条消息的文字，用它的颜色新建频道' : m === 'draw' ? '在整张截图上拖出聊天框的范围（从最上面一条到最下面一条）' : m === 'mosaic' ? '拖出要打码的区域，悬停已有的马赛克可以去掉' : m === 'name' ? '框出一个名字（连服务器名一起框），它会加进名单' : m === 'sel' ? '从上往下拖一下，拖过的消息都会保留' : m === 'desel' ? '从上往下拖一下，拖过的消息都会排除' : '';
+  el.btnSel.setAttribute('aria-pressed', String(m === 'sel'));
+  el.btnDesel.setAttribute('aria-pressed', String(m === 'desel'));
   el.btnMosaic.setAttribute('aria-pressed', String(m === 'mosaic'));
+  el.btnPointer.setAttribute('aria-pressed', String(!m));
   if (!quiet) chatRenderStage();
 }
 el.btnPick.addEventListener('click', () => { if (S.view === 'long') setView('shot'); chatTool(C.tool === 'pick' ? null : 'pick'); });
@@ -2322,7 +2843,7 @@ function pickAt(src, p) {
 // 手动框聊天框
 let chatDrag = null;
 el.wrap.addEventListener('pointerdown', e => {
-  if (S.mode !== 'chat' || S.view === 'long' || (C.tool !== 'draw' && C.tool !== 'mosaic') || e.button !== 0) return;
+  if (S.mode !== 'chat' || S.view === 'long' || !['draw', 'mosaic', 'sel', 'desel', 'name'].includes(C.tool) || e.button !== 0) return;
   if (e.target.closest('.mz-x')) return;
   e.preventDefault();
   el.wrap.setPointerCapture(e.pointerId);
@@ -2340,21 +2861,59 @@ el.wrap.addEventListener('pointerup', () => {
   chatDrag = null;
   const r = C.draft, src = cur();
   if (C.tool === 'mosaic') { C.draft = null; addMosaic(src, r); chatRenderStage(); return; }
+  if (C.tool === 'sel' || C.tool === 'desel') { C.draft = null; bulkKeep(src, r, C.tool === 'sel'); return; }
+  if (C.tool === 'name') { C.draft = null; addManualName(src, r); chatRenderStage(); return; }
   if (!r || r.w < 40 || r.h < 20) { C.draft = null; chatRenderStage(); return; }
   const g = Chat.detect(src.px, r);
   if (!g) { toast('框里没找到带时间戳的行。聊天设置里要打开时间戳'); C.draft = null; chatRenderStage(); return; }
-  C.geos[sizeKey(src)] = { geo: g, manual: true };
-  C.overrides.clear();
+  // 先问一句：只用于这张，还是应用到全部（前者是主按钮）
+  C.pendingGeo = { g, src };
   chatTool(null, true);
+  C.draft = r;
+  chatRenderStage();
+  el.boxAsk.hidden = false;
+  el.boxOne.focus();
+});
+function applyBox(all) {
+  const p = C.pendingGeo;
+  el.boxAsk.hidden = true;
+  C.pendingGeo = null; C.draft = null;
+  if (!p) return;
+  if (all) {
+    const k = sizeKey(p.src);
+    C.geos[k] = { geo: p.g, manual: true };
+    S.lists.chat.sources.forEach(s => { if (sizeKey(s) === k) C.manualOne.delete(s.id); });
+  } else C.manualOne.set(p.src.id, p.g);
   C.view = 'chat';
   chatRefresh();
   chatOcr();
-  toast('聊天框已更新，同尺寸的截图都会用这个位置');
-});
+  toast(all ? '聊天框已应用到同尺寸的全部截图' : '聊天框只用于这张截图');
+}
+el.boxOne.addEventListener('click', () => applyBox(false));
+el.boxAll.addEventListener('click', () => applyBox(true));
+el.boxCancel.addEventListener('click', () => { el.boxAsk.hidden = true; C.pendingGeo = null; C.draft = null; chatRenderStage(); });
+
+// 批量选取 / 取消选取：拖过的消息（纵向有重叠的）一次改掉
+function bulkKeep(src, r, keep) {
+  const seg = C.segs.get(src.id);
+  if (!seg) { chatRenderStage(); return; }
+  const hit = seg.lines.map((m, i) => ({ m, i })).filter(({ m, i }) => m.h > 0 && !msgState(src, m, i).dup && m.top < r.y + r.h && m.top + m.h > r.y);
+  if (!hit.length) { chatRenderStage(); return; }
+  pushUndo();
+  hit.forEach(({ m }) => {
+    const ch = chById(m.channel), def = ch ? ch.keep : C.keepUnknown, key = `${src.id}:${m.y}`;
+    if (keep === def) C.overrides.delete(key); else C.overrides.set(key, keep);
+  });
+  chatRenderAll();
+  toast(`${hit.length} 条已${keep ? '保留' : '排除'}`);
+}
+el.btnSel.addEventListener('click', () => { if (S.view === 'long') setView('shot'); chatTool(C.tool === 'sel' ? null : 'sel'); });
+el.btnDesel.addEventListener('click', () => { if (S.view === 'long') setView('shot'); chatTool(C.tool === 'desel' ? null : 'desel'); });
 
 function chatKey(e) {
   if (e.target.closest && e.target.closest('input, select, textarea')) return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === 'Escape' && C.pendingGeo) { el.boxCancel.click(); return; }
   if (e.key === 'Escape' && C.tool) { chatTool(null); return; }
   if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
   const L = chatList(), i = L.sources.findIndex(s => s.id === L.cur);
@@ -2406,9 +2965,9 @@ el.srcList.addEventListener('dragend', () => {
 });
 
 
-/* ================= 拼接顺序：聊天消息、裁切段、插图混排 ================= */
-// 裁切段的位置用 after 记：'start' 在最前；'<srcId>:<y>' 跟在某条聊天后面；'__end' 在最后。
-// 插入点 S.marker = { after: 'start' | 'm:<srcId>:<y>' | 'c:<cropId>' }
+/* ================= 两个模式各拼各的 =================
+   普通裁切：S.crops，按「段」算，右侧有图层列表
+   聊天记录：识别出的消息按「条」算；插图 C.inserts 挂在某条消息后面的缝上（after = '<srcId>:<y>' 或 'start'） */
 const thumbCache = new Map();
 
 function allMessages() {
@@ -2426,17 +2985,18 @@ function allMessages() {
   }
   return out;
 }
+const insUnit = n => ({ kind: 'ins', key: `i:${n.id}`, n, src: n.src, x: n.x, y: n.y, w: n.w, h: n.h, keep: true });
 
-function buildUnits() {
+function buildUnits(mode) {
+  mode = mode || S.mode;
+  if (mode === 'crop') return S.crops.map(c => ({ kind: 'crop', key: `c:${c.id}`, c, src: srcById(c.srcId), x: c.x, y: c.y, w: c.w, h: c.h, keep: true }));
   const msgs = allMessages();
   const known = new Set(msgs.map(m => m.akey));
   const groups = new Map();
-  for (const c of S.crops) {
-    let a = c.after || '__end';
-    if (a !== 'start' && a !== '__end' && !known.has(a)) a = '__end';
+  for (const n of C.inserts) {
+    const a = n.after === 'start' || known.has(n.after) ? n.after : '__end';
     if (!groups.has(a)) groups.set(a, []);
-    const src = srcById(c.srcId);
-    groups.get(a).push({ kind: 'crop', key: `c:${c.id}`, c, src, x: c.x, y: c.y, w: c.w, h: c.h, keep: true });
+    groups.get(a).push(insUnit(n));
   }
   const seq = [...(groups.get('start') || [])];
   for (const m of msgs) { seq.push(m); seq.push(...(groups.get(m.akey) || [])); }
@@ -2444,23 +3004,6 @@ function buildUnits() {
   return seq;
 }
 const outUnits = () => buildUnits().filter(u => u.keep && u.src);
-
-function placeCrop(c, afterKey) {
-  const i = S.crops.indexOf(c);
-  if (i >= 0) S.crops.splice(i, 1);
-  if (!afterKey || afterKey === 'end') { c.after = '__end'; S.crops.push(c); return; }
-  if (afterKey === 'start') { c.after = 'start'; S.crops.unshift(c); return; }
-  if (afterKey.startsWith('m:')) {
-    c.after = afterKey.slice(2);
-    const j = S.crops.findIndex(q => q.after === c.after);
-    if (j >= 0) S.crops.splice(j, 0, c); else S.crops.push(c);
-    return;
-  }
-  const p = S.crops.find(q => `c:${q.id}` === afterKey);
-  if (!p) { c.after = '__end'; S.crops.push(c); return; }
-  c.after = p.after || '__end';
-  S.crops.splice(S.crops.indexOf(p) + 1, 0, c);
-}
 
 /* ---------- 缩略图 ---------- */
 function stripThumb(units, width) {
@@ -2491,7 +3034,7 @@ function makeThumb(src, c) {
   return cv.toDataURL('image/png');
 }
 
-/* ---------- 裁切 ---------- */
+/* ---------- 普通裁切 ---------- */
 function addCrop(rect) {
   const src = cur();
   if (!src || S.mode !== 'crop') return;
@@ -2499,14 +3042,21 @@ function addCrop(rect) {
   const r = rect || S.pending;
   if (!r) { toast('先在截图上拖出一个选区'); return; }
   pushUndo();
+  const ed = S.editCrop && S.crops.find(c => c.id === S.editCrop);
+  if (ed && ed.srcId === src.id) {
+    Object.assign(ed, { x: r.x, y: r.y, w: r.w, h: r.h });
+    ed.thumb = makeThumb(src, ed);
+    S.editCrop = null;
+    flash(ed.id); syncAddBtn(); renderSources(); renderCrops(ed.id);
+    toast('这段已更新');
+    return;
+  }
+  S.editCrop = null;
   const c = { id: nid(), srcId: src.id, x: r.x, y: r.y, w: r.w, h: r.h };
   c.thumb = makeThumb(src, c);
-  if (S.marker) { placeCrop(c, S.marker.after); S.marker = { after: `c:${c.id}` }; }
-  else placeCrop(c, 'end');
+  S.crops.push(c);
   flash(c.id);
-  renderSources();
-  renderCrops();
-  syncAddBtn();
+  syncAddBtn(); renderSources(); renderCrops(c.id);
 }
 
 function flash(id) {
@@ -2517,8 +3067,94 @@ function flash(id) {
 }
 
 function syncAddBtn() {
-  el.btnAdd.innerHTML = S.marker ? '插入到标记处 <kbd>Enter</kbd>' : '加入裁切 <kbd>Enter</kbd>';
+  el.btnAdd.innerHTML = S.editCrop ? '更新这段 <kbd>Enter</kbd>' : '加入裁切 <kbd>Enter</kbd>';
 }
+
+// 右侧图层列表：每段一行，序号、缩略图、尺寸、来自哪张；拖动排序，点缩略图回到原图重新裁
+function renderCropList(scrollToId) {
+  el.cropCount.textContent = S.crops.length || '';
+  el.btnClearCrops.hidden = !S.crops.length;
+  if (!S.crops.length) {
+    el.cropList.innerHTML = '<li class="crop-empty">还没有裁切。框选后按 Enter，会按顺序排在这里。</li>';
+    return;
+  }
+  el.cropList.innerHTML = S.crops.map((c, i) => {
+    const src = srcById(c.srcId);
+    return `<li class="crop${c.id === S.editCrop ? ' editing' : ''}" draggable="true" data-id="${c.id}">
+      <span class="num">${i + 1}</span>
+      <button class="thumb" type="button" data-go="${c.id}" title="回到原图重新裁"><img src="${c.thumb}" alt="" draggable="false"></button>
+      <span class="c-meta"><span>${c.w} × ${c.h}${c.id === S.editCrop ? '<em>正在重新裁</em>' : ''}</span><span class="c-src">${esc(src ? src.name : '')}</span></span>
+      <span class="c-act"><button type="button" data-rm="${c.id}" aria-label="删除这段">×</button></span>
+    </li>`;
+  }).join('');
+  if (scrollToId) { const li = el.cropList.querySelector(`[data-id="${scrollToId}"]`); if (li) li.scrollIntoView({ block: 'nearest' }); }
+}
+
+el.cropList.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.dataset.rm) {
+    pushUndo();
+    const id = +b.dataset.rm;
+    if (S.editCrop === id) S.editCrop = null;
+    S.crops = S.crops.filter(c => c.id !== id);
+    syncAddBtn(); renderSources(); renderCrops(); renderStage();
+    return;
+  }
+  if (b.dataset.go) {
+    const c = S.crops.find(q => q.id === +b.dataset.go);
+    if (!c) return;
+    if (S.view !== 'shot') setView('shot');
+    selectSource(c.srcId);
+    S.pending = { x: c.x, y: c.y, w: c.w, h: c.h };
+    S.editCrop = c.id;
+    syncAddBtn(); renderOverlay(); renderCrops();
+    toast('调整选区后按 Enter 更新这段，Esc 取消');
+  }
+});
+
+el.btnClearCrops.addEventListener('click', async () => {
+  if (!S.crops.length) return;
+  if (!(await askConfirm('清空裁切顺序？', `会删除 ${S.crops.length} 段裁切，截图本身会保留。`, '清空'))) return;
+  pushUndo();
+  S.crops = []; S.editCrop = null;
+  syncAddBtn(); renderSources(); renderCrops(); renderStage();
+});
+
+let cDrag = null;
+el.cropList.addEventListener('dragstart', e => {
+  const li = e.target.closest('li.crop');
+  if (!li) return;
+  cDrag = +li.dataset.id;
+  li.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', String(cDrag));
+});
+el.cropList.addEventListener('dragover', e => {
+  if (cDrag == null) return;
+  e.preventDefault();
+  el.cropList.querySelectorAll('.drop-before, .drop-after').forEach(li => li.classList.remove('drop-before', 'drop-after'));
+  const li = e.target.closest('li.crop');
+  if (!li || +li.dataset.id === cDrag) return;
+  const r = li.getBoundingClientRect();
+  li.classList.add(e.clientY > r.top + r.height / 2 ? 'drop-after' : 'drop-before');
+});
+el.cropList.addEventListener('drop', e => {
+  if (cDrag == null) return;
+  e.preventDefault(); e.stopPropagation();
+  const li = el.cropList.querySelector('.drop-before, .drop-after');
+  if (!li) return;
+  const c = S.crops.find(q => q.id === cDrag), t = S.crops.find(q => q.id === +li.dataset.id);
+  if (!c || !t) return;
+  pushUndo();
+  S.crops.splice(S.crops.indexOf(c), 1);
+  S.crops.splice(S.crops.indexOf(t) + (li.classList.contains('drop-after') ? 1 : 0), 0, c);
+});
+el.cropList.addEventListener('dragend', () => {
+  cDrag = null;
+  renderCrops(); renderOverlay();
+  if (S.view === 'long') renderStage();
+});
 
 /* ---------- 马赛克 ---------- */
 const MZ_BLOCK = 10;
@@ -2563,8 +3199,12 @@ function drawUnit(ctx, u, dx, dy, dw, dh) {
     ctx.drawImage(t, 0, 0, t.width, t.height, dx + (x0 - u.x) * kx, dy + (y0 - u.y) * ky, (x1 - x0) * kx, (y1 - y0) * ky);
     ctx.imageSmoothingEnabled = true;
   }
+  if (u.kind === 'msg') drawPriv(ctx, u, dx, dy, dw, dh);
 }
 
+el.btnPointer.addEventListener('click', () => {
+  if (S.mode === 'chat' && S.view !== 'long') chatTool(null); else setCropMosaic(false);
+});
 el.btnMosaic.addEventListener('click', () => {
   if (S.mode === 'chat' && S.view !== 'long') { chatTool(C.tool === 'mosaic' ? null : 'mosaic'); return; }
   setCropMosaic(!S.mosaicOn);
@@ -2572,6 +3212,7 @@ el.btnMosaic.addEventListener('click', () => {
 function setCropMosaic(on) {
   S.mosaicOn = on;
   el.btnMosaic.setAttribute('aria-pressed', String(on));
+  el.btnPointer.setAttribute('aria-pressed', String(!on));
   el.modeTip.hidden = !on;
   el.modeText.textContent = on ? '拖出要打码的区域，悬停已有的马赛克可以去掉' : '';
   el.wrap.classList.toggle('mosaicing', on);
@@ -2584,7 +3225,7 @@ function snap() {
   const all = [...S.lists.crop.sources, ...S.lists.chat.sources];
   return {
     crops: S.crops.map(c => ({ ...c })),
-    marker: S.marker ? { ...S.marker } : null,
+    inserts: C.inserts.map(n => ({ ...n })),
     overrides: [...C.overrides],
     mz: all.map(s => [s, (s.mosaics || []).slice()]),
     order: { crop: S.lists.crop.sources.slice(), chat: S.lists.chat.sources.slice() },
@@ -2593,7 +3234,8 @@ function snap() {
 }
 function restore(sn) {
   S.crops = sn.crops.map(c => ({ ...c }));
-  S.marker = sn.marker;
+  C.inserts = sn.inserts.map(n => ({ ...n }));
+  S.editCrop = null;
   C.overrides = new Map(sn.overrides);
   sn.mz.forEach(([s, m]) => { s.mosaics = m.slice(); });
   for (const k of ['crop', 'chat']) {
@@ -2652,7 +3294,7 @@ el.srcList.addEventListener('dragstart', () => { srcTip.hidden = true; });
 function layout() {
   const o = S.opt;
   const units = outUnits();
-  const vert = o.dir === 'v' || units.some(u => u.kind === 'msg');
+  const vert = o.dir === 'v' || S.mode === 'chat';
   const key = vert ? 'w' : 'h';
   const dims = units.map(u => u[key]);
   let target = null;
@@ -2675,21 +3317,33 @@ function layout() {
   return { W: (vert ? cross : main) + o.pad * 2, H: (vert ? main : cross) + o.pad * 2, items, nMsg: units.filter(u => u.kind === 'msg').length, nCrop: units.filter(u => u.kind === 'crop').length };
 }
 
+// 两个模式的拼接设置分开记，关掉页面再打开也还在
+const OPTS_KEY = 'cropStitch.opts.v1';
+function saveOpts() { storageSet(OPTS_KEY, JSON.stringify(S.opts)); }
+(() => { try { const v = JSON.parse(storageGet(OPTS_KEY)); if (v && v.crop && v.chat) { Object.assign(S.opts.crop, v.crop); Object.assign(S.opts.chat, v.chat); } } catch { /* 用默认 */ } })();
+
 function tooBig(L) {
   return L.W > MAX_SIDE || L.H > MAX_SIDE || L.W * L.H > MAX_AREA;
 }
 
 function updateOutInfo() {
   syncTextBtns();
+  if (S.mode === 'chat') syncPriv();
   const L = outUnits().length ? layout() : null;
   el.btnMake.disabled = !L;
   el.outInfo.classList.remove('err');
+  saveOpts();
   if (!L) { el.outInfo.textContent = S.mode === 'chat' ? '没有要保留的聊天' : '加入裁切后会显示输出尺寸'; return; }
-  const what = [L.nMsg ? `${L.nMsg} 条聊天` : '', L.nCrop ? `${L.nCrop} 段${L.nMsg ? '插图' : ''}` : ''].filter(Boolean).join(' + ');
+  const nIns = outUnits().filter(u => u.kind === 'ins').length;
+  const what = S.mode === 'chat' ? `${L.nMsg} 条聊天${nIns ? ` + ${nIns} 张插图` : ''}` : `${L.nCrop} 段`;
   if (tooBig(L)) {
     el.outInfo.classList.add('err');
     el.outInfo.textContent = `输出 ${L.W} × ${L.H} px，超过浏览器画布上限。可以改成「按最窄」、调小宽度，或分成两张。`;
   } else el.outInfo.textContent = `${what}，输出 ${L.W} × ${L.H} px`;
+  if (S.mode === 'chat' && S.opts.chat.privId) {
+    const n = privMiss();
+    if (n) el.outInfo.insertAdjacentHTML('beforeend', `。<button type="button" class="miss-btn" id="missBtn">有 ${n} 行的名字没能自动打码</button>，点一下跳过去，可以在名单里框出这个名字，或用马赛克补`);
+  }
 }
 
 function fmtSize(b) {
@@ -2741,10 +3395,10 @@ function showPreview(blob, canvas, L) {
 }
 
 el.btnMake.addEventListener('click', make);
+el.outInfo.addEventListener('click', e => { if (e.target.id === 'missBtn') gotoMiss(); });
 
-/* ================= 工作区里的插入点与长图视图 ================= */
-// 右侧不再有列表：拼接结果直接在中间看，插入、移除、马赛克都在中间做
-function renderCrops() { updateOutInfo(); }
+/* ================= 工作区：插图缝、长图视图、插图裁切窗口 ================= */
+function renderCrops(id) { if (S.mode === 'crop') renderCropList(id); updateOutInfo(); }
 const SIDE_GUTTER = 230;
 // 图比中间区域窄的时候，整体往左挪半个留白，右侧就有完整的 SIDE_GUTTER 放按钮和缩略图
 function shiftForGutter(w) {
@@ -2752,51 +3406,84 @@ function shiftForGutter(w) {
   el.wrap.style.left = w + SIDE_GUTTER <= room ? -Math.round(SIDE_GUTTER / 2) + 'px' : '0px';
 }
 
-// 两段之间的插入缝：平时透明，悬停显示「＋ 在这里插入图片」；放下之后变成常驻的黄色插入点。
-// 已经插了图的缝，右侧常驻一个「插了 N 张图」的标签，悬停弹出缩略图，可以排序、删除、再加
+
+/* ---------- 插图缝 ----------
+   聊天消息之间的缝：悬停显示「＋ 在这里插入图片」，点了直接弹出裁切窗口；
+   已经有插图的缝：常驻黄色标签，悬停出缩略图卡片（排序、删除、重新裁、再加一张）；标签和缩略图都能拖到别的缝 */
 const IMG_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5.5" cy="6.5" r="1.4" fill="currentColor"/><path d="M2.5 12l3.8-3.6 2.6 2.4 2-1.8 2.6 2.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
-function popHTML(crops) {
-  const n = crops.length;
+const insGroup = after => C.inserts.filter(n => n.after === after);
+function popHTML(after, grp) {
+  const n = grp.length;
   return `<div class="ins-pop" role="group" aria-label="这里插入的图片"><div class="pop-card">
-      <p class="pop-head">这里插入了 ${n} 张图，拖动或用箭头调整顺序</p>
-      ${crops.map((c, i) => `<div class="pop-item" draggable="true" data-cid="${c.id}">
+      <p class="pop-head">这里插入了 ${n} 张图。拖动可以换顺序或拖到别的缝，点缩略图重新裁</p>
+      ${grp.map((q, i) => `<div class="pop-item" draggable="true" data-iid="${q.id}">
         <span class="pi-num">${i + 1}</span>
-        <img src="${c.thumb}" alt="" draggable="false">
+        <button type="button" class="pi-img" data-act data-reins="${q.id}" aria-label="重新裁这张"><img src="${q.thumb}" alt="" draggable="false"></button>
         <span class="pi-act">
-          <button type="button" data-act data-cmove="-1" data-cid="${c.id}" aria-label="上移" ${i === 0 ? 'disabled' : ''}>↑</button>
-          <button type="button" data-act data-cmove="1" data-cid="${c.id}" aria-label="下移" ${i === n - 1 ? 'disabled' : ''}>↓</button>
-          <button type="button" class="pi-del" data-act data-rmcrop="${c.id}" aria-label="删掉这张">×</button>
+          <button type="button" data-act data-imove="-1" data-iid="${q.id}" aria-label="上移" ${i === 0 ? 'disabled' : ''}>↑</button>
+          <button type="button" data-act data-imove="1" data-iid="${q.id}" aria-label="下移" ${i === n - 1 ? 'disabled' : ''}>↓</button>
+          <button type="button" class="pi-del" data-act data-rmins="${q.id}" aria-label="删掉这张">×</button>
         </span>
       </div>`).join('')}
-      <button type="button" class="pop-add" data-act data-addafter="c:${crops[n - 1].id}"><i>＋</i>在这里再加一张</button>
+      <button type="button" class="pop-add" data-act data-insat="${after}" data-pos="last"><i>＋</i>在这里再加一张</button>
     </div></div>`;
 }
-function insHTML(after, top, left, width, crops) {
-  const on = S.marker && S.marker.after === after;
-  const pos = `top:${top}px;left:${left}px;width:${width}px`;
-  if (on) return `<div class="ins marked" style="${pos}">
-      <span class="pill"><i>＋</i>插入点<button type="button" data-act data-gocrop>去框选</button><button type="button" class="px" data-act data-unmark aria-label="取消插入点">×</button></span></div>`;
-  if (crops && crops.length) return `<div class="ins has-img" style="${pos}">
-      <button type="button" class="ins-chip" data-act data-chip>${IMG_ICON}插了 ${crops.length} 张图</button>${popHTML(crops)}</div>`;
-  return `<div class="ins" data-act data-setmark="${after}" data-after="${after}" style="${pos}">
-      <button type="button" class="pill" data-act data-setmark="${after}"><i>＋</i>在这里插入图片</button></div>`;
+function insHTML(after, top, left, width, pos) {
+  const grp = pos === 'last' ? insGroup(after) : [];
+  const style = `top:${top}px;left:${left}px;width:${width}px`;
+  if (grp.length) return `<div class="ins has-img" data-after="${after}" data-pos="last" style="${style}">
+      <button type="button" class="ins-chip" draggable="true" data-act data-chip data-gafter="${after}">${IMG_ICON}插了 ${grp.length} 张图</button>${popHTML(after, grp)}</div>`;
+  return `<div class="ins" data-act data-insat="${after}" data-pos="${pos}" data-after="${after}" style="${style}">
+      <button type="button" class="pill" data-act data-insat="${after}" data-pos="${pos}"><i>＋</i>在这里插入图片</button></div>`;
 }
 
 // 聊天截图视图里：每两条消息之间一个插入缝
 function chatInsHTML(src, seg, R, s) {
   if (C.tool) return '';
   const chats = S.lists.chat.sources.filter(q => C.segs.get(q.id));
-  const groups = new Map();
-  S.crops.forEach(c => { if (!groups.has(c.after)) groups.set(c.after, []); groups.get(c.after).push(c); });
   let html = '';
   const left = (seg.region.x - R.x) * s, width = seg.region.w * s;
   seg.lines.forEach((m, i) => {
     if (m.h <= 0 || msgState(src, m, i).dup) return;
-    if (i === 0 && chats[0] === src && !(C.dup.get(src.id))) html += insHTML('start', (m.top - R.y) * s, left, width, groups.get('start'));
-    html += insHTML(`m:${src.id}:${m.y}`, (m.top + m.h - R.y) * s, left, width, groups.get(`${src.id}:${m.y}`));
+    if (i === 0 && chats[0] === src && !C.dup.get(src.id)) html += insHTML('start', (m.top - R.y) * s, left, width, 'last');
+    html += insHTML(`${src.id}:${m.y}`, (m.top + m.h - R.y) * s, left, width, 'last');
   });
   return html;
 }
+
+// 放一张插图到某个位置：pos = 'first'（紧跟在消息后面）| 'last'（这组最后）| 'i:<id>'（某张插图后面）
+function placeInsert(n, after, pos) {
+  const i = C.inserts.indexOf(n);
+  if (i >= 0) C.inserts.splice(i, 1);
+  n.after = after;
+  const grp = C.inserts.filter(q => q.after === after);
+  if (pos && pos.startsWith('i:')) {
+    const t = C.inserts.find(q => q.id === +pos.slice(2));
+    if (t) { C.inserts.splice(C.inserts.indexOf(t) + 1, 0, n); return; }
+  }
+  if (pos === 'first' && grp.length) { C.inserts.splice(C.inserts.indexOf(grp[0]), 0, n); return; }
+  if (grp.length) { C.inserts.splice(C.inserts.indexOf(grp[grp.length - 1]) + 1, 0, n); return; }
+  C.inserts.push(n);
+}
+function moveInGroup(id, d) {
+  const n = C.inserts.find(q => q.id === id);
+  if (!n) return;
+  const grp = insGroup(n.after), j = grp.indexOf(n) + d;
+  if (j < 0 || j >= grp.length) return;
+  pushUndo();
+  const a = C.inserts.indexOf(n), b = C.inserts.indexOf(grp[j]);
+  [C.inserts[a], C.inserts[b]] = [C.inserts[b], C.inserts[a]];
+  keepPopOpen(n.after);
+  renderAll();
+}
+let reopenAfter = null;
+function keepPopOpen(after) { reopenAfter = after; }
+new MutationObserver(() => {
+  if (reopenAfter == null) return;
+  const k = reopenAfter; reopenAfter = null;
+  const ins = el.overlay.querySelector(`.ins.has-img[data-after="${CSS.escape(k)}"]`);
+  if (ins) ins.classList.add('open');
+}).observe(el.overlay, { childList: true });
 
 /* ---------- 视图切换：截图 / 长图 ---------- */
 function setView(v) {
@@ -2826,13 +3513,14 @@ function longRender() {
   if (!units.length) {
     el.wrap.hidden = true;
     el.curName.textContent = '';
-    el.longHint.textContent = '还没有可以拼的内容。先导入聊天截图，或在「普通裁切」里加入裁切。';
+    el.longHint.textContent = S.mode === 'chat' ? '还没有要拼的聊天。先导入游戏截图。' : '还没有裁切。先在截图视图里框选、按 Enter 加入。';
     el.overlay.innerHTML = '';
     return;
   }
   el.wrap.hidden = false;
   const L = layout();
-  // 右侧留出放「插入点」和「移除」按钮的位置，按钮不压在图上
+  const chat = S.mode === 'chat';
+  // 右侧留出放按钮的位置，按钮不压在图上
   const s = S.zoom === 'fit' ? Math.min(1, Math.max(120, el.stage.clientWidth - 64 - SIDE_GUTTER) / L.W) : +S.zoom;
   S.scale = s; S.longL = L;
   el.wrap.style.width = L.W * s + 'px';
@@ -2840,62 +3528,56 @@ function longRender() {
   el.wrap.style.background = S.opt.bg;
   shiftForGutter(L.W * s);
   el.curName.textContent = `长图 ${L.W} × ${L.H} px`;
-  el.longHint.textContent = S.mosaicOn ? '拖出要打码的区域' : '悬停某一段可以移除或定位；两段之间可以放插入点';
+  el.longHint.textContent = S.mosaicOn ? '拖出要打码的区域' : chat ? '悬停某一段可以移除或定位；两段之间可以插入图片' : '悬停某一段可以移除或定位；顺序在右侧列表里调整';
   let html = '';
-  const cross = L.W * s, gapHalf = S.opt.gap / 2;
-  if (!S.mosaicOn) html += insHTML('start', S.opt.pad * s, 0, cross, null);
+  const cross = L.W * s, gapHalf = S.opt.gap / 2, gaps = chat && !S.mosaicOn;
+  if (gaps) html += insHTML('start', S.opt.pad * s, 0, cross, 'first');
   L.items.forEach((it, i) => {
     const u = it.u, kx = it.dw / u.w, ky = it.dh / u.h;
-    const crop = u.kind === 'crop';
+    const isIns = u.kind === 'ins';
     const mz = (u.src.mosaics || []).some(r => r.x < u.x + u.w && r.x + r.w > u.x && r.y < u.y + u.h && r.y + r.h > u.y)
       ? mzHTML(u.src, { x: u.x, y: u.y }, kx * s, ky * s) : '';
-    html += `<div class="lu${crop ? ' is-crop' : ''}" data-i="${i}" ${crop ? `draggable="true" data-cid="${u.c.id}"` : ''}
-      style="left:${it.x * s}px;top:${it.y * s}px;width:${it.dw * s}px;height:${it.dh * s}px;background-image:url(${u.src.url});background-size:${u.src.w * kx * s}px ${u.src.h * ky * s}px;background-position:${-u.x * kx * s}px ${-u.y * ky * s}px"><div class="lu-clip">${mz}</div>
-      <span class="lu-act">${crop ? '<span class="lu-tag">插图，可拖动</span>' : ''}<button type="button" data-act data-locate="${i}">定位</button><button type="button" data-act data-rmunit="${i}">移除</button></span></div>`;
-    if (!S.mosaicOn) html += insHTML(u.key, (it.y + it.dh + gapHalf) * s, 0, cross, null);
+    html += `<div class="lu${isIns ? ' is-ins' : ''}" data-i="${i}" ${isIns ? `draggable="true" data-iid="${u.n.id}"` : ''}
+      style="left:${it.x * s}px;top:${it.y * s}px;width:${it.dw * s}px;height:${it.dh * s}px;background-image:url(${u.src.url});background-size:${u.src.w * kx * s}px ${u.src.h * ky * s}px;background-position:${-u.x * kx * s}px ${-u.y * ky * s}px"><div class="lu-clip">${mz}${privHTML(u, kx * s, ky * s)}</div>
+      <span class="lu-act">${isIns ? '<span class="lu-tag">插图，可拖动</span>' : ''}<button type="button" data-act data-locate="${i}">${isIns ? '重新裁' : '定位'}</button><button type="button" data-act data-rmunit="${i}">移除</button></span></div>`;
+    if (gaps) {
+      // 消息后面的缝：插在这条消息的插图组最前面；插图后面的缝：紧跟在这张插图后面
+      const after = isIns ? u.n.after : u.akey, pos = isIns ? `i:${u.n.id}` : 'first';
+      html += insHTML(after, (it.y + it.dh + gapHalf) * s, 0, cross, pos);
+    }
   });
   el.overlay.innerHTML = html;
 }
 
-/* 中间所有带 data-act 的按钮：插入点、移除、定位、去掉马赛克 */
+/* ---------- 中间所有带 data-act 的按钮 ---------- */
 el.overlay.addEventListener('click', e => {
   const b = e.target.closest('[data-act]');
   if (!b) return;
   e.stopPropagation();
   const d = b.dataset;
-  if (d.setmark) {
-    S.marker = { after: d.setmark };
-    syncAddBtn(); renderStage();
-    return;
-  }
-  if ('unmark' in d) { S.marker = null; syncAddBtn(); renderStage(); return; }
+  if (d.insat) { openCropper({ after: d.insat, pos: d.pos || 'last' }); return; }
   if ('chip' in d) { b.closest('.ins').classList.toggle('open'); return; }
-  if (d.cmove) { moveInGroup(+d.cid, +d.cmove); return; }
-  if (d.addafter) {
-    S.marker = { after: d.addafter };
-    syncAddBtn();
-    if (S.view !== 'shot') setView('shot');
-    if (S.mode !== 'crop') setMode('crop');
-    toast('框选后按 Enter，会接在这组图片的最后');
-    return;
-  }
-  if ('gocrop' in d) {
-    if (S.view !== 'shot') setView('shot');
-    if (S.mode !== 'crop') setMode('crop');
-    toast(S.sources.length ? '框选后按 Enter，会插到插入点' : '导入要插的图片，框选后按 Enter');
+  if (d.imove) { moveInGroup(+d.iid, +d.imove); return; }
+  if (d.reins) { const n = C.inserts.find(q => q.id === +d.reins); if (n) openCropper({ ins: n }); return; }
+  if (d.rmins) {
+    const n = C.inserts.find(q => q.id === +d.rmins);
+    if (!n) return;
+    pushUndo();
+    C.inserts = C.inserts.filter(q => q !== n);
+    if (b.closest('.ins-pop')) keepPopOpen(n.after);
+    renderAll();
     return;
   }
   if (d.mzs) {
-    const src = srcById(+d.mzs);
+    const src = srcById(+d.mzs) || (C.inserts.find(q => q.src.id === +d.mzs) || {}).src;
     if (src) { removeMosaic(src, +d.mz); renderStage(); }
     return;
   }
   if (d.rmcrop) {
     pushUndo();
-    const c = S.crops.find(q => q.id === +d.rmcrop);
-    if (c && b.closest('.ins-pop')) keepPopOpen(c.after);
-    if (S.marker && c && S.marker.after === `c:${c.id}`) S.marker = null;
-    S.crops = S.crops.filter(q => q !== c);
+    const id = +d.rmcrop;
+    if (S.editCrop === id) S.editCrop = null;
+    S.crops = S.crops.filter(q => q.id !== id);
     syncAddBtn(); renderAll();
     return;
   }
@@ -2904,20 +3586,20 @@ el.overlay.addEventListener('click', e => {
   const u = it.u;
   if (d.rmunit) {
     pushUndo();
-    if (u.kind === 'crop') {
-      if (S.marker && S.marker.after === u.key) S.marker = null;
-      S.crops = S.crops.filter(q => q !== u.c);
-    } else {
+    if (u.kind === 'crop') S.crops = S.crops.filter(q => q !== u.c);
+    else if (u.kind === 'ins') C.inserts = C.inserts.filter(q => q !== u.n);
+    else {
       const ch = chById(u.ch), def = ch ? ch.keep : C.keepUnknown, key = u.akey;
       if (def === false) C.overrides.delete(key); else C.overrides.set(key, false);
     }
-    syncAddBtn(); renderAll();
+    renderAll();
     return;
   }
   if (d.locate) {
+    if (u.kind === 'ins') { openCropper({ ins: u.n }); return; }
     setView('shot');
-    if (u.kind === 'crop') { if (S.mode !== 'crop') setMode('crop'); selectSource(u.c.srcId); flash(u.c.id); }
-    else { if (S.mode !== 'chat') setMode('chat'); selectSource(u.src.id); }
+    selectSource(u.kind === 'crop' ? u.c.srcId : u.src.id);
+    if (u.kind === 'crop') flash(u.c.id);
   }
 });
 
@@ -2960,114 +3642,158 @@ el.wrap.addEventListener('pointerup', () => {
   renderStage();
 });
 
-/* 长图上拖动插图，放到任意插入缝 */
-let luDrag = null;
+/* ---------- 拖动插图：整组（黄色标签）或单张（缩略图、长图里的插图），放到任意缝 ---------- */
+let insDrag = null;   // { ids: [..] }
 el.overlay.addEventListener('dragstart', e => {
-  const lu = e.target.closest('.lu.is-crop');
-  if (!lu || S.view !== 'long') return;
-  luDrag = +lu.dataset.cid;
-  lu.classList.add('dragging');
-  el.wrap.classList.add('dragging-crop');
+  const chip = e.target.closest('.ins-chip'), item = e.target.closest('.pop-item'), lu = e.target.closest('.lu.is-ins');
+  if (chip) insDrag = { ids: insGroup(chip.dataset.gafter).map(n => n.id), from: chip.dataset.gafter };
+  else if (item) { insDrag = { ids: [+item.dataset.iid], item: true }; item.classList.add('dragging'); }
+  else if (lu) { insDrag = { ids: [+lu.dataset.iid] }; lu.classList.add('dragging'); }
+  else return;
   e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('text/plain', String(luDrag));
+  e.dataTransfer.setData('text/plain', insDrag.ids.join(','));
+  // 拖动开始后再亮出所有缝，避免打断浏览器生成拖动影像
+  setTimeout(() => el.wrap.classList.add('dragging-ins'), 0);
 });
-el.overlay.addEventListener('dragover', e => {
-  if (luDrag == null) return;
-  e.preventDefault();
-  el.overlay.querySelectorAll('.ins.over').forEach(q => q.classList.remove('over'));
+function dropTarget(e) {
+  const item = e.target.closest('.pop-item');
+  if (item && insDrag && insDrag.item) {
+    const r = item.getBoundingClientRect(), n = C.inserts.find(q => q.id === +item.dataset.iid);
+    return n ? { el: item, after: n.after, pos: e.clientY > r.top + r.height / 2 ? `i:${n.id}` : 'before:' + n.id, cls: e.clientY > r.top + r.height / 2 ? 'drop-after' : 'drop-before' } : null;
+  }
   let ins = e.target.closest('.ins');
   if (!ins) {
-    // 落在某一段上：取离指针最近的那条缝
-    const y = e.clientY;
-    let best = null, bd = Infinity;
-    el.overlay.querySelectorAll('.ins').forEach(q => { const r = q.getBoundingClientRect(), dd = Math.abs(r.top + r.height / 2 - y); if (dd < bd) { bd = dd; best = q; } });
+    let best = null, bd = 40;
+    el.overlay.querySelectorAll('.ins').forEach(q => { const r = q.getBoundingClientRect(), dd = Math.abs(r.top + r.height / 2 - e.clientY); if (dd < bd) { bd = dd; best = q; } });
     ins = best;
   }
-  if (ins) ins.classList.add('over');
+  return ins ? { el: ins, after: ins.dataset.after, pos: ins.dataset.pos || 'last', cls: 'over' } : null;
+}
+el.overlay.addEventListener('dragover', e => {
+  if (!insDrag) return;
+  e.preventDefault();
+  el.overlay.querySelectorAll('.over, .drop-before, .drop-after').forEach(q => q.classList.remove('over', 'drop-before', 'drop-after'));
+  const t = dropTarget(e);
+  if (t) t.el.classList.add(t.cls);
 });
 el.overlay.addEventListener('drop', e => {
-  if (luDrag == null) return;
-  e.preventDefault();
-  e.stopPropagation();
-  const ins = el.overlay.querySelector('.ins.over');
-  const c = S.crops.find(q => q.id === luDrag);
-  const after = ins && (ins.dataset.after || (S.marker && S.marker.after));
-  if (!c || !after || after === `c:${c.id}`) return;
+  if (!insDrag) return;
+  e.preventDefault(); e.stopPropagation();
+  const t = dropTarget(e);
+  if (!t || t.after == null) return;
+  const moving = insDrag.ids.map(id => C.inserts.find(q => q.id === id)).filter(Boolean);
+  if (!moving.length || (t.pos && t.pos.startsWith('i:') && insDrag.ids.includes(+t.pos.slice(2)))) return;
   pushUndo();
-  placeCrop(c, after);
+  let pos = t.pos;
+  if (pos.startsWith('before:')) {
+    // 放在某张前面 = 放在它前一张后面；它是第一张就放到组首
+    const tid = +pos.slice(7), grp = insGroup(t.after).filter(q => !moving.includes(q)), k = grp.findIndex(q => q.id === tid);
+    pos = k > 0 ? `i:${grp[k - 1].id}` : 'first';
+  }
+  // 多张按原顺序依次放，保持相对次序
+  moving.forEach((n, i) => { placeInsert(n, t.after, i === 0 ? pos : `i:${moving[i - 1].id}`); });
+  keepPopOpen(t.after);
 });
 el.overlay.addEventListener('dragend', () => {
-  if (luDrag == null) return;
-  luDrag = null;
-  el.wrap.classList.remove('dragging-crop');
+  if (!insDrag) return;
+  insDrag = null;
+  el.wrap.classList.remove('dragging-ins');
   renderAll();
 });
 
-/* 同一条缝里的几张图：上下挪、拖动换位 */
-function moveInGroup(cid, d) {
-  const c = S.crops.find(q => q.id === cid);
-  if (!c) return;
-  const grp = S.crops.filter(q => q.after === c.after);
-  const j = grp.indexOf(c) + d;
-  if (j < 0 || j >= grp.length) return;
+/* ---------- 插图裁切窗口：导入一张图，框选，Enter 插入；点已有插图可以重新裁 ---------- */
+const CR = { src: null, rect: null, target: null, drag: null };
+function openCropper(t) {
+  CR.target = t;
+  CR.src = t.ins ? t.ins.src : null;
+  CR.rect = t.ins ? { x: t.ins.x, y: t.ins.y, w: t.ins.w, h: t.ins.h } : null;
+  el.crTitle.textContent = t.ins ? '重新裁这张插图' : '插入图片';
+  el.crOk.innerHTML = (t.ins ? '更新' : '插入') + ' <kbd>Enter</kbd>';
+  el.crWhole.textContent = t.ins ? '改为整张' : '整张插入';
+  crRender();
+  el.crDlg.showModal();
+  el.crOk.focus();
+}
+function crRender() {
+  const src = CR.src;
+  el.crEmpty.hidden = !!src;
+  el.crWrap.hidden = !src;
+  el.crOk.disabled = !src || !CR.rect;
+  el.crWhole.disabled = !src;
+  if (!src) { el.crInfo.textContent = ''; return; }
+  const box = el.crStage.getBoundingClientRect();
+  const k = Math.min(1, (box.width - 48) / src.w, (box.height - 48) / src.h);
+  CR.k = k;
+  el.crImg.src = src.url;
+  el.crWrap.style.width = src.w * k + 'px';
+  el.crWrap.style.height = src.h * k + 'px';
+  const r = CR.rect;
+  el.crSel.hidden = !r;
+  if (r) Object.assign(el.crSel.style, { left: r.x * k + 'px', top: r.y * k + 'px', width: r.w * k + 'px', height: r.h * k + 'px' });
+  el.crInfo.textContent = r ? `${r.w} × ${r.h} px，在图上拖动可以重新框选` : '在图上拖出要插入的范围';
+  el.crSize.textContent = r ? `${r.w} × ${r.h}` : '';
+}
+async function crLoad(file) {
+  if (!file || !file.type || !file.type.startsWith('image/')) { toast('没有找到图片'); return; }
+  const url = URL.createObjectURL(file), img = new Image();
+  img.src = url;
+  try { await img.decode(); } catch { URL.revokeObjectURL(url); toast('这张图片读不了'); return; }
+  CR.src = { id: nid(), name: file.name || '插图', img, url, w: img.naturalWidth, h: img.naturalHeight, mosaics: [] };
+  CR.rect = { x: 0, y: 0, w: CR.src.w, h: CR.src.h };
+  crRender();
+}
+function crPt(e) {
+  const r = el.crWrap.getBoundingClientRect();
+  return { x: clamp(Math.round((e.clientX - r.left) / CR.k), 0, CR.src.w), y: clamp(Math.round((e.clientY - r.top) / CR.k), 0, CR.src.h) };
+}
+el.crWrap.addEventListener('pointerdown', e => {
+  if (!CR.src || e.button !== 0) return;
+  e.preventDefault();
+  el.crWrap.setPointerCapture(e.pointerId);
+  CR.drag = { p0: crPt(e), old: CR.rect };
+});
+el.crWrap.addEventListener('pointermove', e => {
+  if (!CR.drag) return;
+  const p = crPt(e), a = CR.drag.p0;
+  CR.rect = { x: Math.min(a.x, p.x), y: Math.min(a.y, p.y), w: Math.abs(p.x - a.x), h: Math.abs(p.y - a.y) };
+  crRender();
+});
+el.crWrap.addEventListener('pointerup', () => {
+  if (!CR.drag) return;
+  if (!CR.rect || CR.rect.w < 4 || CR.rect.h < 4) CR.rect = CR.drag.old;   // 只是点了一下：保留原来的框
+  CR.drag = null;
+  crRender();
+});
+el.crFile.addEventListener('change', () => { crLoad(el.crFile.files[0]); el.crFile.value = ''; });
+el.crStage.addEventListener('dragover', e => { e.preventDefault(); e.stopPropagation(); });
+el.crStage.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); crLoad([...e.dataTransfer.files][0]); });
+document.addEventListener('paste', e => {
+  if (!el.crDlg.open) return;
+  const f = [...(e.clipboardData ? e.clipboardData.files : [])].find(x => x.type.startsWith('image/'));
+  if (f) { e.preventDefault(); e.stopImmediatePropagation(); crLoad(f); }
+}, true);
+el.crDlg.addEventListener('keydown', e => { if (e.key === 'Enter' && !el.crOk.disabled) { e.preventDefault(); crConfirm(); } });
+el.crCancel.addEventListener('click', () => el.crDlg.close());
+el.crOk.addEventListener('click', crConfirm);
+el.crWhole.addEventListener('click', () => { if (!CR.src) return; CR.rect = { x: 0, y: 0, w: CR.src.w, h: CR.src.h }; crConfirm(); });
+function crConfirm() {
+  const t = CR.target, src = CR.src, r = CR.rect;
+  if (!src || !r) return;
   pushUndo();
-  const a = S.crops.indexOf(c), b = S.crops.indexOf(grp[j]);
-  [S.crops[a], S.crops[b]] = [S.crops[b], S.crops[a]];
-  keepPopOpen(c.after);
+  if (t.ins) {
+    Object.assign(t.ins, { src, x: r.x, y: r.y, w: r.w, h: r.h });
+    t.ins.thumb = makeThumb(src, r);
+    keepPopOpen(t.ins.after);
+    toast('插图已更新');
+  } else {
+    const n = { id: nid(), after: t.after, src, x: r.x, y: r.y, w: r.w, h: r.h };
+    n.thumb = makeThumb(src, r);
+    placeInsert(n, t.after, t.pos);
+    toast('已插入');
+  }
+  el.crDlg.close();
   renderAll();
 }
-let reopenAfter = null;
-function keepPopOpen(after) { reopenAfter = after; }
-// 重新渲染后，刚才操作的那组弹窗保持打开
-new MutationObserver(() => {
-  if (reopenAfter == null) return;
-  const k = reopenAfter; reopenAfter = null;
-  el.overlay.querySelectorAll('.ins.has-img').forEach(ins => {
-    const it = ins.querySelector('.pop-item');
-    const c = it && S.crops.find(q => q.id === +it.dataset.cid);
-    if (c && c.after === k) ins.classList.add('open');
-  });
-}).observe(el.overlay, { childList: true });
-
-let popDrag = null;
-el.overlay.addEventListener('dragstart', e => {
-  const it = e.target.closest('.pop-item');
-  if (!it) return;
-  popDrag = +it.dataset.cid;
-  it.classList.add('dragging');
-  it.closest('.ins').classList.add('open');
-  e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('text/plain', String(popDrag));
-});
-el.overlay.addEventListener('dragover', e => {
-  if (popDrag == null) return;
-  const it = e.target.closest('.pop-item');
-  el.overlay.querySelectorAll('.pop-item.drop-before, .pop-item.drop-after').forEach(q => q.classList.remove('drop-before', 'drop-after'));
-  if (!it || +it.dataset.cid === popDrag) return;
-  e.preventDefault();
-  const r = it.getBoundingClientRect();
-  it.classList.add(e.clientY > r.top + r.height / 2 ? 'drop-after' : 'drop-before');
-});
-el.overlay.addEventListener('drop', e => {
-  if (popDrag == null) return;
-  const it = el.overlay.querySelector('.pop-item.drop-before, .pop-item.drop-after');
-  if (!it) return;
-  e.preventDefault();
-  e.stopPropagation();
-  const c = S.crops.find(q => q.id === popDrag), t = S.crops.find(q => q.id === +it.dataset.cid);
-  if (!c || !t || c.after !== t.after) return;
-  pushUndo();
-  S.crops.splice(S.crops.indexOf(c), 1);
-  S.crops.splice(S.crops.indexOf(t) + (it.classList.contains('drop-after') ? 1 : 0), 0, c);
-  keepPopOpen(c.after);
-});
-el.overlay.addEventListener('dragend', () => {
-  if (popDrag == null) return;
-  const c = S.crops.find(q => q.id === popDrag);
-  popDrag = null;
-  if (c) keepPopOpen(c.after);
-  renderAll();
-});
 
 /* ================= 复制聊天文字：PP-OCRv4 在浏览器里逐行识别 ================= */
 // 模型和运行库都从 jsdelivr 按需加载，第一次用到时才下载（约 11MB），之后浏览器会缓存
@@ -3226,7 +3952,7 @@ async function recMessage(u) {
   let s = '';
   for (let k = 0; k < u.m.slots.length; k++) {
     const sl = u.m.slots[k];
-    const x0 = k === 0 && !u.m.orphan ? (g.tsEnd || R.x) : R.x;
+    const x0 = k === 0 && !u.m.orphan ? (u.m.tsEnd || g.tsEnd || R.x) : R.x;
     const y0 = Math.max(0, sl.y + g.pad - 3);
     s += await recLine(o, x0, y0, R.x + R.w - x0, Math.min(g.gh + 6, u.src.h - y0), true);
   }
@@ -3506,7 +4232,10 @@ async function openTextCopy() {
       if (u.kind === 'msg') {
         const t = cleanText(await recMessage(u)), p = parseMsg(t, u.ch);
         const col = inkColor((chById(u.ch) || {}).color);
-        const ts = u.m.time != null ? `<span class="tx-ts" style="color:#8A8A8A">[${hhmm(u.m.time)}]</span>` : '';
+        // 导出设了隐私打码的话，文字里也一样处理：名字换成代称（或 ■■），时间去掉
+        const po = S.opts.chat;
+        if (po.privId && p.name) { privRun(); const pe = u.m.priv; if (pe && pe.person && pe.person.key) { const cf = cfgOf(pe.person.key); if (cf.on) p.name = po.privStyle === 'block' ? cf.alias : '■■'; } }
+        const ts = u.m.time != null && !po.privTime ? `<span class="tx-ts" style="color:#8A8A8A">[${hhmm(u.m.time)}]</span>` : '';
         html += `<p style="margin:0 0 2px;color:${col}">${ts}${txEsc(p.pre)}${p.name ? `<b>${txEsc(p.name)}</b>` : ''}${txEsc(p.post)}${txEsc(p.body)}</p>`;
       } else {
         const lines = await recCrop(u);
@@ -3661,6 +4390,399 @@ function syncTextBtns() {
   el.pvText.hidden = !has;
   el.btnText.disabled = !has;
 }
+
+/* ================= 导出隐私：角色 ID、时间打码；名单与代称 ================= */
+const PV_COLORS = ['#E0694A', '#3F88C5', '#44AF69', '#D4A017', '#9B5DE5', '#E0529C', '#1FA7C9', '#8D6E63', '#6C7A89', '#C0392B'];
+const PV = { dirty: true, lib: null, persons: [], miss: 0, names: new Map(), snips: new Map(),
+  manual: [],          // 手动框出来的名字
+  parent: new Map(),   // 合并：key → 并到哪个 key
+  hidden: new Set(),   // 从名单里删掉的（自动找到的）名字
+  order: null,
+  back: [], fwd: [],   // 名单自己的撤销 / 重做
+  missIdx: 0 };
+function nameSnap() {
+  return { manual: PV.manual.slice(), parent: [...PV.parent], hidden: [...PV.hidden], order: PV.order ? PV.order.slice() : null,
+    names: [...PV.names].map(([k, c]) => [k, { ...c }]) };
+}
+function nameRestore(s) {
+  PV.manual = s.manual.slice(); PV.parent = new Map(s.parent); PV.hidden = new Set(s.hidden);
+  PV.order = s.order ? s.order.slice() : null; PV.names = new Map(s.names.map(([k, c]) => [k, { ...c }]));
+  privDirty(); openNames(); renderAll();
+}
+function nameUndoPush() { PV.back.push(nameSnap()); if (PV.back.length > 60) PV.back.shift(); PV.fwd = []; syncNameHist(); }
+function nameUndo() { if (!PV.back.length) return; PV.fwd.push(nameSnap()); nameRestore(PV.back.pop()); syncNameHist(); }
+function nameRedo() { if (!PV.fwd.length) return; PV.back.push(nameSnap()); nameRestore(PV.fwd.pop()); syncNameHist(); }
+function syncNameHist() { el.nameUndo.disabled = !PV.back.length; el.nameRedo.disabled = !PV.fwd.length; }
+// 清空截图后名单从头来：代称、颜色、手动加的、合并、删除、顺序都清掉
+function privReset() {
+  Object.assign(PV, { manual: [], parent: new Map(), hidden: new Set(), order: null, names: new Map(), back: [], fwd: [], persons: [], all: null, missIdx: 0 });
+  PV.snips.clear(); privDirty();
+}
+const rootKey = k => { let r = k, n = 0; while (PV.parent.has(r) && n++ < 50) r = PV.parent.get(r); return r; };
+function cfgOf(key) {
+  const r = rootKey(key);
+  let cfg = PV.names.get(r);
+  if (!cfg) {
+    // 代称和颜色从还没用过的里挑第一个（清空、删除之后不会接着往后排）
+    const live = new Set((PV.persons || []).map(t => rootKey(t.key)));
+    const usedA = new Set(), usedC = new Set();
+    PV.names.forEach((c, k) => { if (live.has(k)) { usedA.add(c.alias); usedC.add(c.color); } });
+    let i = 0, alias;
+    do { alias = `玩家 ${String.fromCharCode(65 + (i % 26))}${i >= 26 ? Math.floor(i / 26) : ''}`; i++; } while (usedA.has(alias));
+    const color = PV_COLORS.find(c => !usedC.has(c)) || PV_COLORS[usedC.size % PV_COLORS.length];
+    cfg = { alias, color, on: true };
+    PV.names.set(r, cfg);
+  }
+  return cfg;
+}
+
+// 名字的样子：取第一次出现的位置，按原图颜色裁出来当预览
+function personKey(t) { const s = t.sample; return `${s.e.src.id}:${s.e.m.y}:${s.x0}`; }
+function privRun() {
+  if (!PV.dirty) return;
+  PV.dirty = false;
+  const pal = C.channels.map(c => ({ id: c.id, color: c.color }));
+  const lib = { persons: [], servers: [] };
+  const all = [];
+  for (const s of S.lists.chat.sources) {
+    const seg = C.segs.get(s.id);
+    if (!seg) continue;
+    const es = Chat.privScan(s.px, seg, pal, JOB_COLORS);
+    es.forEach(e => { e.src = s; e.m.priv = e; });
+    all.push({ es, R: seg.region, gh: seg.geo.gh });
+  }
+  all.forEach(a => Chat.privMatch(a.es, lib, a.R));
+  // 手动加的名字也进名单，然后在整条消息里找所有名字（句中、续行、跨行）
+  PV.manual.forEach(t => { t.n = 0; });
+  const persons = lib.persons.concat(PV.manual);
+  persons.forEach(t => { if (!t.key) t.key = t.mkey || personKey(t); });
+  const live = persons.filter(t => { if (!t.key) t.key = t.mkey || personKey(t); return !PV.hidden.has(t.key); });
+  all.forEach(a => Chat.privFindAll(a.es, live, a.R, a.gh));
+  // 删掉的名字：主位置也不再遮
+  all.forEach(a => a.es.forEach(e => { e.hits = (e.hits || []).filter(h => !PV.hidden.has(h.person.key)); }));
+  persons.forEach(t => {
+    if (!t.preview && t.sample && t.sample.e) { const e = t.sample.e; t.preview = previewOf(e.src, t.sample.x0, e.band.y, t.sample.x1 - t.sample.x0 + 1, e.band.h); }
+  });
+  PV.persons = persons.filter(t => (t.n > 0 || t.mkey) && !PV.hidden.has(t.key));
+  PV.all = all;
+}
+function privMissList() {
+  privRun();
+  const out = [];
+  (PV.all || []).forEach(x => x.es.forEach(e => { if (e.expect && !(e.hits && e.hits.length) && keptMsg(e)) out.push(e); }));
+  return out;
+}
+function privMiss() { return privMissList().length; }
+function keptMsg(e) {
+  const seg = C.segs.get(e.src.id);
+  const i = seg ? seg.lines.indexOf(e.m) : -1;
+  return i >= 0 && msgState(e.src, e.m, i).keep;
+}
+function previewOf(src, x, y, w, h) {
+  const cv = document.createElement('canvas');
+  cv.width = w; cv.height = h;
+  cv.getContext('2d').drawImage(src.img, x, y, w, h, 0, 0, w, h);
+  return cv.toDataURL('image/png');
+}
+function privDirty() { PV.dirty = true; }
+
+// 一条消息要遮的矩形（原图坐标）
+function privRects(u) {
+  const o = S.opts.chat;
+  if (S.mode !== 'chat' || u.kind !== 'msg' || !(o.privId || o.privTime)) return [];
+  privRun();
+  const e = u.m.priv;
+  if (!e) return [];
+  const out = [];
+  if (o.privTime && e.ts) out.push({ x: e.ts.x, y: e.band.y, w: e.ts.w, h: e.band.h, kind: 'time' });
+  if (o.privId) (e.hits || []).forEach(h => {
+    const cfg = cfgOf(h.person.key);
+    if (!cfg.on) return;
+    const sl = e.slots[h.slot];
+    out.push({ x: h.x0 - 1, y: sl.y, w: h.x1 - h.x0 + 3, h: sl.h, kind: 'id', cfg, label: h.alias !== false });
+  });
+  return out.filter(r => r.y + r.h > u.y && r.y < u.y + u.h);
+}
+
+// 导出时画上去
+function drawPriv(ctx, u, dx, dy, dw, dh) {
+  const rs = privRects(u);
+  if (!rs.length) return;
+  const kx = dw / u.w, ky = dh / u.h, style = S.opts.chat.privStyle;
+  for (const r of rs) {
+    const X = dx + (r.x - u.x) * kx, Y = dy + (r.y - u.y) * ky, W = r.w * kx, H = r.h * ky;
+    if (style === 'block' && r.kind === 'id') {
+      ctx.fillStyle = r.cfg.color;
+      roundRect(ctx, X, Y, W, H, Math.min(4, H * 0.2));
+      ctx.fill();
+      ctx.fillStyle = inkOn(r.cfg.color);
+      ctx.font = `600 ${Math.round(H * 0.62)}px ${getComputedStyle(document.body).fontFamily}`;
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      ctx.save();
+      ctx.beginPath(); ctx.rect(X, Y, W, H); ctx.clip();
+      if (r.label) ctx.fillText(r.cfg.alias, X + W / 2, Y + H / 2 + 1);
+      ctx.restore();
+    } else if (style === 'block') {
+      ctx.fillStyle = '#5E6B65';
+      roundRect(ctx, X, Y, W, H, Math.min(4, H * 0.2));
+      ctx.fill();
+    } else {
+      const t = document.createElement('canvas');
+      t.width = Math.max(1, Math.ceil(r.w / 6)); t.height = Math.max(1, Math.ceil(r.h / 6));
+      const tc = t.getContext('2d');
+      tc.imageSmoothingQuality = 'high';
+      tc.drawImage(u.src.img, r.x, r.y, r.w, r.h, 0, 0, t.width, t.height);
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(t, 0, 0, t.width, t.height, X, Y, W, H);
+      ctx.imageSmoothingEnabled = true;
+    }
+  }
+}
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+function inkOn(hex) { const [r, g, b] = Chat.hex2rgb(hex); return (r * 299 + g * 587 + b * 114) / 1000 > 150 ? '#1B2420' : '#FFFFFF'; }
+
+// 长图视图里的预览：和导出一样的效果
+function privHTML(u, kx, ky) {
+  const rs = privRects(u);
+  if (!rs.length) return '';
+  const style = S.opts.chat.privStyle;
+  return rs.map(r => {
+    const pos = `left:${(r.x - u.x) * kx}px;top:${(r.y - u.y) * ky}px;width:${r.w * kx}px;height:${r.h * ky}px`;
+    if (style === 'block') {
+      const c = r.kind === 'id' ? r.cfg.color : '#5E6B65';
+      return `<div class="pv-blk" style="${pos};background:${c};color:${inkOn(c)};font-size:${Math.max(9, r.h * ky * 0.62)}px">${r.kind === 'id' && r.label ? esc(r.cfg.alias) : ''}</div>`;
+    }
+    const key = `${u.src.id}:${r.x},${r.y},${r.w},${r.h}`;
+    let url = PV.snips.get(key);
+    if (!url) {
+      const t = document.createElement('canvas');
+      t.width = Math.max(1, Math.ceil(r.w / 6)); t.height = Math.max(1, Math.ceil(r.h / 6));
+      t.getContext('2d').drawImage(u.src.img, r.x, r.y, r.w, r.h, 0, 0, t.width, t.height);
+      url = t.toDataURL('image/png');
+      if (PV.snips.size > 800) PV.snips.clear();
+      PV.snips.set(key, url);
+    }
+    return `<div class="pv-mz" style="${pos};background-image:url(${url})"></div>`;
+  }).join('');
+}
+
+/* ---------- 设置区与名单窗口 ---------- */
+function syncPriv() {
+  const o = S.opts.chat;
+  el.privId.checked = !!o.privId;
+  el.privTime.checked = !!o.privTime;
+  el.privMore.hidden = !(o.privId || o.privTime);
+  el.btnNames.hidden = !o.privId;
+  if (o.privId) { privRun(); el.btnNames.textContent = `名单（${PV.persons.length} 人）`; }
+}
+el.privId.addEventListener('change', () => { S.opts.chat.privId = el.privId.checked; syncPriv(); renderAll(); });
+el.privTime.addEventListener('change', () => { S.opts.chat.privTime = el.privTime.checked; syncPriv(); renderAll(); });
+el.btnNames.addEventListener('click', openNames);
+function openNames() {
+  privRun();
+  const block = S.opts.chat.privStyle === 'block';
+  el.nameNote.textContent = (block ? '每个人一种颜色和代称。' : '现在是马赛克样式，代称和颜色在「色块 + 代称」样式和图片转文本里使用。')
+    + '按住左边的把手拖动可以调整顺序；拖到另一个人的名字截图上可以合并。框错了的名字点右边重新框选或删除。';
+  // 合并过的几行显示成一行；顺序：拖过的按拖的来，其余按出现次数
+  const groups = new Map();
+  PV.persons.forEach(t => { const r = rootKey(t.key); if (!groups.has(r)) groups.set(r, []); groups.get(r).push(t); });
+  const rows = [...groups.entries()].map(([r, ts]) => ({ r, ts, n: ts.reduce((a, t) => a + t.n, 0) }));
+  const ord = PV.order || [];
+  rows.sort((a, b) => {
+    const ia = ord.indexOf(a.r), ib = ord.indexOf(b.r);
+    if (ia >= 0 && ib >= 0) return ia - ib;
+    if (ia >= 0 || ib >= 0) return ia >= 0 ? -1 : 1;
+    return b.n - a.n;
+  });
+  el.nameList.innerHTML = (rows.length ? rows.map(({ r, ts, n }) => {
+    const cfg = cfgOf(r);
+    return `<li class="nm${cfg.on ? '' : ' off'}" data-root="${esc(r)}">
+      <span class="nm-grip" title="拖动排序或合并" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="nm-img" title="拖到另一个名字上可以合并">${ts.slice(0, 3).map(t => `<img src="${t.preview}" alt="名字截图" draggable="false">`).join('')}${ts.length > 1 ? `<button type="button" class="nm-split" data-split="${esc(r)}">已合并 ${ts.length} 个，拆开</button>` : ''}</span>
+      <span class="nm-n">${n} 次</span>
+      <input class="nm-alias" value="${esc(cfg.alias)}" data-nk="${esc(r)}" data-f="alias" aria-label="代称">
+      <label class="nm-sw" style="background:${cfg.color}" title="改颜色"><input type="color" value="${cfg.color.toLowerCase()}" data-nk="${esc(r)}" data-f="color" aria-label="颜色"></label>
+      <label class="tg"><input type="checkbox" data-nk="${esc(r)}" data-f="on" ${cfg.on ? 'checked' : ''} aria-label="遮这个人"><i></i></label>
+      <span class="nm-act">${ts.length === 1 && ts[0].mkey ? `<button type="button" class="nm-ic" data-reframe="${esc(ts[0].mkey)}" title="重新框选" aria-label="重新框选">${ICON_REFRAME}</button>` : ''}<button type="button" class="nm-ic nm-del" data-del="${esc(r)}" title="从名单里删掉" aria-label="从名单里删掉">${ICON_DEL}</button></span>
+    </li>`;
+  }).join('') : '<li class="nm-empty">没有找到名字。</li>')
+    + '<li class="nm-add"><button type="button" id="nameAdd"><i>＋</i>从图上框一个名字</button></li>';
+  syncNameHist();
+  if (!el.nameDlg.open) el.nameDlg.showModal();
+}
+const ICON_DEL = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.5h5.8l.6-8.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICON_REFRAME = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5v10.5h10.5M1.5 4H12v10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+el.nameList.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.id === 'nameAdd') { el.nameDlg.close(); startNamePick(); return; }
+  if (b.dataset.split) { nameUndoPush(); const r = b.dataset.split; [...PV.parent.keys()].forEach(k => { if (rootKey(k) === r) PV.parent.delete(k); }); openNames(); return; }
+  if (b.dataset.reframe) { el.nameDlg.close(); startNamePick(b.dataset.reframe); return; }
+  if (b.dataset.del) {
+    nameUndoPush();
+    const r = b.dataset.del;
+    // 这一行（含合并进来的）全部删掉：手动加的直接移除，自动找到的记为已删除
+    PV.persons.filter(t => rootKey(t.key) === r).forEach(t => {
+      if (t.mkey) PV.manual = PV.manual.filter(m => m !== t); else PV.hidden.add(t.key);
+    });
+    privDirty(); openNames(); renderAll();
+    toast('已从名单删掉，可以撤销');
+  }
+});
+el.nameUndo.addEventListener('click', nameUndo);
+el.nameRedo.addEventListener('click', nameRedo);
+el.nameReset.addEventListener('click', () => {
+  nameUndoPush();
+  PV.manual = []; PV.parent = new Map(); PV.hidden = new Set(); PV.order = null; PV.names = new Map();
+  privDirty(); openNames(); renderAll();
+  toast('已恢复成自动扫描的结果，可以撤销');
+});
+el.nameDlg.addEventListener('keydown', e => {
+  if (!(e.metaKey || e.ctrlKey) || (e.key !== 'z' && e.key !== 'Z' && e.key !== 'y')) return;
+  if (e.target.closest('input') && e.target.type === 'text') return;   // 输入框里的撤销交给浏览器
+  e.preventDefault();
+  if (e.key === 'y' || e.shiftKey) nameRedo(); else nameUndo();
+});
+
+/* 名单拖动：用指针自己做，不用浏览器的拖放
+   拖到两行之间 → 排序（其他行让出一个空位）；拖到另一个人的名字截图上 → 合并（只剩名字截图，目标周围出现框） */
+const ND = { row: null, ghost: null, start: null, on: false, mode: null, target: null, index: -1, dy: 0 };
+el.nameList.addEventListener('pointerdown', e => {
+  const h = e.target.closest('.nm-grip, .nm-img');
+  if (!h || e.button !== 0 || e.target.closest('button, input')) return;
+  const li = h.closest('li.nm');
+  e.preventDefault();
+  h.setPointerCapture(e.pointerId);
+  const r = li.getBoundingClientRect();
+  Object.assign(ND, { row: li, start: { x: e.clientX, y: e.clientY }, on: false, mode: null, target: null, index: -1, dy: e.clientY - r.top, cap: h });
+});
+el.nameList.addEventListener('pointermove', e => {
+  if (!ND.row) return;
+  if (!ND.on) {
+    if (Math.hypot(e.clientX - ND.start.x, e.clientY - ND.start.y) < 4) return;
+    ND.on = true;
+    const r = ND.row.getBoundingClientRect();
+    ND.ghost = ND.row.cloneNode(true);
+    ND.ghost.classList.add('nm-ghost');
+    Object.assign(ND.ghost.style, { width: r.width + 'px', left: r.left + 'px', top: r.top + 'px' });
+    el.nameDlg.appendChild(ND.ghost);   // 对话框在顶层，影子要放进对话框里才看得见
+    ND.row.classList.add('nm-lifted');
+    // 位置在开始拖时量好：后面行会因为让位而移动，判断不能跟着它们跑
+    ND.rows = [...el.nameList.querySelectorAll('li.nm')].filter(li => li !== ND.row)
+      .map(li => ({ li, box: li.getBoundingClientRect(), img: li.querySelector('.nm-img').getBoundingClientRect() }));
+  }
+  ND.ghost.style.top = (e.clientY - ND.dy) + 'px';
+  const rows = ND.rows.map(r => r.li);
+  // 合并：指针在另一个人的名字截图上
+  const hit = ND.rows.find(r => { const b = r.img; return e.clientX >= b.left - 6 && e.clientX <= b.right + 6 && e.clientY >= b.top - 4 && e.clientY <= b.bottom + 4; });
+  const hitImg = hit ? hit.li : null;
+  rows.forEach(li => li.classList.remove('merge-to', 'gap-before', 'gap-after'));
+  if (hitImg) {
+    ND.mode = 'merge'; ND.target = hitImg;
+    hitImg.classList.add('merge-to');
+    ND.ghost.classList.add('merge');
+    return;
+  }
+  ND.ghost.classList.remove('merge');
+  ND.mode = 'order'; ND.target = null;
+  // 排序：插到哪两行之间
+  let idx = rows.length;
+  for (let i = 0; i < ND.rows.length; i++) { const b = ND.rows[i].box; if (e.clientY < b.top + b.height / 2) { idx = i; break; } }
+  ND.index = idx;
+  if (idx < rows.length) rows[idx].classList.add('gap-before'); else if (rows.length) rows[rows.length - 1].classList.add('gap-after');
+});
+function endNameDrag() {
+  if (!ND.row) return;
+  const row = ND.row, was = ND.on;
+  if (ND.ghost) ND.ghost.remove();
+  row.classList.remove('nm-lifted');
+  el.nameList.querySelectorAll('.merge-to, .gap-before, .gap-after').forEach(li => li.classList.remove('merge-to', 'gap-before', 'gap-after'));
+  const mode = ND.mode, target = ND.target, idx = ND.index;
+  Object.assign(ND, { row: null, ghost: null, on: false, mode: null, target: null });
+  if (!was) return;
+  const me = row.dataset.root;
+  if (mode === 'merge' && target) {
+    nameUndoPush();
+    PV.parent.set(me, target.dataset.root);
+    toast('已合并，共用同一个代称和颜色');
+  } else if (mode === 'order') {
+    nameUndoPush();
+    const keys = [...el.nameList.querySelectorAll('li.nm')].map(li => li.dataset.root).filter(k => k !== me);
+    keys.splice(Math.max(0, idx), 0, me);
+    PV.order = keys;
+  }
+  openNames();
+  if (S.view === 'long') renderStage();
+}
+el.nameList.addEventListener('pointerup', endNameDrag);
+// 代称、颜色、开关：直接改
+el.nameList.addEventListener('focusin', e => { if (e.target.dataset && e.target.dataset.f) PV.editSnap = nameSnap(); });
+el.nameList.addEventListener('input', e => {
+  const t = e.target, cfg = t.dataset.nk && PV.names.get(rootKey(t.dataset.nk));
+  if (!cfg) return;
+  if (PV.editSnap) { PV.back.push(PV.editSnap); PV.fwd = []; PV.editSnap = null; syncNameHist(); }
+  if (t.dataset.f === 'alias') cfg.alias = t.value.trim() || '玩家';
+  if (t.dataset.f === 'color') { cfg.color = t.value.toUpperCase(); t.parentElement.style.background = t.value; }
+  if (t.dataset.f === 'on') { cfg.on = t.checked; t.closest('li').classList.toggle('off', !t.checked); }
+  if (S.view === 'long') renderStage();
+});
+el.nameList.addEventListener('change', e => { if (e.target.dataset.f === 'on') { renderAll(); } });
+el.nameList.addEventListener('pointercancel', endNameDrag);
+
+// 从图上框一个名字
+function startNamePick(replaceKey) {
+  if (S.view === 'long') setView('shot');
+  PV.reframe = replaceKey || null;
+  chatTool('name');
+  if (replaceKey) {
+    const t = PV.manual.find(m => m.mkey === replaceKey);
+    if (t && t.src) { selectSource(t.src.id); el.modeText.textContent = '重新框选这个名字，框好后会替换掉原来那个'; }
+  }
+}
+function addManualName(src, r) {
+  const seg = C.segs.get(src.id);
+  const t = seg && Chat.privTemplateAt(src.px, seg, r);
+  if (!t || t.w < 8) { toast('这里没找到文字，框在某一行的名字上'); return; }
+  nameUndoPush();
+  t.preview = previewOf(src, t.x0, t.y, t.w, t.h);
+  t.src = src;
+  const old = PV.reframe && PV.manual.find(m => m.mkey === PV.reframe);
+  if (old) { t.mkey = old.mkey; PV.manual[PV.manual.indexOf(old)] = t; }      // 沿用原来的代称和颜色
+  else { t.mkey = 'man' + nid(); PV.manual.push(t); }
+  PV.reframe = null;
+  privDirty();
+  chatTool(null);
+  if (!S.opts.chat.privId) { S.opts.chat.privId = true; }
+  renderAll();
+  openNames();
+  toast('已加入名单，所有截图里同样的名字都会遮上');
+}
+
+// 「有 N 行没能自动打码」：点一下跳到下一行
+function gotoMiss() {
+  const list = privMissList();
+  if (!list.length) return;
+  const e = list[PV.missIdx++ % list.length];
+  if (S.view === 'long') setView('shot');
+  C.view = 'chat';
+  selectSource(e.src.id);
+  C.flashMsg = `${e.src.id}:${e.m.y}`;
+  chatRenderStage();
+  const b = el.overlay.querySelector('.msg.flash');
+  if (b) b.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  setTimeout(() => { C.flashMsg = null; const x = el.overlay.querySelector('.msg.flash'); if (x) x.classList.remove('flash'); }, 2400);
+}
+el.nameClose.addEventListener('click', () => el.nameDlg.close());
+el.nameDlg.addEventListener('close', () => renderAll());
+document.querySelectorAll('.seg[data-key="privStyle"]').forEach(sg => sg.addEventListener('click', () => setTimeout(() => { if (S.view === 'long') renderStage(); }, 0)));
 
 /* ---------- 引导与帮助 ---------- */
 const STEPS = [
