@@ -422,6 +422,64 @@ body[data-view="long"] .shot-only,body[data-view="shot"] .long-only{display:none
 .order-note{background:#F1F5F3;border-left:3px solid #B3C8BE;border-radius:0 var(--radius) var(--radius) 0}
 .on-tip{display:flex;gap:6px;align-items:flex-start;color:var(--muted)}
 .on-tip svg{width:13px;height:13px;flex:none;margin-top:2.5px;color:#7F9A8E}
+/* 复制聊天文字 */
+dialog.tx-dlg{width:min(860px,94vw);height:min(86dvh,900px);padding:0;border:0;border-radius:10px;overflow:hidden}
+dialog.tx-dlg[open]{display:flex;flex-direction:column}
+.tx-status{color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums}
+.tx-opt{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--ink);cursor:pointer}
+.tx-body{flex:1;overflow:auto;padding:18px 22px;font-size:14px;line-height:1.65;background:#fff;outline:none;word-break:break-all}
+.tx-body[contenteditable="true"]:focus{box-shadow:inset 0 0 0 2px #E3ECE7}
+.tx-body .tx-ts{margin-right:4px;font-variant-numeric:tabular-nums}
+.tx-body.no-ts .tx-ts{display:none}
+.tx-body .tx-img{margin:4px 0;color:#9AA7A1;font-style:italic}
+.tx-find{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--paper);flex-wrap:wrap}
+.tx-find .field-box{width:210px;background:#fff}
+.tx-find .field-box input{flex:1;min-width:0;border:0;background:transparent;font-size:13px;padding:0}
+.tx-find .field-box input:focus{outline:none}
+.tx-arrow{color:var(--muted)}
+.tx-hits{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tx-find .link:hover{color:var(--mat)}
+#txFindBtn[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tx-body::highlight(tx-hit),::highlight(tx-hit){background:var(--tape);color:var(--tape-ink)}
+.tx-body .tx-crop{padding-left:10px;border-left:3px solid #E3ECE7}
+/* 图片转文本：加载卡片 */
+.tx-tools{display:contents}
+.tx-tools[hidden]{display:none!important}
+.tx-load{flex:1;display:grid;place-items:center;padding:24px;background-color:var(--mat);background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:20px 20px}
+.tl-card{position:relative;width:min(440px,100%);background:#fff;border-radius:12px;padding:22px 24px 18px;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.tl-top{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+.tl-top h3{margin:0;font-size:15px}
+.tl-top p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.tl-spin{width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #E3ECE7;border-top-color:var(--mat);animation:tlspin .9s linear infinite}
+@keyframes tlspin{to{transform:rotate(360deg)}}
+.tl-steps{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:10px}
+.tl-steps li{display:flex;gap:10px;align-items:flex-start}
+.tl-steps li i{position:relative;width:18px;height:18px;flex:none;margin-top:1px;border-radius:50%;border:2px solid #D9E0DC;box-sizing:border-box}
+.tl-steps li[data-st="active"] i{border-color:var(--mat);border-top-color:transparent;animation:tlspin .9s linear infinite}
+.tl-steps li[data-st="done"] i{background:var(--mat);border-color:var(--mat)}
+.tl-steps li[data-st="done"] i::after{content:"";position:absolute;left:4.5px;top:1.5px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.tl-steps li div{display:flex;flex-direction:column}
+.tl-steps b{font-size:13.5px;font-weight:600}
+.tl-steps li[data-st="wait"] b{color:var(--muted);font-weight:500}
+.tl-steps span{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tl-bar{height:8px;border-radius:4px;background:#E3ECE7;overflow:hidden}
+.tl-bar div{height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--mat),#3F7A69);transition:width .3s ease}
+.tl-meta{display:flex;justify-content:space-between;margin-top:6px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tl-meta #tlPct{font-weight:700;color:var(--ink)}
+.tl-first{display:flex;gap:10px;margin-top:16px;padding:10px 12px;border-radius:8px;background:#FFF8DC;border:1px solid #F1DE9A}
+.tl-first svg{width:18px;height:18px;flex:none;color:#8A6D00;margin-top:1px}
+.tl-first p{margin:0;font-size:12.5px;line-height:1.55;color:#5C4A00}
+.tl-first b{display:block;color:var(--tape-ink)}
+.tl-foot{display:flex;justify-content:flex-end;margin-top:16px}
+.tl-confirm{position:absolute;inset:0;border-radius:12px;background:rgba(255,255,255,.94);display:grid;place-items:center;padding:18px}
+.tc-box{width:100%}
+.tc-box h4{margin:0 0 12px;font-size:15px}
+.tc-box ul{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:10px}
+.tc-box li{position:relative;padding:10px 12px 10px 36px;border-radius:8px;background:var(--paper);font-size:12.5px;line-height:1.5;color:#3B4843}
+.tc-box li::before{content:"";position:absolute;left:13px;top:13px;width:12px;height:12px;border-radius:50%;background:var(--mat)}
+.tc-box li b{display:block;color:var(--ink);font-size:13px}
+.tc-foot{display:flex;justify-content:flex-end;gap:8px}
+@media (prefers-reduced-motion:reduce){.tl-spin,.tl-steps li[data-st="active"] i{animation-duration:2.5s}.tl-bar div{transition:none}}
 
 /* 弹窗 */
 dialog::backdrop{background:rgba(14,28,24,.6)}
@@ -504,6 +562,7 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
       <span id="chatHint" class="sel-size chat-only shot-only"></span>
       <span id="longHint" class="sel-size long-only"></span>
       <span class="spacer"></span>
+      <button id="btnText" class="btn onmat long-only" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3.5h10M3 6.5h10M3 9.5h7M3 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>图片转文本</button>
       <button id="btnMosaic" class="btn onmat" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 2h4v4H2zM6 6h4v4H6zM10 2h4v4h-4zM2 10h4v4H2zM10 10h4v4h-4z" fill="currentColor" opacity=".85"/></svg>马赛克</button>
       <button id="btnWhole" class="btn onmat crop-only shot-only" type="button">整张加入</button>
       <button id="btnClearSel" class="btn onmat crop-only shot-only" type="button">取消选区</button>
@@ -660,6 +719,7 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
     <h2 id="pvTitle">长图预览</h2>
     <span id="pvInfo"></span>
     <span class="spacer"></span>
+    <button id="pvText" class="btn line" type="button">图片转文本</button>
     <button id="pvCopy" class="btn line" type="button">复制图片</button>
     <button id="pvDownload" class="btn" type="button">下载</button>
     <button id="pvClose" class="btn line" type="button">关闭</button>
@@ -676,6 +736,60 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
       <button class="btn danger" value="ok" id="cfOk"></button>
     </div>
   </form>
+</dialog>
+
+<dialog id="txDlg" class="tx-dlg" aria-labelledby="txTitle">
+  <div class="pv-head">
+    <h2 id="txTitle">图片转文本</h2>
+    <span id="txTools" class="tx-tools">
+    <span id="txStatus" class="tx-status"></span>
+    <span class="spacer"></span>
+    <button id="txFindBtn" class="btn line" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.2 10.2l3.3 3.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>查找替换</button>
+    <label class="tx-opt"><input id="txTs" type="checkbox" checked> 带时间</label>
+    <button id="txPlain" class="btn line" type="button">复制纯文本</button>
+    <button id="txCopy" class="btn" type="button">复制（带格式）</button>
+    <button id="txClose" class="btn line" type="button">关闭</button>
+    </span>
+  </div>
+  <div id="txFindBar" class="tx-find" hidden>
+    <label class="field-box"><span class="pre">查找</span><input id="txFind" type="text" autocomplete="off" placeholder="认错的字"></label>
+    <span class="tx-arrow" aria-hidden="true">→</span>
+    <label class="field-box"><span class="pre">替换为</span><input id="txRepl" type="text" autocomplete="off" placeholder="正确的字"></label>
+    <button id="txReplAll" class="btn" type="button" disabled>全部替换</button>
+    <span id="txHits" class="tx-hits"></span>
+    <button id="txUndoRepl" class="link" type="button" hidden>撤销替换</button>
+  </div>
+  <div id="txLoad" class="tx-load" hidden>
+    <div class="tl-card" role="status" aria-live="polite">
+      <div class="tl-top">
+        <span class="tl-spin" aria-hidden="true"></span>
+        <div><h3>正在把图片里的文字识别出来</h3><p id="tlSub"></p></div>
+      </div>
+      <ol class="tl-steps">
+        <li id="tlS1"><i aria-hidden="true"></i><div><b>准备识别模型</b><span id="tlS1t"></span></div></li>
+        <li id="tlS2"><i aria-hidden="true"></i><div><b>逐行识别文字</b><span id="tlS2t"></span></div></li>
+        <li id="tlS3"><i aria-hidden="true"></i><div><b>整理格式</b><span>名字加粗、按频道上色</span></div></li>
+      </ol>
+      <div id="tlBar" class="tl-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="tlFill"></div></div>
+      <div class="tl-meta"><span id="tlPct">0%</span><span id="tlEta"></span></div>
+      <div id="tlFirst" class="tl-first" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0l-3.5-3.5M10 12l3.5-3.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p><b>第一次使用会慢一些，这是正常的</b>要先下载文字识别模型。模型会保存在浏览器里，之后再用几乎马上就能开始。</p>
+      </div>
+      <div class="tl-foot"><button id="tlCancel" class="btn line" type="button">取消</button></div>
+      <div id="tlConfirm" class="tl-confirm" hidden>
+        <div class="tc-box" role="alertdialog" aria-labelledby="tcTitle">
+          <h4 id="tcTitle">确定要取消吗？</h4>
+          <ul>
+            <li><b>首次加载模型需要一些时间</b><span>现在看起来慢，是在下载模型，不是卡住了。</span></li>
+            <li><b>已经识别的内容会缓存</b><span>下次打开会从停下的地方接着识别，不用从头来。</span></li>
+          </ul>
+          <div class="tc-foot"><button id="tlStop" class="btn line" type="button">确定取消</button><button id="tlKeep" class="btn" type="button">继续识别</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="txBody" class="tx-body" spellcheck="false"></div>
 </dialog>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -1177,7 +1291,7 @@ const el = {};
  'outInfo','btnMake','preview','pvImg','pvInfo','pvCopy','pvDownload','pvClose','confirmDlg','cfTitle','cfMsg','cfOk',
  'guide','gDots','gStep','gClose','gTitle','gText','gPrev','gNext','help','helpBtn','helpPop','replayGuide','toast',
  'modeSeg','emptyTitle','emptySub','emptyChat','orderNote','viewSeg','chatHint','btnPick','btnDraw','modeTip','modeText','modeCancel',
- 'busy','sideChat','chList','chMoreList','chMoreSum','btnResetCh','btnMosaic','viewMode','longHint'
+ 'busy','sideChat','chList','chMoreList','chMoreSum','btnResetCh','btnMosaic','viewMode','longHint','pvText','btnText','txDlg','txStatus','txTs','txPlain','txCopy','txClose','txBody','txFindBtn','txFindBar','txFind','txRepl','txReplAll','txHits','txUndoRepl','txTitle','txTools','txLoad','tlSub','tlS1','tlS2','tlS3','tlS1t','tlS2t','tlBar','tlFill','tlPct','tlEta','tlFirst','tlCancel','tlConfirm','tlKeep','tlStop'
 ].forEach(id => { el[id] = document.getElementById(id); });
 
 const cur = () => S.sources.find(s => s.id === S.cur) || null;
@@ -1682,6 +1796,7 @@ function saveChannels() { storageSet(CH_KEY, JSON.stringify({ channels: C.channe
 const C = {
   geos: {},              // 尺寸 → {geo, manual}：手动框的，或者这个尺寸下最常见的位置
   srcGeo: new Map(),     // srcId → 这张图用的聊天框位置
+  segCache: new Map(),
   segs: new Map(),       // srcId → 识别结果
   dup: new Map(),        // srcId → 和上一张重复的条数
   gap: new Map(),        // srcId → 和上一张相隔的分钟数（超过 20 分钟才记）
@@ -1730,6 +1845,10 @@ async function chatAdd(list) {
     chatList().sources.push(src);
     if (!first) first = src;
     n++;
+    // 每张图分析完就让浏览器喘口气，避免弹「网页无响应」
+    chatAnalyze();
+    el.busy.textContent = `识别中 ${n} / ${files.length}`;
+    await new Promise(r => setTimeout(r, 0));
   }
   chatAnalyze();
   el.busy.hidden = true;
@@ -1751,6 +1870,7 @@ function consensus(dets) {
 function chatAnalyze() {
   const L = chatList();
   const pal = C.channels.map(c => ({ id: c.id, color: c.color }));
+  const palSig = pal.map(p => p.color).join(',');
   // 聊天窗口位置相同的截图共用一个聊天框（取中位数，去掉几个像素的误差），这样去重时宽度一致。
   // 同分辨率但窗口挪过、拉宽过的，各自成组
   const bySize = {};
@@ -1772,7 +1892,10 @@ function chatAnalyze() {
   for (const s of L.sources) {
     const g = geoOf(s);
     if (!g) continue;
-    const seg = Chat.segment(s.px, g, g.region, pal, JOB_COLORS);
+    // 分析结果按「截图 + 聊天框位置 + 频道色」缓存，只有新截图才真正去算，不会一次卡住很久
+    const ck = `${s.id}|${geoSig(g)}|${palSig}`;
+    let seg = C.segCache.get(ck);
+    if (!seg) { seg = Chat.segment(s.px, g, g.region, pal, JOB_COLORS); C.segCache.set(ck, seg); }
     if (!seg.lines.length) continue;
     const T = C.times.get(s.id);
     if (T && T.sig === geoSig(g) && T.byY) seg.lines.forEach(m => { const t = T.byY.get(m.y); m.time = t == null ? null : t; });
@@ -2557,6 +2680,7 @@ function tooBig(L) {
 }
 
 function updateOutInfo() {
+  syncTextBtns();
   const L = outUnits().length ? layout() : null;
   el.btnMake.disabled = !L;
   el.outInfo.classList.remove('err');
@@ -2944,6 +3068,599 @@ el.overlay.addEventListener('dragend', () => {
   if (c) keepPopOpen(c.after);
   renderAll();
 });
+
+/* ================= 复制聊天文字：PP-OCRv4 在浏览器里逐行识别 ================= */
+// 模型和运行库都从 jsdelivr 按需加载，第一次用到时才下载（约 11MB），之后浏览器会缓存
+const ORT_VER = '1.20.1';
+const ORT_BASE = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ORT_VER}/dist/`;
+const REC_BASE = 'https://cdn.jsdelivr.net/npm/@gutenye/ocr-models@1.4.2/assets/';
+// 国服服务器名：名字后面紧跟服务器名时，拆成「名字@服务器」
+const SERVERS = ['红玉海', '神意之地', '拉诺西亚', '幻影群岛', '萌芽池', '宇宙和音', '沃仙曦染', '晨曦王座',
+  '白银乡', '白金幻象', '神拳痕', '潮风亭', '旅人栈桥', '拂晓之间', '龙巢神殿', '梦羽宝境',
+  '紫水栈桥', '延夏', '静语庄园', '摩杜纳', '海猫茶屋', '柔风海湾', '琥珀原',
+  '水晶塔', '银泪湖', '太阳海岸', '伊修加德', '红茶川'];
+
+const TX = { ready: {}, keys: null, cache: new Map(), running: false, cancel: false };
+const MODEL = {
+  rec: { url: REC_BASE + 'ch_PP-OCRv4_rec_infer.onnx', size: 10822323 },
+  det: { url: REC_BASE + 'ch_PP-OCRv4_det_infer.onnx', size: 4745517 }
+};
+const OCR_DONE_KEY = 'cropStitch.ocrModelLoaded';
+
+/* 识别在后台线程里跑：主线程只管界面和进度，浏览器就不会弹「网页无响应」 */
+const WORKER_SRC = `
+let sess = {};
+self.onmessage = async e => {
+  const m = e.data;
+  try {
+    if (m.t === 'init') {
+      if (!self.ort) { importScripts(m.ortUrl); ort.env.wasm.wasmPaths = m.base; ort.env.wasm.numThreads = 1; }
+      sess[m.name] = await ort.InferenceSession.create(new Uint8Array(m.buf), { executionProviders: ['wasm'] });
+      postMessage({ id: m.id, ok: true });
+    } else if (m.t === 'run') {
+      const s = sess[m.name];
+      const out = await s.run({ [s.inputNames[0]]: new ort.Tensor('float32', m.data, m.dims) });
+      const o = out[s.outputNames[0]];
+      postMessage({ id: m.id, ok: true, data: o.data, dims: o.dims }, [o.data.buffer]);
+    }
+  } catch (err) { postMessage({ id: m.id, ok: false, err: String((err && err.message) || err) }); }
+};`;
+let ocrW = null, rpcN = 0;
+const rpcWait = new Map();
+function worker() {
+  if (ocrW) return ocrW;
+  ocrW = new Worker(URL.createObjectURL(new Blob([WORKER_SRC], { type: 'text/javascript' })));
+  ocrW.onmessage = e => { const p = rpcWait.get(e.data.id); if (!p) return; rpcWait.delete(e.data.id); e.data.ok ? p.res(e.data) : p.rej(new Error(e.data.err)); };
+  ocrW.onerror = e => { rpcWait.forEach(p => p.rej(new Error(e.message || 'worker'))); rpcWait.clear(); ocrW = null; };
+  return ocrW;
+}
+function rpc(msg, transfer) {
+  return new Promise((res, rej) => { const id = ++rpcN; rpcWait.set(id, { res, rej }); worker().postMessage({ ...msg, id }, transfer || []); });
+}
+async function runModel(name, data, dims) {
+  const r = await rpc({ t: 'run', name, data, dims }, [data.buffer]);
+  return { data: r.data, dims: r.dims };
+}
+
+// 下载模型时按字节报进度
+async function fetchBytes(url, size, onBytes) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('download ' + r.status);
+  const total = +r.headers.get('content-length') || size;
+  if (!r.body || !r.body.getReader) { const b = await r.arrayBuffer(); onBytes(b.byteLength, total); return b; }
+  const rd = r.body.getReader(), parts = [];
+  let got = 0;
+  for (;;) {
+    const { done, value } = await rd.read();
+    if (done) break;
+    parts.push(value); got += value.length; onBytes(got, total);
+    if (TX.cancel) { rd.cancel(); throw new CancelErr(); }
+  }
+  const buf = new Uint8Array(got);
+  let o = 0; for (const p of parts) { buf.set(p, o); o += p.length; }
+  return buf.buffer;
+}
+class CancelErr extends Error {}
+async function loadModel(name, onBytes) {
+  if (TX.ready[name]) return;
+  const m = MODEL[name];
+  const buf = await fetchBytes(m.url, m.size, onBytes);
+  if (!TX.keys && name === 'rec') {
+    const k = await fetch(REC_BASE + 'ppocr_keys_v1.txt').then(r => { if (!r.ok) throw new Error('keys'); return r.text(); });
+    TX.keys = ['', ...k.replace(/\r/g, '').split('\n').filter((c, i, a) => i < a.length - 1 || c), ' '];
+  }
+  await rpc({ t: 'init', name, buf, ortUrl: ORT_BASE + 'ort.wasm.min.js', base: ORT_BASE }, [buf]);
+  TX.ready[name] = true;
+}
+
+// 打过马赛克的地方，识别时也要是马赛克，不能把遮住的字认出来
+function ocrSource(src) {
+  const sig = JSON.stringify(src.mosaics || []);
+  if (src._ocr && src._ocr.sig === sig) return src._ocr;
+  const cv = document.createElement('canvas');
+  cv.width = src.w; cv.height = src.h;
+  const ctx = cv.getContext('2d', { willReadFrequently: true });
+  drawUnit(ctx, { src, x: 0, y: 0, w: src.w, h: src.h }, 0, 0, src.w, src.h);
+  const o = { sig, cv, px: ctx.getImageData(0, 0, src.w, src.h) };
+  Object.defineProperty(src, '_ocr', { value: o, writable: true, configurable: true, enumerable: false });
+  return o;
+}
+
+// 一行：按原分辨率裁出来；trim 时砍掉右边隔着大段空白的东西（快捷栏图标、数字），再缩放到 48px 高
+function lineTensor(o, x, y, w, h, trim) {
+  let cw = w;
+  if (trim) {
+    const { data: d, width: W } = o.px;
+    let end = 0, gap = 0;
+    for (let xx = 0; xx < w; xx++) {
+      let n = 0;
+      for (let yy = 0; yy < h && n < 2; yy++) {
+        const i = ((y + yy) * W + x + xx) * 4;
+        if (Math.max(d[i], d[i + 1], d[i + 2]) > 150) n++;
+      }
+      if (n >= 2) { end = xx; gap = 0; } else if (++gap >= 30 && end > 0) break;
+    }
+    cw = Math.min(w, end + 6);
+  }
+  if (cw < 8 || h < 6) return null;
+  const H = 48, Wd = Math.max(16, Math.min(3200, Math.round(cw * H / h)));
+  const cv = document.createElement('canvas');
+  cv.width = Wd; cv.height = H;
+  const ctx = cv.getContext('2d');
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(o.cv, x, y, cw, h, 0, 0, Wd, H);
+  const px = ctx.getImageData(0, 0, Wd, H).data;
+  const f = new Float32Array(3 * H * Wd), plane = H * Wd;
+  for (let i = 0; i < plane; i++) {
+    f[i] = px[i * 4] / 127.5 - 1;
+    f[plane + i] = px[i * 4 + 1] / 127.5 - 1;
+    f[2 * plane + i] = px[i * 4 + 2] / 127.5 - 1;
+  }
+  return { data: f, dims: [1, 3, H, Wd] };
+}
+
+async function recLine(o, x, y, w, h, trim) {
+  const t = lineTensor(o, x, y, w, h, trim);
+  if (!t) return '';
+  if (TX.cancel) throw new CancelErr();
+  const t0 = performance.now();
+  const r = await runModel('rec', t.data, t.dims);
+  PG.lineDone(t.dims[3], performance.now() - t0);
+  const [, T, K] = r.dims, v = r.data;
+  let s = '', prev = 0;
+  for (let i = 0; i < T; i++) {
+    let bi = 0, bv = -Infinity;
+    for (let k = 0; k < K; k++) { const q = v[i * K + k]; if (q > bv) { bv = q; bi = k; } }
+    if (bi !== prev && bi !== 0) s += TX.keys[bi] || '';
+    prev = bi;
+  }
+  return s;
+}
+
+const msgKey = u => `m:${u.src.id}:${u.m.y}:${u.seg.region.x},${u.seg.region.w}:${JSON.stringify(u.src.mosaics || [])}`;
+const cropKey = u => `c:${u.src.id}:${u.x},${u.y},${u.w},${u.h}:${JSON.stringify(u.src.mosaics || [])}`;
+async function recMessage(u) {
+  const g = u.seg.geo, R = u.seg.region, o = ocrSource(u.src);
+  const key = msgKey(u);
+  if (TX.cache.has(key)) return TX.cache.get(key);
+  let s = '';
+  for (let k = 0; k < u.m.slots.length; k++) {
+    const sl = u.m.slots[k];
+    const x0 = k === 0 && !u.m.orphan ? (g.tsEnd || R.x) : R.x;
+    const y0 = Math.max(0, sl.y + g.pad - 3);
+    s += await recLine(o, x0, y0, R.x + R.w - x0, Math.min(g.gh + 6, u.src.h - y0), true);
+  }
+  TX.cache.set(key, s);
+  return s;
+}
+
+/* ---------- 普通截图：先找文字行（PP-OCRv4 检测模型），再逐行识别 ---------- */
+
+// 在一块区域里找文字框。区域太高就切成几段分别找，缩放后宽不超过 1280
+async function detectBoxes(o, rx, ry, rw, rh) {
+  const k = Math.min(1, 1280 / rw);
+  const tileH = Math.round(960 / k), over = Math.round(64 / k);
+  const boxes = [];
+  for (let ty = 0; ty < rh; ty += tileH - over) {
+    const th = Math.min(tileH, rh - ty);
+    const W = Math.max(32, Math.ceil(rw * k / 32) * 32), H = Math.max(32, Math.ceil(th * k / 32) * 32);
+    const cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+    ctx.drawImage(o.cv, rx, ry + ty, rw, th, 0, 0, rw * k, th * k);
+    const px = ctx.getImageData(0, 0, W, H).data, plane = W * H;
+    const f = new Float32Array(3 * plane);
+    const mean = [0.485, 0.456, 0.406], std = [0.229, 0.224, 0.225];
+    for (let i = 0; i < plane; i++) {
+      const b = px[i * 4 + 2], g = px[i * 4 + 1], r = px[i * 4];
+      f[i] = (b / 255 - mean[0]) / std[0];
+      f[plane + i] = (g / 255 - mean[1]) / std[1];
+      f[2 * plane + i] = (r / 255 - mean[2]) / std[2];
+    }
+    if (TX.cancel) throw new CancelErr();
+    const t0 = performance.now();
+    const prob = (await runModel('det', f, [1, 3, H, W])).data;
+    PG.detDone(performance.now() - t0);
+    // 连通域 → 外接矩形 → 按 DB 的比例向外扩一圈
+    const seen = new Uint8Array(plane), q = new Int32Array(plane);
+    for (let i = 0; i < plane; i++) {
+      if (seen[i] || prob[i] < 0.3) continue;
+      let head = 0, tail = 0, x0 = W, y0 = H, x1 = 0, y1 = 0, sum = 0, n = 0;
+      q[tail++] = i; seen[i] = 1;
+      while (head < tail) {
+        const p = q[head++], x = p % W, y = (p - x) / W;
+        sum += prob[p]; n++;
+        if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+        const nb = [x > 0 ? p - 1 : -1, x < W - 1 ? p + 1 : -1, y > 0 ? p - W : -1, y < H - 1 ? p + W : -1];
+        for (const j of nb) if (j >= 0 && !seen[j] && prob[j] >= 0.3) { seen[j] = 1; q[tail++] = j; }
+      }
+      const bw = x1 - x0 + 1, bh = y1 - y0 + 1;
+      if (Math.min(bw, bh) < 3 || sum / n < 0.6) continue;
+      const dd = (bw * bh * 1.5) / (2 * (bw + bh));
+      const X0 = Math.max(0, (x0 - dd) / k), Y0 = Math.max(0, (y0 - dd) / k);
+      const X1 = Math.min(rw, (x1 + 1 + dd) / k), Y1 = Math.min(th, (y1 + 1 + dd) / k);
+      boxes.push({ x: rx + X0, y: ry + ty + Y0, w: X1 - X0, h: Y1 - Y0 });
+    }
+    if (ty + th >= rh) break;
+  }
+  // 切块重叠处会有重复的框：高度重叠的留一个
+  const keep = [];
+  boxes.sort((a, b) => b.w * b.h - a.w * a.h).forEach(b => {
+    const dup = keep.some(c => {
+      const ix = Math.max(0, Math.min(b.x + b.w, c.x + c.w) - Math.max(b.x, c.x));
+      const iy = Math.max(0, Math.min(b.y + b.h, c.y + c.h) - Math.max(b.y, c.y));
+      return ix * iy > 0.6 * Math.min(b.w * b.h, c.w * c.h);
+    });
+    if (!dup) keep.push(b);
+  });
+  return keep;
+}
+
+// 一段普通裁切：返回按阅读顺序排好的若干行文字
+async function recCrop(u) {
+  const o = ocrSource(u.src);
+  const key = cropKey(u);
+  if (TX.cache.has(key)) return TX.cache.get(key);
+  const boxes = await detectBoxes(o, u.x, u.y, u.w, u.h);
+  PG.cropBoxes(u, boxes);
+  const items = [];
+  for (const b of boxes) {
+    const x = Math.round(b.x), y = Math.round(b.y), w = Math.round(b.w), h = Math.round(b.h);
+    const t = (await recLine(o, x, y, w, h, false)).trim();
+    if (t) items.push({ t, x, y, w, h, cy: y + h / 2 });
+  }
+  // 行：中线接近的框归成一行，行内从左到右
+  items.sort((a, b) => a.cy - b.cy);
+  const rows = [];
+  for (const it of items) {
+    const r = rows[rows.length - 1];
+    if (r && Math.abs(it.cy - r.cy) < Math.min(it.h, r.h) * 0.5) { r.items.push(it); r.cy = (r.cy + it.cy) / 2; r.h = Math.max(r.h, it.h); }
+    else rows.push({ cy: it.cy, h: it.h, items: [it] });
+  }
+  const lines = rows.map(r => {
+    r.items.sort((a, b) => a.x - b.x);
+    let s = '';
+    r.items.forEach((it, i) => {
+      if (i) { const p = r.items[i - 1]; s += it.x - (p.x + p.w) > r.h * 0.8 ? '  ' : ''; }
+      s += it.t;
+    });
+    return cleanText(s);
+  }).filter(Boolean);
+  TX.cache.set(key, lines);
+  return lines;
+}
+
+/* ---------- 识别后的清理与拆分 ---------- */
+const HAN = '\\u3400-\\u9fff';
+const SV_RE = SERVERS.join('|');
+function cleanText(s) {
+  return s
+    .replace(new RegExp(`(?<=[${HAN}"“”：:（(）)])[D▶](?=[${HAN}])`, 'g'), '')       // 道具前的 ▶ 图标
+    .replace(new RegExp(`(?<=[${HAN}])\\s*[*＊✿]\\s*(?=[${HAN}])`, 'g'), '')        // 服务器图标
+    .replace(new RegExp(`(?<=[${HAN}])[?？:：@·•]+(?=(${SV_RE}))`, 'g'), '')          // 服务器图标被认成符号
+    .replace(/[.·•．]{2,}$/, '……')
+    .replace(/…+[·•.．]+/g, '……')
+    .replace(/[·•][·•.．…]*(?=[)）])/g, '')
+    .replace(/[\s·•．,，:：/／《》「」—_~\-]+$/, '')
+    .replace(/^（/, '(')
+    .trim();
+}
+function splitServer(name) {
+  name = name.replace(/^[^\u3400-\u9fffA-Za-z0-9]+/, '').replace(/[?？*＊@·•]+$/, '');
+  for (const sv of SERVERS) if (name.length > sv.length && name.endsWith(sv)) return `${name.slice(0, -sv.length)}@${sv}`;
+  return name;
+}
+// 按频道的固定格式拆出名字：小队「(①名字) 正文」、悄悄话「>>名字：正文」「名字 >> 正文」、说话等「名字：正文」
+function parseMsg(text, ch) {
+  let m;
+  if (ch === 'party' && (m = text.match(/^\(\s*([①-⑧1-8]?)[^\u3400-\u9fffA-Za-z0-9]{0,3}(.{1,24}?)[)）]\s*(.*)$/))) {
+    const num = m[1] ? ({ 1: '①', 2: '②', 3: '③', 4: '④', 5: '⑤', 6: '⑥', 7: '⑦', 8: '⑧' }[m[1]] || m[1]) : '';
+    return { pre: `(${num}`, name: splitServer(m[2]), post: ') ', body: m[3] };
+  }
+  if (ch === 'tell') {
+    if ((m = text.match(/^>>(.{1,24}?)[：:](.*)$/))) return { pre: '>> ', name: splitServer(m[1]), post: '：', body: m[2] };
+    if ((m = text.match(/^(.{1,24}?)\s*>>\s*(.*)$/))) return { pre: '', name: splitServer(m[1]), post: ' >> ', body: m[2] };
+  }
+  if (ch !== 'macro' && ch !== 'echo' && ch !== 'craft' && ch !== 'exp' && ch !== 'dice') {
+    const tag = (text.match(/^\[[^\]]{1,4}\]/) || [''])[0];
+    const rest = text.slice(tag.length);
+    if ((m = rest.match(/^([^：:\s]{1,24}?)[：:](.*)$/))) return { pre: tag, name: splitServer(m[1]), post: '：', body: m[2] };
+  }
+  return { pre: '', name: '', post: '', body: text };
+}
+
+// 浅色底上看得清的频道色：浅色压暗，近白近灰换成深灰
+function inkColor(hex) {
+  const [r, g, b] = Chat.hex2rgb(hex || '#9AA7A1').map(v => v / 255);
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, dl = mx - mn;
+  if (dl < 0.12) return mx > 0.9 ? '#2B2B2B' : '#6B6B6B';
+  const s = dl / (1 - Math.abs(2 * l - 1));
+  let h = mx === r ? ((g - b) / dl) % 6 : mx === g ? (b - r) / dl + 2 : (r - g) / dl + 4;
+  h = (h * 60 + 360) % 360;
+  return `hsl(${Math.round(h)} ${Math.round(Math.min(1, s) * 80)}% 34%)`;
+}
+
+/* ---------- 进度与预估时间：按工作量估算，边做边用实测速度修正 ---------- */
+const lineWork = w => 1 + w / 400;                 // 一行的工作量：固定开销 + 按缩放后的宽度
+const PG = {
+  reset(plan) {
+    Object.assign(this, plan, {
+      t0: performance.now(), dlGot: 0, workDone: 0, detLeft: plan.detTotal,
+      msPerWork: 45, msPerDet: 900, bytesPerMs: 2500, pct: 0, stage: 1, warm: false
+    });
+  },
+  bytes(got) { this.dlGot = got; const el = performance.now() - this.t0; if (el > 300 && got > 0) this.bytesPerMs = got / el; },
+  lineDone(w, ms) {
+    const wk = lineWork(w);
+    this.workDone += wk; this.linesDone = (this.linesDone || 0) + 1;
+    if (!this.warm) { this.warm = true; return; }            // 第一次调用包含预热，不算进速度
+    this.msPerWork = this.msPerWork * 0.85 + (ms / wk) * 0.15;
+  },
+  detDone(ms) { this.detLeft = Math.max(0, this.detLeft - 1); this.msPerDet = this.msPerDet * 0.5 + ms * 0.5; },
+  // 检测出实际行数后，用真实工作量替换估计值
+  cropBoxes(u, boxes) {
+    const est = this.cropEst.get(u.key) || 0;
+    const real = boxes.reduce((a, b) => a + lineWork(b.w * 48 / Math.max(6, b.h)), 0);
+    this.workTotal += real - est; this.linesTotal += boxes.length - (this.cropLinesEst.get(u.key) || 0);
+    this.cropEst.set(u.key, real); this.cropLinesEst.set(u.key, boxes.length);
+  },
+  remainingMs() {
+    const dl = Math.max(0, this.dlTotal - this.dlGot) / Math.max(200, this.bytesPerMs);
+    return dl + this.initLeft * 2200 + Math.max(0, this.workTotal - this.workDone) * this.msPerWork + this.detLeft * this.msPerDet;
+  }
+};
+function fmtEta(ms) {
+  const s = Math.ceil(ms / 1000);
+  if (s <= 3) return '马上就好';
+  if (s < 60) return `预计还需约 ${s} 秒`;
+  const m = Math.floor(s / 60), r = s % 60;
+  return `预计还需约 ${m} 分${r >= 10 ? ` ${Math.round(r / 10) * 10} 秒` : '钟'}`;
+}
+let pgTimer = 0;
+function paintProgress(final) {
+  const el0 = performance.now() - PG.t0, rem = PG.remainingMs();
+  let p = final ? 100 : Math.min(99, 100 * el0 / (el0 + rem));
+  p = Math.max(PG.pct, p); PG.pct = p;
+  el.tlFill.style.width = p.toFixed(1) + '%';
+  el.tlPct.textContent = Math.floor(p) + '%';
+  el.tlEta.textContent = final ? '完成' : el0 < 1200 && PG.stage === 1 && PG.dlTotal ? '正在估算时间…' : fmtEta(rem);
+  el.tlBar.setAttribute('aria-valuenow', String(Math.floor(p)));
+  const mb = b => (b / 1048576).toFixed(1);
+  if (PG.stage === 1) el.tlS1t.textContent = PG.dlTotal ? `下载中 ${mb(PG.dlGot)} / ${mb(PG.dlTotal)} MB，只需要这一次` : '模型已在浏览器里，直接开始';
+  if (PG.stage >= 2) el.tlS2t.textContent = `${Math.min(PG.linesDone || 0, PG.linesTotal)} / ${PG.linesTotal} 行`;
+}
+function setStage(n) {
+  PG.stage = n;
+  [el.tlS1, el.tlS2, el.tlS3].forEach((li, i) => li.dataset.st = i + 1 < n ? 'done' : i + 1 === n ? 'active' : 'wait');
+  if (n > 1) el.tlS1t.textContent = '已就绪';
+}
+
+/* ---------- 界面 ---------- */
+const txEsc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function txMode(loading) {
+  el.txLoad.hidden = !loading;
+  el.txBody.hidden = loading;
+  el.txTools.hidden = loading;
+  el.tlConfirm.hidden = true;
+}
+async function openTextCopy() {
+  const units = outUnits();
+  if (!units.length) { toast('还没有可以识别的内容'); return; }
+  if (TX.running && !TX.cancel) { if (!el.txDlg.open) el.txDlg.showModal(); return; }
+  if (TX.running) await TX.stopped;                       // 上一次取消还没完全停下，等它停好（进度已缓存）
+  if (el.preview.open) el.preview.close();
+  closeFind();
+  el.txBody.innerHTML = '';
+  el.txBody.contentEditable = 'false';
+  el.txTs.parentElement.hidden = !units.some(u => u.kind === 'msg');
+
+  // 先把要做的事数清楚：哪些已经识别过（缓存），剩多少行，要不要下载模型
+  const needDet = units.some(u => u.kind === 'crop' && !TX.cache.has(cropKey(u)));
+  const needRec = units.some(u => u.kind === 'msg' ? !TX.cache.has(msgKey(u)) : !TX.cache.has(cropKey(u)));
+  let workTotal = 0, linesTotal = 0, detTotal = 0;
+  const cropEst = new Map(), cropLinesEst = new Map();
+  for (const u of units) {
+    if (u.kind === 'msg') {
+      if (TX.cache.has(msgKey(u))) continue;
+      const g = u.seg.geo;
+      u.m.slots.forEach(() => { workTotal += lineWork(u.seg.region.w * 0.6 * 48 / (g.gh + 6)); linesTotal++; });
+    } else if (!TX.cache.has(cropKey(u))) {
+      const n = Math.max(1, Math.round(u.h / 30)), wk = n * lineWork(u.w * 0.6 * 48 / 24);
+      workTotal += wk; linesTotal += n; cropEst.set(u.key, wk); cropLinesEst.set(u.key, n);
+      const k = Math.min(1, 1280 / u.w); detTotal += Math.max(1, Math.ceil(u.h * k / 896));
+    }
+  }
+  const dlTotal = (needRec && !TX.ready.rec ? MODEL.rec.size : 0) + (needDet && !TX.ready.det ? MODEL.det.size : 0);
+  const initLeft = (needRec && !TX.ready.rec ? 1 : 0) + (needDet && !TX.ready.det ? 1 : 0);
+  PG.reset({ workTotal, linesTotal, detTotal, dlTotal, cropEst, cropLinesEst, initLeft, linesDone: 0 });
+  const first = dlTotal > 0 && !storageGet(OCR_DONE_KEY);
+  const nMsg = units.filter(u => u.kind === 'msg').length, nCrop = units.length - nMsg;
+  el.tlSub.textContent = [nMsg ? `${nMsg} 条聊天` : '', nCrop ? `${nCrop} 段图片` : ''].filter(Boolean).join('、');
+  el.tlFirst.hidden = !first;
+  el.tlS1t.textContent = dlTotal ? `约 ${Math.round(dlTotal / 1048576)} MB，只需要下载这一次` : '模型已在浏览器里，直接开始';
+  el.tlS2t.textContent = `0 / ${linesTotal} 行`;
+  setStage(1);
+  PG.pct = 0; el.tlFill.style.width = '0%'; el.tlPct.textContent = '0%'; el.tlEta.textContent = '正在估算时间…';
+  txMode(true);
+  el.txTitle.textContent = '图片转文本';
+  el.txDlg.showModal();
+  el.tlCancel.focus();
+  TX.running = true; TX.cancel = false;
+  let stopDone; TX.stopped = new Promise(r => { stopDone = r; });
+  clearInterval(pgTimer);
+  pgTimer = setInterval(() => paintProgress(false), 250);
+  try {
+    // 1. 模型：下载进度按字节
+    let base = 0;
+    const onBytes = got => PG.bytes(base + got);
+    if (needRec && !TX.ready.rec) { await loadModel('rec', onBytes); base += MODEL.rec.size; PG.initLeft--; }
+    if (needDet && !TX.ready.det) { await loadModel('det', onBytes); PG.initLeft--; }
+    PG.dlGot = PG.dlTotal;
+    if (dlTotal) storageSet(OCR_DONE_KEY, '1');
+    // 2. 逐行识别
+    setStage(2);
+    let html = '', nLine = 0;
+    for (const u of units) {
+      if (TX.cancel) throw new CancelErr();
+      if (u.kind === 'msg') {
+        const t = cleanText(await recMessage(u)), p = parseMsg(t, u.ch);
+        const col = inkColor((chById(u.ch) || {}).color);
+        const ts = u.m.time != null ? `<span class="tx-ts" style="color:#8A8A8A">[${hhmm(u.m.time)}]</span>` : '';
+        html += `<p style="margin:0 0 2px;color:${col}">${ts}${txEsc(p.pre)}${p.name ? `<b>${txEsc(p.name)}</b>` : ''}${txEsc(p.post)}${txEsc(p.body)}</p>`;
+      } else {
+        const lines = await recCrop(u);
+        html += `<div class="tx-crop" style="margin:8px 0">${lines.length ? lines.map(l => `<p style="margin:0 0 2px;color:#2B2B2B">${txEsc(l)}</p>`).join('') : '<p class="tx-img" style="margin:0;color:#9AA7A1">[图片，没有识别到文字]</p>'}</div>`;
+        nLine += lines.length;
+      }
+    }
+    // 3. 整理
+    setStage(3);
+    paintProgress(true);
+    el.txBody.innerHTML = html;
+    el.txBody.scrollTop = 0;
+    el.txBody.contentEditable = 'true';
+    const what = [nMsg ? `${nMsg} 条聊天` : '', nLine ? `${nLine} 行图片文字` : ''].filter(Boolean).join('，') || '没有识别到文字';
+    el.txStatus.textContent = `${what}。可能有错字，可以直接改或用「查找替换」。`;
+    syncTxTs();
+    await new Promise(r => setTimeout(r, 350));
+    txMode(false);
+  } catch (err) {
+    if (err instanceof CancelErr) { if (el.txDlg.open) el.txDlg.close(); }
+    else {
+      console.error(err);
+      el.tlEta.textContent = '';
+      el.tlSub.textContent = '识别模型没加载成功。请确认已联网，关掉窗口再试一次。';
+      el.tlCancel.textContent = '关闭';
+    }
+  } finally {
+    clearInterval(pgTimer);
+    TX.running = false; TX.cancel = false;
+    stopDone();
+  }
+}
+
+/* 取消：先确认一遍，把两件事讲清楚 */
+function askCancel() {
+  if (!TX.running) { el.txDlg.close(); return; }
+  el.tlConfirm.hidden = false;
+  el.tlKeep.focus();
+}
+el.tlCancel.addEventListener('click', () => { if (el.tlCancel.textContent === '关闭') { el.tlCancel.textContent = '取消'; el.txDlg.close(); } else askCancel(); });
+el.tlKeep.addEventListener('click', () => { el.tlConfirm.hidden = true; el.tlCancel.focus(); });
+el.tlStop.addEventListener('click', () => {
+  TX.cancel = true;
+  clearInterval(pgTimer);
+  el.txDlg.close();
+  toast('已取消。识别好的部分已经记下，下次接着来');
+});
+el.txDlg.addEventListener('cancel', e => { if (TX.running) { e.preventDefault(); askCancel(); } });
+
+/* ---------- 查找替换：只改文字，不动粗体和颜色 ---------- */
+let txBefore = null;
+function txTextNodes() {
+  const w = document.createTreeWalker(el.txBody, NodeFilter.SHOW_TEXT), out = [];
+  while (w.nextNode()) out.push(w.currentNode);
+  return out;
+}
+function txMatches(needle) {
+  const r = [];
+  if (!needle) return r;
+  for (const n of txTextNodes()) {
+    let i = n.data.indexOf(needle);
+    while (i >= 0) { r.push([n, i]); i = n.data.indexOf(needle, i + needle.length); }
+  }
+  return r;
+}
+function txHighlight() {
+  const m = txMatches(el.txFind.value);
+  el.txHits.textContent = el.txFind.value ? (m.length ? `找到 ${m.length} 处` : '没找到') : '';
+  el.txReplAll.disabled = !m.length;
+  if (window.CSS && CSS.highlights && window.Highlight) {
+    const ranges = m.map(([n, i]) => { const r = document.createRange(); r.setStart(n, i); r.setEnd(n, i + el.txFind.value.length); return r; });
+    CSS.highlights.set('tx-hit', new Highlight(...ranges));
+  }
+}
+function openFind() {
+  el.txFindBar.hidden = false;
+  el.txFindBtn.setAttribute('aria-pressed', 'true');
+  const sel = String(window.getSelection() || '').trim();
+  if (sel && sel.length < 40 && el.txBody.contains(window.getSelection().anchorNode)) el.txFind.value = sel;
+  el.txFind.focus(); el.txFind.select();
+  txHighlight();
+}
+function closeFind() {
+  el.txFindBar.hidden = true;
+  el.txFindBtn.setAttribute('aria-pressed', 'false');
+  el.txUndoRepl.hidden = true;
+  txBefore = null;
+  if (window.CSS && CSS.highlights) CSS.highlights.delete('tx-hit');
+}
+function replaceAll() {
+  const a = el.txFind.value, b = el.txRepl.value;
+  const m = txMatches(a);
+  if (!m.length) return;
+  txBefore = el.txBody.innerHTML;
+  const nodes = new Set(m.map(x => x[0]));
+  nodes.forEach(n => { n.data = n.data.split(a).join(b); });
+  el.txUndoRepl.hidden = false;
+  txHighlight();
+  toast(`已替换 ${m.length} 处`);
+}
+el.txFindBtn.addEventListener('click', () => { if (el.txFindBar.hidden) openFind(); else closeFind(); });
+el.txFind.addEventListener('input', txHighlight);
+el.txFind.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); el.txRepl.focus(); } if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeFind(); } });
+el.txRepl.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); replaceAll(); } if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeFind(); } });
+el.txReplAll.addEventListener('click', replaceAll);
+el.txUndoRepl.addEventListener('click', () => {
+  if (txBefore == null) return;
+  el.txBody.innerHTML = txBefore; txBefore = null;
+  el.txUndoRepl.hidden = true;
+  txHighlight();
+  toast('已撤销这次替换');
+});
+el.txBody.addEventListener('input', () => { if (!el.txFindBar.hidden) txHighlight(); });
+el.txDlg.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && (e.key === 'f' || e.key === 'h') && !el.txFindBtn.disabled) { e.preventDefault(); openFind(); }
+});
+el.txDlg.addEventListener('close', closeFind);
+
+function syncTxTs() { el.txBody.classList.toggle('no-ts', !el.txTs.checked); }
+function txClone() {
+  const c = el.txBody.cloneNode(true);
+  if (!el.txTs.checked) c.querySelectorAll('.tx-ts').forEach(n => n.remove());
+  return c;
+}
+async function txWrite(rich) {
+  const c = txClone();
+  const plain = [...c.querySelectorAll('p')].map(p => p.textContent).join('\n');
+  c.querySelectorAll('.tx-crop').forEach(d => { d.style.margin = '8px 0'; });
+  try {
+    if (rich && window.ClipboardItem) {
+      const html = `<div style="font-family:sans-serif;line-height:1.6">${c.innerHTML}</div>`;
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([plain], { type: 'text/plain' })
+      })]);
+    } else await navigator.clipboard.writeText(plain);
+    toast(rich ? '已复制，粘贴到文档里会保留粗体和颜色' : '已复制纯文本');
+  } catch (err) {
+    console.error(err);
+    toast('这个浏览器不让写剪贴板，可以在框里全选后手动复制');
+  }
+}
+el.txTs.addEventListener('change', syncTxTs);
+el.txCopy.addEventListener('click', () => txWrite(true));
+el.txPlain.addEventListener('click', () => txWrite(false));
+el.txClose.addEventListener('click', () => el.txDlg.close());
+el.pvText.addEventListener('click', openTextCopy);
+el.btnText.addEventListener('click', openTextCopy);
+// 识别过的结果会缓存；聊天框位置改了（手动框选）就作废
+function syncTextBtns() {
+  const has = outUnits().length > 0;
+  el.pvText.hidden = !has;
+  el.btnText.disabled = !has;
+}
 
 /* ---------- 引导与帮助 ---------- */
 const STEPS = [
