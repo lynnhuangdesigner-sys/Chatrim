@@ -601,6 +601,162 @@ dialog.nm-dlg[open]{display:flex;flex-direction:column}
 .nm-hist:disabled{opacity:.35;cursor:default}
 .nm-ghost .nm-act{display:none}
 dialog.nm-dlg{width:min(620px,94vw)}
+/* ===== 1.17 信息架构 ===== */
+.top{justify-content:flex-start}
+/* 左栏 */
+.add-btn{margin-left:auto;display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px;border-radius:7px;background:#E3ECE7;color:var(--mat);font-size:12.5px;font-weight:600;cursor:pointer}
+.add-btn svg{width:14px;height:14px}
+.add-btn:hover{background:#D3E2DA}
+.src-name{font-variant-numeric:tabular-nums}
+.src-foot{margin-top:auto;display:flex;align-items:center;gap:6px;padding:10px 10px 12px;border-top:1px solid var(--line)}
+.sort-wrap{position:relative;flex:1;min-width:0}
+.sort-btn{display:flex;align-items:center;gap:6px;width:100%;height:32px;padding:0 8px;border:1px solid var(--line);border-radius:7px;background:#fff;font-size:12.5px;color:var(--ink);cursor:pointer;white-space:nowrap}
+.sort-btn svg{width:14px;height:14px;flex:none;color:var(--mat)}
+.sort-btn .chev{margin-left:auto;color:var(--muted)}
+.sort-btn:hover{border-color:#B8C6BF}
+.sort-menu{position:absolute;left:0;bottom:calc(100% + 6px);z-index:10;width:250px;padding:6px;border-radius:9px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.2);border:1px solid var(--line)}
+.sort-menu [data-sort]{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;padding:7px 10px 7px 26px;border:0;border-radius:6px;background:none;text-align:left;cursor:pointer;position:relative}
+.sort-menu [data-sort]:hover{background:var(--paper)}
+.sort-menu [data-sort] b{font-size:13px}
+.sort-menu [data-sort] span{font-size:11.5px;color:var(--muted)}
+.sort-menu [aria-checked="true"]::before{content:"";position:absolute;left:10px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--mat)}
+.sort-tip{margin:6px 4px 2px;padding:7px 9px;border-radius:6px;background:#F1F5F3;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.clear-btn{display:inline-flex;align-items:center;gap:4px;height:32px;padding:0 8px;border:0;border-radius:7px;background:none;color:var(--muted);font-size:12.5px;cursor:pointer;white-space:nowrap}
+.clear-btn svg{width:14px;height:14px}
+.clear-btn:hover{background:#FBE9E7;color:var(--danger)}
+.order-note{margin:0 10px 10px}
+/* 中间 */
+.view-tabs{display:flex;gap:4px;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--line)}
+.view-tabs button{height:34px;padding:0 18px;border:0;border-radius:8px;background:transparent;color:var(--muted);font-size:13.5px;font-weight:600;cursor:pointer}
+.view-tabs button:hover{background:var(--paper);color:var(--ink)}
+.view-tabs button[aria-pressed="true"]{background:var(--mat);color:#fff}
+.toolbar #zoom,.toolbar #curName{display:none!important}
+.tb-btn{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 9px;border:0;border-radius:6px;background:transparent;color:var(--mat-text);font-size:12.5px;cursor:pointer}
+.tb-btn svg{width:15px;height:15px}
+.tb-btn:hover:not(:disabled){background:rgba(255,255,255,.1)}
+.tb-btn:disabled{opacity:.4;cursor:default}
+.tb-sep{width:1px;height:20px;background:rgba(255,255,255,.18);margin:0 4px}
+.zoom-step{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.22);border-radius:7px;overflow:hidden}
+.zoom-step button{height:28px;min-width:28px;border:0;background:transparent;color:var(--mat-text);font-size:15px;cursor:pointer}
+.zoom-step #zoomVal{min-width:86px;font-size:12.5px;font-variant-numeric:tabular-nums;border-left:1px solid rgba(255,255,255,.15);border-right:1px solid rgba(255,255,255,.15)}
+.zoom-step button:hover{background:rgba(255,255,255,.1)}
+.tool-rail{top:112px}
+/* 右栏 */
+.side{overflow:hidden}
+.side-title{flex:none;padding:14px 16px 8px}
+.side-title h2{margin:0;font-size:16px}
+.side-scroll{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column}
+.side-scroll .ch-sec{flex:none;border-bottom:0}
+.side-scroll .ch-sec .ch-scroll{max-height:42vh;overflow:auto}
+.side-scroll .ch-pick{position:static;box-shadow:none;border-top:0;padding:4px 12px 10px}
+.sec{flex:none;padding:12px 16px;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sec-head h3{margin:0;font-size:14px;font-weight:700}
+.sec-fold>summary{list-style:none;cursor:pointer;margin-bottom:0}
+.sec-fold>summary::-webkit-details-marker{display:none}
+.sec-fold>summary h3::after{content:"";display:inline-block;width:6px;height:6px;margin-left:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(-45deg);vertical-align:2px;transition:transform .15s}
+.sec-fold[open]>summary h3::after{transform:rotate(45deg)}
+.sec-fold[open]>summary{margin-bottom:10px}
+.sec .crop-list{max-height:none;overflow:visible;padding:0}
+.settings.lay{border-top:0;padding:0;background:none;margin:0;grid-template-columns:64px minmax(0,1fr)}
+.field-box.narrow{width:120px}
+.field-box.narrow input{flex:1;min-width:0;border:0;background:transparent;font-size:13px;padding:0 6px}
+.priv-more{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px 12px;align-items:center;margin-top:12px}
+.f-label{font-size:13px;color:var(--muted)}
+.names-link{grid-column:1 / -1;justify-self:end;display:inline-flex;align-items:center;gap:4px;border:0;background:none;color:var(--mat);font-size:12.5px;font-weight:600;cursor:pointer;padding:2px 0}
+.names-link svg{width:13px;height:13px}
+.names-link:hover{text-decoration:underline}
+.side-foot{flex:none;padding:12px 16px 14px;border-top:1px solid #B8C6BF;background:#EEF3F0;display:flex;flex-direction:column;gap:8px}
+.foot-row{display:flex;align-items:center;gap:12px}
+.foot-row .field-box{width:110px}
+#btnMake{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+#btnMake svg{width:16px;height:16px}
+.side .settings{margin-top:0}
+.app{grid-template-columns:244px minmax(0,1fr) 340px}
+.foot-row .seg button{padding:0 14px}
+/* ===== 1.18：去掉「聊天框/整张」、缩放居中、微动效 ===== */
+#viewSeg{display:none!important}
+.toolbar{position:relative}
+.zoom-step{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.toolbar .sel-size{max-width:calc(50% - 250px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sort-hint{margin:6px 4px 0;font-size:11.5px;color:var(--muted)}
+.sort-menu [data-sort] span{line-height:1.45}
+/* 隐私：不勾「隐藏角色名」时变灰，不收起 */
+.priv-more{transition:opacity .2s ease}
+.priv-more.off{opacity:.4}
+/* 通用：按钮的悬停和按下 */
+.btn,.tb-btn,.rail-btn,.view-tabs button,.seg button,.add-btn,.sort-btn,.clear-btn,.names-link,.zoom-step button,.ch-add,.nm-ic,.pill,.ins-chip,.lu-act button,.mode-seg button{transition:background-color .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .12s ease,opacity .18s ease}
+.btn:active:not(:disabled),.tb-btn:active:not(:disabled),.rail-btn:active,.view-tabs button:active,.seg button:active,.add-btn:active,.sort-btn:active,.zoom-step button:active,.ch-add:active:not(:disabled),.pill:active,.ins-chip:active{transform:scale(.97)}
+.zoom-step button:active{transform:none;background:rgba(255,255,255,.18)}
+/* 排序菜单：淡入、轻微上浮 */
+.sort-menu{opacity:0;transform:translateY(6px) scale(.98);transform-origin:bottom left;transition:opacity .16s ease,transform .16s ease}
+.sort-menu.show{opacity:1;transform:none}
+/* 折叠区：展开收起有高度过渡（支持的浏览器） */
+:root{interpolate-size:allow-keywords}
+.sec-fold::details-content,.ch-sec::details-content,.ch-more::details-content{height:0;overflow:clip;transition:height .24s ease,content-visibility .24s allow-discrete}
+.sec-fold[open]::details-content,.ch-sec[open]::details-content,.ch-more[open]::details-content{height:auto}
+/* 弹窗：淡入加轻微放大 */
+dialog[open]{animation:dlgIn .2s ease-out}
+dialog[open]::backdrop{animation:bdIn .2s ease-out}
+@keyframes dlgIn{from{opacity:0;transform:translateY(8px) scale(.985)}}
+@keyframes bdIn{from{opacity:0}}
+/* 浮出的提示、插入点胶囊、悬停按钮 */
+.mode-tip:not([hidden]),.box-ask:not([hidden]){animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translate(-50%,-6px)}}
+.ins:hover .pill,.ins.marked .pill{animation:pillIn .16s ease-out}
+@keyframes pillIn{from{opacity:0;transform:translate(-4px,-50%)}}
+.lu:hover .lu-act{animation:fadeIn .15s ease-out}
+.ins-pop{animation:fadeIn .15s ease-out}
+@keyframes fadeIn{from{opacity:0}}
+.msg{transition:background-color .18s ease,box-shadow .18s ease}
+#srcList li .src-btn,.crop{transition:background-color .18s ease,box-shadow .18s ease}
+.tg i,.tg i::after{transition-duration:.2s}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after,::details-content{animation:none!important;transition:none!important}
+}
+/* ===== 1.19：右栏下半部分常驻、更紧凑；背景色直接填色号 ===== */
+.side-title{padding:10px 16px 4px}
+.side-title h2{font-size:15px}
+.side-scroll{flex:1 1 auto;min-height:120px}
+.side-scroll .ch-sec .ch-scroll{max-height:none}
+.side-bottom{flex:none;border-top:1px solid #B8C6BF;background:#EEF3F0}
+.side-bottom .sec{padding:9px 16px 10px;border-top:1px solid #DCE5E0}
+.side-bottom .sec:first-child{border-top:0}
+.side-bottom .sec-head{margin-bottom:7px}
+.side-bottom .sec-head h3{font-size:13px}
+.side-foot{border-top:1px solid #DCE5E0;padding:9px 16px 12px;gap:6px;background:#EEF3F0}
+.settings.lay{row-gap:7px;column-gap:10px;grid-template-columns:56px minmax(0,1fr)}
+.side-bottom .s-label,.side-bottom .f-label{font-size:12.5px}
+.side-bottom .seg button,.side-foot .seg button{height:28px;font-size:12.5px}
+.side-bottom .field-box,.side-foot .field-box{height:28px}
+.s-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.s-pair .field-box input{flex:1;min-width:0;width:100%}
+.priv-row{gap:16px}
+.priv-more{grid-template-columns:56px minmax(0,1fr);margin-top:7px;gap:8px 10px}
+.names-link{grid-column:auto;justify-self:auto;font-size:12px}
+.names-link.off,.names-link:disabled{opacity:.4;cursor:default;text-decoration:none}
+.color-box{display:flex;align-items:center;gap:8px;padding:0 8px;width:150px}
+.sw-pick{position:relative;display:block;width:18px;height:18px;flex:none;cursor:pointer}
+.sw-pick .swatch{display:block;width:18px;height:18px;border-radius:4px;border:1px solid rgba(0,0,0,.2)}
+.sw-pick input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
+.hex-field{flex:1;min-width:0;border:0;background:transparent;font-size:13px;font-variant-numeric:tabular-nums;letter-spacing:.02em;text-transform:uppercase;padding:0}
+.hex-field:focus{outline:none}
+.color-box:focus-within{border-color:var(--ink)}
+#btnMake{height:40px}
+.foot-row{gap:10px}
+.sec-list{flex:1;border-top:0}
+.color-box .hex-field{position:static;opacity:1;inset:auto;width:auto;height:auto;pointer-events:auto;cursor:text}
+.side-scroll .ch-pick{position:sticky;bottom:0;z-index:1;background:var(--panel);padding:8px 12px 10px;border-top:1px solid var(--line)}
+/* 1.20：取色按钮属于「频道」，固定在这一段底部 */
+.side-scroll{overflow:hidden}
+#sideChat{position:relative;flex:none}
+#sideChat[open]{flex:1 1 auto;min-height:0}
+#sideChat>summary{height:42px;box-sizing:border-box}
+#sideChat::details-content{height:auto!important;overflow:visible!important;transition:none!important}
+#sideChat .ch-body{position:absolute;top:42px;left:0;right:0;bottom:0;display:flex;flex-direction:column}
+#sideChat .ch-body .ch-scroll{flex:1 1 auto;min-height:0;max-height:none;overflow:auto}
+#sideChat .ch-pick{position:static;flex:none;padding:8px 12px 10px;border-top:1px solid var(--line);background:var(--panel)}
+.sec-list{overflow:auto}
 
 /* 弹窗 */
 dialog::backdrop{background:rgba(14,28,24,.6)}
@@ -646,27 +802,45 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
     <button type="button" data-mode="crop" aria-pressed="true">普通裁切</button>
     <button type="button" data-mode="chat" aria-pressed="false">聊天记录</button>
   </div>
-  <div class="top-actions">
-    <label class="btn" for="fileInput">添加截图</label>
-    <input id="fileInput" type="file" accept="image/*" multiple hidden>
-  </div>
 </header>
 
 <main class="app">
   <aside class="sources" aria-label="截图列表">
     <div class="panel-head">
-      <h2>截图<span id="srcCount" class="count"></span></h2>
-      <button id="btnClearSrc" class="link" type="button">一键清除</button>
+      <h2>截图素材<span id="srcCount" class="count"></span></h2>
+      <label class="add-btn" for="fileInput"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>添加</label>
+      <input id="fileInput" type="file" accept="image/*" multiple hidden>
     </div>
     <ul id="srcList"></ul>
     <p id="orderNote" class="order-note" hidden></p>
+    <div class="src-foot">
+      <div class="sort-wrap chat-only">
+        <button id="btnSort" class="sort-btn" type="button" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.3 3.4 3.4 1.3-3.4 1.3L8 10.9 6.7 7.5 3.3 6.2l3.4-1.3zM12.5 10l.6 1.5 1.5.6-1.5.6-.6 1.5-.6-1.5-1.5-.6 1.5-.6z" fill="currentColor"/></svg><span id="sortLabel">智能时间顺序</span><svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 6.5L8 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div id="sortMenu" class="sort-menu" hidden role="menu">
+          <button type="button" role="menuitemradio" data-sort="time"><b>智能时间顺序</b><span>按截图里的时间戳自动排好。需在游戏聊天设置里开启「显示消息时间」</span></button>
+          <button type="button" role="menuitemradio" data-sort="import"><b>按导入顺序</b><span>按你选中、拖进来的先后排</span></button>
+          <button type="button" role="menuitemradio" data-sort="name"><b>按文件名顺序</b><span>文件名里的数字按大小排，适合按截图编号整理</span></button>
+          <p class="sort-hint">任何时候都可以直接在列表里拖动截图调整先后。</p>
+          <p class="sort-tip">上传图片后将自动按时间排序。若识别有误，请点击右上角「裁切聊天区域」，框选完整时间戳，以优化结果。</p>
+        </div>
+      </div>
+      <button id="btnClearSrc" class="clear-btn" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.5h5.8l.6-8.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>清空截图</button>
+    </div>
   </aside>
 
   <section class="work" aria-label="裁切区">
+    <div id="viewMode" class="view-tabs" role="tablist" aria-label="视图">
+      <button type="button" role="tab" data-vm="shot" aria-pressed="true">编辑截图</button>
+      <button type="button" role="tab" data-vm="long" aria-pressed="false">预览长图</button>
+    </div>
     <div class="toolbar">
-      <span id="viewMode" class="view-seg" role="group" aria-label="视图">
-        <button type="button" data-vm="shot" aria-pressed="true">截图</button>
-        <button type="button" data-vm="long" aria-pressed="false">长图</button>
+      <button id="btnUndo" class="tb-btn" type="button" title="撤销（Ctrl+Z）"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5L2.5 6.5l3 3M2.5 6.5H10a3.5 3.5 0 010 7H7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>撤销</button>
+      <button id="btnRedo" class="tb-btn" type="button" title="重做（Ctrl+Shift+Z）"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 3.5l3 3-3 3M13.5 6.5H6a3.5 3.5 0 000 7h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>重做</button>
+      <span class="tb-sep" aria-hidden="true"></span>
+      <span class="zoom-step" role="group" aria-label="缩放">
+        <button id="zoomOut" type="button" aria-label="缩小">−</button>
+        <button id="zoomVal" type="button" title="点一下适应宽度">适应</button>
+        <button id="zoomIn" type="button" aria-label="放大">+</button>
       </span>
       <span id="curName" class="cur-name"></span>
       <select id="zoom" aria-label="缩放">
@@ -687,14 +861,14 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
       <button id="btnWhole" class="btn onmat crop-only shot-only" type="button">整张加入</button>
       <button id="btnClearSel" class="btn onmat crop-only shot-only" type="button">取消选区</button>
       <button id="btnAdd" class="btn tape crop-only shot-only" type="button">加入裁切 <kbd>Enter</kbd></button>
-      <button id="btnDraw" class="btn onmat chat-only shot-only" type="button" aria-pressed="false" title="自动识别不准时，手动框出聊天范围"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5v10.5h10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.5 4H12v10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>裁切聊天框</button>
+      <button id="btnDraw" class="btn onmat chat-only shot-only" type="button" aria-pressed="false" title="自动识别不准时，手动框出聊天范围"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5v10.5h10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.5 4H12v10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>裁切聊天区域</button>
 
     </div>
     <div id="stage" class="stage">
       <label id="empty" class="empty" for="fileInput">
         <strong id="emptyTitle">把截图拖到这里</strong>
         <span id="emptySub">也可以按 <kbd class="mod">Ctrl</kbd> + <kbd>V</kbd> 粘贴，或点这里选择文件</span>
-        <span id="emptyChat" hidden>一次拖进好几张也行，会按时间戳自动排好顺序。聊天窗口需要打开时间戳。<br>也可以按 <kbd class="mod">Ctrl</kbd> + <kbd>V</kbd> 粘贴，或点这里选择文件</span>
+        <span id="emptyChat" hidden>一次拖进好几张也行，会按时间戳自动排好顺序。<br>也可以按 <kbd class="mod">Ctrl</kbd> + <kbd>V</kbd> 粘贴，或点这里选择文件</span>
       </label>
       <div id="wrap" class="wrap" hidden>
         <img id="srcImg" alt="" draggable="false">
@@ -767,9 +941,12 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
     </div>
   </section>
 
-  <aside class="side" aria-label="频道、拼接顺序与拼接设置">
+  <aside class="side" aria-label="长图设置">
+    <div class="side-title"><h2>长图设置</h2></div>
+    <div class="side-scroll">
     <details id="sideChat" class="ch-sec chat-only" open>
       <summary class="panel-head"><h2>频道</h2><button id="btnResetCh" class="link" type="button">恢复默认</button></summary>
+      <div class="ch-body">
       <div class="ch-scroll">
         <ul id="chList" class="ch-list"></ul>
         <details class="ch-more">
@@ -778,93 +955,90 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
         </details>
         <p class="ch-note">打开开关的频道会保留。点色块或色号可以改颜色，点中间图上的某一条可以单独保留或排除。</p>
       </div>
+    <div class="ch-pick ">
+      <button id="btnPick" class="ch-add" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.2 2.3l3.5 3.5-1.6 1.6-.9-.9-5.6 5.6H3.5v-2.1l5.6-5.6-.9-.9z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>从图上取色，新建频道</button>
+    </div>
+      </div>
     </details>
-    <div class="ch-pick chat-only">
-      <button id="btnPick" class="ch-add" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.2 2.3l3.5 3.5-1.6 1.6-.9-.9-5.6 5.6H3.5v-2.1l5.6-5.6-.9-.9z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>从图上取色，添加频道</button>
+
+      <section class="sec sec-list crop-only">
+        <div class="sec-head"><h3>裁切顺序<span id="cropCount" class="count"></span></h3><button id="btnClearCrops" class="link" type="button">清空</button></div>
+        <ol id="cropList" class="crop-list"></ol>
+      </section>
     </div>
-    <div class="panel-head crop-only">
-      <h2>裁切顺序<span id="cropCount" class="count"></span></h2>
-      <button id="btnClearCrops" class="link" type="button">清空</button>
-    </div>
-    <ol id="cropList" class="crop-list crop-only"></ol>
 
-    <div class="settings">
-      <h2>拼接设置</h2>
-
-      <span class="s-label crop-only">方向</span>
-      <div class="s-ctrl crop-only">
-        <div class="seg" data-key="dir">
-          <button type="button" data-v="v">纵向长图</button>
-          <button type="button" data-v="h">横向拼接</button>
-        </div>
-      </div>
-
-      <span class="s-label" id="sizeLabel">统一宽度</span>
-      <div class="s-ctrl">
-        <div class="seg" data-key="size">
-          <button type="button" data-v="min">按最窄</button>
-          <button type="button" data-v="max">按最宽</button>
-          <button type="button" data-v="custom">自定义</button>
-          <button type="button" data-v="none">原尺寸</button>
-        </div>
-        <div class="s-two" id="customWrap" hidden>
-          <label class="field-box"><span class="pre" id="customPre">宽度</span><input id="customSize" type="number" min="16" step="1" value="1080"><span class="suf">px</span></label>
-        </div>
-      </div>
-
-      <span class="s-label" id="alignLabel">对齐</span>
-      <div class="s-ctrl" id="alignCtrl">
-        <div class="seg" data-key="align">
-          <button type="button" data-v="start">左</button>
-          <button type="button" data-v="center">中</button>
-          <button type="button" data-v="end">右</button>
-        </div>
-      </div>
-
-      <span class="s-label">间距</span>
-      <div class="s-ctrl">
-        <div class="s-two">
-          <label class="field-box"><span class="pre">段间</span><input id="gap" type="number" min="0" step="1" value="0"><span class="suf">px</span></label>
-          <label class="field-box"><span class="pre">四周</span><input id="pad" type="number" min="0" step="1" value="0"><span class="suf">px</span></label>
-        </div>
-      </div>
-
-      <span class="s-label">背景</span>
-      <div class="s-ctrl">
-        <div class="s-two">
-          <label class="field-box color-box"><span class="swatch" id="bgSwatch"></span><span class="hex" id="bgHex"></span><input id="bg" type="color" value="#ffffff" aria-label="背景颜色"></label>
-        </div>
-      </div>
-
-      <span class="s-label chat-only">隐私</span>
-      <div class="s-ctrl chat-only">
+    <div class="side-bottom">
+      <section class="sec chat-only">
+        <div class="sec-head"><h3>隐私处置</h3><button id="btnNames" class="names-link" type="button">管理角色代称</button></div>
         <div class="priv-row">
-          <label class="chk"><input id="privId" type="checkbox"> 遮角色 ID</label>
-          <label class="chk"><input id="privTime" type="checkbox"> 遮时间</label>
+          <label class="chk"><input id="privId" type="checkbox"> 隐藏角色名</label>
+          <label class="chk"><input id="privTime" type="checkbox"> 隐藏时间</label>
         </div>
-        <div id="privMore" class="priv-more" hidden>
+        <div id="privMore" class="priv-more">
+          <span class="f-label">遮挡方式</span>
           <div class="seg" data-key="privStyle">
             <button type="button" data-v="mosaic">马赛克</button>
             <button type="button" data-v="block">色块 + 代称</button>
           </div>
-          <button id="btnNames" class="link" type="button">名单</button>
         </div>
-      </div>
+      </section>
 
-      <span class="s-label">格式</span>
-      <div class="s-ctrl">
-        <div class="s-two">
+      <section class="sec">
+        <div class="sec-head"><h3>长图排版</h3></div>
+        <div class="settings lay">
+          <span class="s-label crop-only">方向</span>
+          <div class="s-ctrl crop-only">
+            <div class="seg" data-key="dir">
+              <button type="button" data-v="v">纵向长图</button>
+              <button type="button" data-v="h">横向拼接</button>
+            </div>
+          </div>
+          <span class="s-label" id="sizeLabel">统一宽度</span>
+          <div class="s-ctrl">
+            <div class="seg" data-key="size">
+              <button type="button" data-v="min">最窄</button>
+              <button type="button" data-v="max">最宽</button>
+              <button type="button" data-v="custom">自定义</button>
+            </div>
+            <div class="s-two" id="customWrap" hidden>
+              <label class="field-box"><span class="pre" id="customPre">宽度</span><input id="customSize" type="number" min="16" step="1" value="1080"><span class="suf">px</span></label>
+            </div>
+          </div>
+          <span class="s-label" id="alignLabel" hidden>对齐</span>
+          <div class="s-ctrl" id="alignCtrl" hidden>
+            <div class="seg" data-key="align">
+              <button type="button" data-v="start">左</button>
+              <button type="button" data-v="center">中</button>
+              <button type="button" data-v="end">右</button>
+            </div>
+          </div>
+          <span class="s-label">间距</span>
+          <div class="s-ctrl s-pair">
+            <label class="field-box"><span class="pre">段间</span><input id="gap" type="number" min="0" step="1" value="0"><span class="suf">px</span></label>
+            <label class="field-box"><span class="pre">四周</span><input id="pad" type="number" min="0" step="1" value="0"><span class="suf">px</span></label>
+          </div>
+          <span class="s-label">背景</span>
+          <div class="s-ctrl">
+            <div class="field-box color-box">
+              <label class="sw-pick" title="打开取色盘"><span class="swatch" id="bgSwatch"></span><input id="bg" type="color" value="#ffffff" aria-label="背景颜色取色盘"></label>
+              <input id="bgHexIn" class="hex-field" value="#FFFFFF" maxlength="7" spellcheck="false" aria-label="背景颜色色号">
+              <span class="hex" id="bgHex" hidden></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="side-foot">
+        <div class="foot-row">
+          <span class="f-label">导出格式</span>
           <div class="seg" data-key="format">
             <button type="button" data-v="png">PNG</button>
             <button type="button" data-v="jpeg">JPG</button>
           </div>
           <label class="field-box" id="qualityWrap"><span class="pre">质量</span><input id="quality" type="number" min="10" max="100" step="1" value="92"><span class="suf">%</span></label>
         </div>
-      </div>
-
-      <div class="s-foot">
         <p id="outInfo" class="out-info"></p>
-        <button id="btnMake" class="btn wide" type="button">生成长图</button>
+        <button id="btnMake" class="btn wide" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v8m0 0L5 7.5m3 3l3-3M3 12.5v1h10v-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>导出长图</button>
       </div>
     </div>
   </aside>
@@ -1765,7 +1939,7 @@ const el = {};
  'outInfo','btnMake','preview','pvImg','pvInfo','pvCopy','pvDownload','pvClose','confirmDlg','cfTitle','cfMsg','cfOk',
  'guide','gDots','gStep','gClose','gTitle','gText','gPrev','gNext','help','helpBtn','helpPop','replayGuide','toast',
  'modeSeg','emptyTitle','emptySub','emptyChat','orderNote','viewSeg','chatHint','btnPick','btnDraw','modeTip','modeText','modeCancel',
- 'busy','sideChat','chList','chMoreList','chMoreSum','btnResetCh','btnMosaic','viewMode','longHint','pvText','btnText','txDlg','txStatus','txTs','txPlain','txCopy','txClose','txBody','txFindBtn','txFindBar','txFind','txRepl','txReplAll','txHits','txUndoRepl','txTitle','txTools','txLoad','tlSub','tlS1','tlS2','tlS3','tlS1t','tlS2t','tlBar','tlFill','tlPct','tlEta','tlFirst','tlCancel','tlConfirm','tlKeep','tlStop','btnSel','btnDesel','boxAsk','boxOne','boxAll','boxCancel','crDlg','crTitle','crInfo','crFile','crCancel','crOk','crStage','crEmpty','crWrap','crImg','crSel','crSize','crWhole','btnPointer','toolRail','privId','privTime','privMore','btnNames','nameDlg','nameNote','nameList','nameClose','nameUndo','nameRedo','nameReset'
+ 'busy','sideChat','chList','chMoreList','chMoreSum','btnResetCh','btnMosaic','viewMode','longHint','pvText','btnText','txDlg','txStatus','txTs','txPlain','txCopy','txClose','txBody','txFindBtn','txFindBar','txFind','txRepl','txReplAll','txHits','txUndoRepl','txTitle','txTools','txLoad','tlSub','tlS1','tlS2','tlS3','tlS1t','tlS2t','tlBar','tlFill','tlPct','tlEta','tlFirst','tlCancel','tlConfirm','tlKeep','tlStop','btnSel','btnDesel','boxAsk','boxOne','boxAll','boxCancel','crDlg','crTitle','crInfo','crFile','crCancel','crOk','crStage','crEmpty','crWrap','crImg','crSel','crSize','crWhole','btnPointer','toolRail','privId','privTime','privMore','btnNames','nameDlg','nameNote','nameList','nameClose','nameUndo','nameRedo','nameReset','btnSort','sortMenu','sortLabel','btnUndo','btnRedo','zoomOut','zoomVal','zoomIn','bgHexIn'
 ].forEach(id => { el[id] = document.getElementById(id); });
 
 const cur = () => S.sources.find(s => s.id === S.cur) || null;
@@ -1878,13 +2052,13 @@ function renderSources() {
     el.srcList.innerHTML = '<li class="src-empty">还没有截图</li>';
     return;
   }
-  el.srcList.innerHTML = S.sources.map(s => {
+  el.srcList.innerHTML = S.sources.map((s, si) => {
     const n = S.crops.filter(c => c.srcId === s.id).length;
     return `<li class="${s.id === S.cur ? 'on' : ''}" draggable="true" data-sid="${s.id}">
       <button class="src-btn" type="button" data-id="${s.id}">
         <img src="${s.url}" alt="" draggable="false">
         <span class="src-meta">
-          <span class="src-name">${esc(s.name)}</span>
+          <span class="src-name">${si + 1}. ${esc(s.name)}</span>
           <span class="src-dim">${s.w} × ${s.h}${n ? `，已裁 ${n}` : ''}</span>
         </span>
       </button>
@@ -1895,7 +2069,7 @@ function renderSources() {
 
 function computeScale(src) {
   if (S.zoom === 'fit') {
-    const avail = Math.max(120, el.stage.clientWidth - 64);
+    const avail = Math.max(120, el.stage.clientWidth - 116);
     S.scale = Math.min(1, avail / src.w);
   } else {
     S.scale = +S.zoom;
@@ -1903,6 +2077,7 @@ function computeScale(src) {
 }
 
 function renderStage() {
+  queueMicrotask(syncZoom);
   if (S.view === 'long') { longRender(); return; }
   if (S.mode === 'chat') { chatRenderStage(); return; }
   el.wrap.classList.remove('chat', 'picking', 'drawing', 'long');
@@ -2287,7 +2462,9 @@ const C = {
   dup: new Map(),        // srcId → 和上一张重复的条数
   gap: new Map(),        // srcId → 和上一张相隔的分钟数（超过 20 分钟才记）
   times: new Map(),      // srcId → {status, sig, byY, start, end}
-  manualOrder: false,
+  manualOrder: false,   // 用户在列表里拖过：不再自动排
+  sortMode: 'time',     // 'time' 智能时间顺序 | 'import' 按导入顺序 | 'name' 按文件名
+  importN: 0,
   overrides: new Map(),  // `${srcId}:${y}` → true / false
   view: 'chat',
   tool: null,            // 'pick' | 'draw'
@@ -2315,6 +2492,8 @@ const fmtDur = m => m < 60 ? `${m} 分钟` : `${Math.floor(m / 60)} 小时${m % 
 async function chatAdd(list) {
   const files = [...list].filter(f => f && f.type && f.type.startsWith('image/'));
   if (!files.length) { toast('没有找到图片文件'); return; }
+  // 记下导入时的原始顺序（给「按导入顺序」用），显示上先按文件名排
+  files.forEach(f => { f._imp = ++C.importN; });
   files.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'zh', { numeric: true }));
   el.busy.textContent = '识别中…';
   el.busy.hidden = false;
@@ -2326,7 +2505,7 @@ async function chatAdd(list) {
     img.src = url;
     try { await img.decode(); } catch { URL.revokeObjectURL(url); toast(`无法读取 ${f.name || '这张图片'}`); continue; }
     const generic = !f.name || /^image\.(png|jpe?g|gif|webp)$/i.test(f.name);
-    const src = { id: nid(), name: generic ? `粘贴的截图 ${++pasteN}` : f.name, img, url, w: img.naturalWidth, h: img.naturalHeight };
+    const src = { id: nid(), name: generic ? `粘贴的截图 ${++pasteN}` : f.name, img, url, w: img.naturalWidth, h: img.naturalHeight, imp: f._imp };
     src.px = Chat.pixels(img);
     src.det = Chat.detect(src.px);
     chatList().sources.push(src);
@@ -2408,12 +2587,17 @@ function chatAnalyze() {
       return;
     }
   }
-  if (!C.manualOrder) {
+  if (!C.manualOrder && C.sortMode === 'time') {
     const items = L.sources.map(s => {
       const T = C.times.get(s.id);
       return { s, start: T && T.status === 'done' ? T.start : null, end: T && T.status === 'done' ? T.end : null };
     });
     L.sources = Chat.orderByTime(items).map(i => i.s);
+  } else if (!C.manualOrder && C.sortMode === 'import') {
+    L.sources = L.sources.slice().sort((a, b) => (a.imp || 0) - (b.imp || 0));
+  } else if (!C.manualOrder && C.sortMode === 'name') {
+    // 文件名里的数字按数值比：截图_20260930_154120 和 154150 这类按时间先后排
+    L.sources = L.sources.slice().sort((a, b) => a.name.localeCompare(b.name, 'zh', { numeric: true }));
   }
   joints();
   privDirty();
@@ -2575,18 +2759,17 @@ function chatRenderSources() {
     html += `<li class="${s.id === L.cur ? 'on' : ''}" draggable="true" data-sid="${s.id}">
       <button class="src-btn" type="button" data-id="${s.id}">
         <img src="${s.url}" alt="" draggable="false">
-        <span class="src-meta"><span class="src-name">${esc(s.name)}</span><span class="src-dim">${meta}</span></span>
+        <span class="src-meta"><span class="src-name">${i + 1}. ${esc(s.name)}</span><span class="src-dim">${meta}</span></span>
       </button>
       <button class="x" type="button" data-del="${s.id}" aria-label="移除 ${esc(s.name)}">×</button>
     </li>`;
   });
   el.srcList.innerHTML = html;
-  // 常驻一句提醒：排序靠识别时间戳，可能认错；怎么补救
-  const tip = '<span class="on-tip"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="4.9" r="1" fill="currentColor"/></svg><span>上传图片后将自动按时间排序。若识别有误，请点击右上角「裁切聊天框」，框选完整时间戳，以优化结果。</span></span>';
-  if (C.manualOrder) el.orderNote.innerHTML = '现在按你拖的顺序拼。<button type="button" id="btnAutoOrder">改回按时间排序</button>';
-  else if (noTime) el.orderNote.innerHTML = `有 ${noTime} 张没认出时间，排在了最后。` + tip;
-  else el.orderNote.innerHTML = tip;
-  el.orderNote.hidden = false;
+  // 排序方式显示在左下角的按钮上；这里只在有截图没认出时间时提醒一句
+  el.sortLabel.textContent = C.manualOrder ? '手动顺序' : { time: '智能时间顺序', import: '按导入顺序', name: '按文件名顺序' }[C.sortMode];
+  el.sortMenu.querySelectorAll('[data-sort]').forEach(b => b.setAttribute('aria-checked', String(!C.manualOrder && b.dataset.sort === C.sortMode)));
+  if (noTime && !C.manualOrder && C.sortMode === 'time') { el.orderNote.textContent = `有 ${noTime} 张没认出时间，排在了最后，可以拖动调整。`; el.orderNote.hidden = false; }
+  else el.orderNote.hidden = true;
 }
 
 function chatRenderStage() {
@@ -2606,7 +2789,7 @@ function chatRenderStage() {
   const seg = C.segs.get(src.id);
   const g = geoOf(src);
   const R = C.view === 'chat' && g && C.tool !== 'draw' && !C.pendingGeo ? g.region : { x: 0, y: 0, w: src.w, h: src.h };
-  const s = S.zoom === 'fit' ? Math.min(1, Math.max(120, el.stage.clientWidth - 64 - SIDE_GUTTER) / R.w) : +S.zoom;
+  const s = S.zoom === 'fit' ? Math.min(1, Math.max(120, el.stage.clientWidth - 116 - SIDE_GUTTER) / R.w) : +S.zoom;
   S.scale = s; C.viewR = R;
   el.wrap.style.width = R.w * s + 'px';
   el.wrap.style.height = R.h * s + 'px';
@@ -2965,6 +3148,28 @@ el.srcList.addEventListener('dragend', () => {
 });
 
 
+/* 左下角：排序方式 */
+function closeSortMenu() { el.sortMenu.classList.remove('show'); el.btnSort.setAttribute('aria-expanded', 'false'); setTimeout(() => { if (!el.sortMenu.classList.contains('show')) el.sortMenu.hidden = true; }, 160); }
+el.btnSort.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!el.sortMenu.hidden && el.sortMenu.classList.contains('show')) { closeSortMenu(); return; }
+  el.sortMenu.hidden = false;
+  requestAnimationFrame(() => el.sortMenu.classList.add('show'));
+  el.btnSort.setAttribute('aria-expanded', 'true');
+});
+el.sortMenu.addEventListener('click', e => {
+  const b = e.target.closest('[data-sort]');
+  if (!b) return;
+  const mode = b.dataset.sort;
+  closeSortMenu();
+  if (mode === C.sortMode && !C.manualOrder) return;
+  pushUndo();
+  C.sortMode = mode; C.manualOrder = false;
+  chatRefresh();
+  toast({ time: '已按时间戳重新排序', import: '已按导入时的顺序排列', name: '已按文件名排序' }[mode]);
+});
+document.addEventListener('click', e => { if (!el.sortMenu.hidden && !e.target.closest('.sort-wrap')) closeSortMenu(); });
+
 /* ================= 两个模式各拼各的 =================
    普通裁切：S.crops，按「段」算，右侧有图层列表
    聊天记录：识别出的消息按「条」算；插图 C.inserts 挂在某条消息后面的缝上（after = '<srcId>:<y>' 或 'start'） */
@@ -3229,7 +3434,7 @@ function snap() {
     overrides: [...C.overrides],
     mz: all.map(s => [s, (s.mosaics || []).slice()]),
     order: { crop: S.lists.crop.sources.slice(), chat: S.lists.chat.sources.slice() },
-    manualOrder: C.manualOrder
+    manualOrder: C.manualOrder, sortMode: C.sortMode
   };
 }
 function restore(sn) {
@@ -3243,7 +3448,8 @@ function restore(sn) {
     const kept = sn.order[k].filter(s => alive.has(s));
     S.lists[k].sources = kept.concat(S.lists[k].sources.filter(s => !kept.includes(s)));
   }
-  C.manualOrder = sn.manualOrder;
+  C.manualOrder = sn.manualOrder; C.sortMode = sn.sortMode || 'time';
+  if (!C.manualOrder) chatAnalyze();
   joints();
   syncAddBtn();
   renderAll();
@@ -3252,15 +3458,33 @@ function pushUndo() {
   U.back.push(snap());
   if (U.back.length > 80) U.back.shift();
   U.fwd = [];
+  syncUndoBtns();
 }
 function undo() {
   if (!U.back.length) { toast('没有可以撤销的操作'); return; }
-  U.fwd.push(snap()); restore(U.back.pop());
+  U.fwd.push(snap()); restore(U.back.pop()); syncUndoBtns();
 }
 function redo() {
   if (!U.fwd.length) return;
-  U.back.push(snap()); restore(U.fwd.pop());
+  U.back.push(snap()); restore(U.fwd.pop()); syncUndoBtns();
 }
+function syncUndoBtns() { el.btnUndo.disabled = !U.back.length; el.btnRedo.disabled = !U.fwd.length; }
+el.btnUndo.addEventListener('click', undo);
+el.btnRedo.addEventListener('click', redo);
+
+/* 缩放：− 百分比 +；点百分比回到适应宽度 */
+const ZOOMS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3];
+function syncZoom() { el.zoomVal.textContent = S.zoom === 'fit' ? `适应 ${Math.round((S.scale || 1) * 100)}%` : `${Math.round(+S.zoom * 100)}%`; }
+function stepZoom(d) {
+  const curZ = S.zoom === 'fit' ? (S.scale || 1) : +S.zoom;
+  const next = d > 0 ? ZOOMS.find(z => z > curZ + 0.001) : [...ZOOMS].reverse().find(z => z < curZ - 0.001);
+  if (!next) return;
+  S.zoom = String(next); el.zoom.value = ZOOMS.includes(next) && ['0.5', '1', '2'].includes(String(next)) ? String(next) : el.zoom.value;
+  renderStage();
+}
+el.zoomIn.addEventListener('click', () => stepZoom(1));
+el.zoomOut.addEventListener('click', () => stepZoom(-1));
+el.zoomVal.addEventListener('click', () => { S.zoom = 'fit'; el.zoom.value = 'fit'; renderStage(); });
 document.addEventListener('keydown', e => {
   if (!(e.metaKey || e.ctrlKey) || e.altKey || (e.key !== 'z' && e.key !== 'Z' && e.key !== 'y')) return;
   if (document.querySelector('dialog[open]')) return;
@@ -3321,6 +3545,8 @@ function layout() {
 const OPTS_KEY = 'cropStitch.opts.v1';
 function saveOpts() { storageSet(OPTS_KEY, JSON.stringify(S.opts)); }
 (() => { try { const v = JSON.parse(storageGet(OPTS_KEY)); if (v && v.crop && v.chat) { Object.assign(S.opts.crop, v.crop); Object.assign(S.opts.chat, v.chat); } } catch { /* 用默认 */ } })();
+// 「原尺寸」已经取消：旧设置里存的是它的话，改成按最宽
+['crop', 'chat'].forEach(k => { if (S.opts[k].size === 'none') S.opts[k].size = 'max'; });
 
 function tooBig(L) {
   return L.W > MAX_SIDE || L.H > MAX_SIDE || L.W * L.H > MAX_AREA;
@@ -3328,12 +3554,13 @@ function tooBig(L) {
 
 function updateOutInfo() {
   syncTextBtns();
+  if (document.activeElement !== el.bgHexIn) el.bgHexIn.value = (S.opt.bg || '#ffffff').toUpperCase();
   if (S.mode === 'chat') syncPriv();
   const L = outUnits().length ? layout() : null;
   el.btnMake.disabled = !L;
   el.outInfo.classList.remove('err');
   saveOpts();
-  if (!L) { el.outInfo.textContent = S.mode === 'chat' ? '没有要保留的聊天' : '加入裁切后会显示输出尺寸'; return; }
+  if (!L) { el.outInfo.textContent = S.mode === 'chat' ? '' : '加入裁切后会显示输出尺寸'; return; }
   const nIns = outUnits().filter(u => u.kind === 'ins').length;
   const what = S.mode === 'chat' ? `${L.nMsg} 条聊天${nIns ? ` + ${nIns} 张插图` : ''}` : `${L.nCrop} 段`;
   if (tooBig(L)) {
@@ -3397,12 +3624,29 @@ function showPreview(blob, canvas, L) {
 el.btnMake.addEventListener('click', make);
 el.outInfo.addEventListener('click', e => { if (e.target.id === 'missBtn') gotoMiss(); });
 
+/* 背景色：直接改色号 */
+el.bgHexIn.addEventListener('input', () => {
+  const v = el.bgHexIn.value.trim();
+  if (/^#?[0-9a-f]{6}$/i.test(v)) el.bgSwatch.style.background = v.replace(/^#?/, '#');
+});
+el.bgHexIn.addEventListener('change', () => {
+  let v = el.bgHexIn.value.trim().replace(/^#?/, '#').toUpperCase();
+  if (/^#[0-9A-F]{3}$/.test(v)) v = '#' + v.slice(1).split('').map(x => x + x).join('');
+  if (!/^#[0-9A-F]{6}$/.test(v)) { toast('色号要写成 #FFFFFF 这样的 6 位格式'); el.bgHexIn.value = S.opt.bg.toUpperCase(); return; }
+  S.opt.bg = v.toLowerCase();
+  el.bg.value = S.opt.bg;
+  syncBg(); syncSettings();
+  if (S.view === 'long') renderStage();
+});
+el.bgHexIn.addEventListener('keydown', e => { if (e.key === 'Enter') el.bgHexIn.blur(); });
+el.bg.addEventListener('input', () => { el.bgHexIn.value = el.bg.value.toUpperCase(); if (S.view === 'long') renderStage(); });
+
 /* ================= 工作区：插图缝、长图视图、插图裁切窗口 ================= */
 function renderCrops(id) { if (S.mode === 'crop') renderCropList(id); updateOutInfo(); }
 const SIDE_GUTTER = 230;
 // 图比中间区域窄的时候，整体往左挪半个留白，右侧就有完整的 SIDE_GUTTER 放按钮和缩略图
 function shiftForGutter(w) {
-  const room = el.stage.clientWidth - 64;
+  const room = el.stage.clientWidth - 116;
   el.wrap.style.left = w + SIDE_GUTTER <= room ? -Math.round(SIDE_GUTTER / 2) + 'px' : '0px';
 }
 
@@ -3521,7 +3765,7 @@ function longRender() {
   const L = layout();
   const chat = S.mode === 'chat';
   // 右侧留出放按钮的位置，按钮不压在图上
-  const s = S.zoom === 'fit' ? Math.min(1, Math.max(120, el.stage.clientWidth - 64 - SIDE_GUTTER) / L.W) : +S.zoom;
+  const s = S.zoom === 'fit' ? Math.min(1, Math.max(120, el.stage.clientWidth - 116 - SIDE_GUTTER) / L.W) : +S.zoom;
   S.scale = s; S.longL = L;
   el.wrap.style.width = L.W * s + 'px';
   el.wrap.style.height = L.H * s + 'px';
@@ -3547,6 +3791,7 @@ function longRender() {
     }
   });
   el.overlay.innerHTML = html;
+  syncZoom();
 }
 
 /* ---------- 中间所有带 data-act 的按钮 ---------- */
@@ -4508,7 +4753,8 @@ function privRects(u) {
 function drawPriv(ctx, u, dx, dy, dw, dh) {
   const rs = privRects(u);
   if (!rs.length) return;
-  const kx = dw / u.w, ky = dh / u.h, style = S.opts.chat.privStyle;
+  // 只隐藏时间时不需要选样式，统一用马赛克
+  const kx = dw / u.w, ky = dh / u.h, style = S.opts.chat.privId ? S.opts.chat.privStyle : 'mosaic';
   for (const r of rs) {
     const X = dx + (r.x - u.x) * kx, Y = dy + (r.y - u.y) * ky, W = r.w * kx, H = r.h * ky;
     if (style === 'block' && r.kind === 'id') {
@@ -4553,7 +4799,7 @@ function inkOn(hex) { const [r, g, b] = Chat.hex2rgb(hex); return (r * 299 + g *
 function privHTML(u, kx, ky) {
   const rs = privRects(u);
   if (!rs.length) return '';
-  const style = S.opts.chat.privStyle;
+  const style = S.opts.chat.privId ? S.opts.chat.privStyle : 'mosaic';
   return rs.map(r => {
     const pos = `left:${(r.x - u.x) * kx}px;top:${(r.y - u.y) * ky}px;width:${r.w * kx}px;height:${r.h * ky}px`;
     if (style === 'block') {
@@ -4579,9 +4825,18 @@ function syncPriv() {
   const o = S.opts.chat;
   el.privId.checked = !!o.privId;
   el.privTime.checked = !!o.privTime;
-  el.privMore.hidden = !(o.privId || o.privTime);
-  el.btnNames.hidden = !o.privId;
-  if (o.privId) { privRun(); el.btnNames.textContent = `名单（${PV.persons.length} 人）`; }
+  // 遮挡方式和代称只跟角色名有关：不勾时变灰但不收起，右栏不会上下跳
+  el.privMore.hidden = false;
+  el.privMore.classList.toggle('off', !o.privId);
+  el.privMore.inert = !o.privId;
+  el.btnNames.classList.toggle('off', !o.privId);
+  el.btnNames.disabled = !o.privId;
+  if (!o.privId) el.btnNames.innerHTML = '管理代称<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  if (o.privId) {
+    privRun();
+    const n = new Set(PV.persons.map(t => rootKey(t.key))).size;
+    el.btnNames.innerHTML = `管理代称 · ${n} 人<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
 }
 el.privId.addEventListener('change', () => { S.opts.chat.privId = el.privId.checked; syncPriv(); renderAll(); });
 el.privTime.addEventListener('change', () => { S.opts.chat.privTime = el.privTime.checked; syncPriv(); renderAll(); });
@@ -4889,6 +5144,7 @@ window.addEventListener('resize', () => {
 syncBg();
 syncSettings();
 syncAddBtn();
+syncUndoBtns();
 if (storageGet(MODE_KEY) === 'chat') setMode('chat'); else renderAll();
 if (storageGet(GUIDE_KEY)) el.help.hidden = false; else openGuide();
 })();
