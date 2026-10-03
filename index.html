@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>截图裁拼</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>">
+<title>Chatrim · MMORPG 智能长图小工具</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232D5A4E'/%3E%3Crect x='7' y='8' width='18' height='4' rx='2' fill='%23fff'/%3E%3Crect x='7' y='14' width='13' height='4' rx='2' fill='%23fff' opacity='.85'/%3E%3Crect x='7' y='20' width='16' height='4' rx='2' fill='%23F4C430'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAExUlEQVR42r2X34td1RXHP2vtfc65986vTCYmMS0hBiVaG9G/oWp8aC0UQksLPhQEH/xRJATfLhEDQkIeSquoWFEIKtGHaBSxTUHqS2mh1mSUIdFoSEfMRI2WmfvjnL1WHyYTmsy5MxOduGHD4bD3Xnt/1/e7fggA7bayZ4/9+Fc/26BZeBjnbjfbBgirM1xUpxBeszIdOP7S658v2JSFj5t/+dM7Qxaf0aCbLRluxmoOUUWDYslOp7K6d/LlI2/TbqsAbP/Nz38SYvyLpYRZSoLoKr7+IgqOm2oIGgKpqm4/dvDwUbl+513XNLLiPQ16raXKBAlcxeF40hDVkn3WLXu3aiPmu2IWN30fxgEECZYqi1nc1Ij5roiw01JycaQOdAEQ+Q64++IzHbGUHGFnFLjOzUAWW1FVUkqklBDAV/zK+bUqQowRu5zQIupmCFwXL6xdbFyEuU6HVqPB2PAI7r5iINzn39Mv+3z5zdcMNVu1SAAea42rMtvpcNu2m9h73+9YP74WROp9NIBq5k631+MPrxzkxbffYKQ1tBgJENn+67v90j+CmRGC8tq+J9m88drvRDpz5xe77+fDTz6mWRTYZUjEQZuG8pzx0TEAqqpCVK9ccA4xBEaHh0mW5ml22QW0jrV5jMycP8/jLzxNlRIxRoLqFc5ADIGX/vwmf598n6Fmi1QTXRe54P9d0el2uXHLVibG1uD4khwQEWIImNlFVs92u/xrapIsZqhIrYriUiCGGJg6fYpGXiQzk7ozFuTW65f6zdystIriAuMFVaHVaOLuAyVcewEVodPvc9OWrd0DDz0yvWHtRFWlJFoDgM2vdzOTx557av3r7/51rFU0MZ+H25ZJarEOymROI89t/4O7p7f+4IcdIKwgDvm+B3ZNf3DqROOj/5wpiiwbpP3lEXCcPOasWzOeAO2XpagMDkM+f3GPIaSRVsvMDEHwFcTOWhVEDZyf/a8++uwT6wHyLEsxxoEzizHFENJzR15d9+8TU81WUVx0wbJhe6AKEHplly2bNvfXrVlXplRJfYngqAaf63X0+EcnmjFEggpRHVtB8hisAnHQFp9+diafOXcqNx8sQsdRUTaMFghGtxK+6ihDubMcDQaoAOZK4ZaNHfbe9SUTreTJRJZMRu4Xw6wBv393nFeOjzCc25JIxLpUmhxamfPYjnNsW99jrhdExVdUpc2HX2fPHV/wwdmcqZmcRjYYiXoVuFBkxnjT6JVKmWrLhYGjTMJo0xgtjORL6yHWSSqq88Vs4MDfxnn0znOMFLZMIL50f1Dn+X+O8Y8zDYZW4IJF2JrDUGG8enyYyc8LNo5UVDb/kmV1LTBbKu9NF+RhWRLWFyQLvhzOnRPnMj48m19RIlZxWitQACDR4ZSqbvGUHBG9HIlm5ldQDV66dwmmmoQgZvaJ4hzSEMQH4Gv+7ebSfRquIQjOIe1W/f1VWU1riOp4utp9wUJjUpXVdLfq79eTh96aEeEeVRXVEC5cwq+GbceTagiqKiLcc/LQWzNKu63HDh4+WnZ7O4DTMcuCqK52X4ioSsyyAJwuu70dxw4ePkq7rYF33nHabZ354zMnr/nRDS+iYsAE7hOr2p6LTDn+J6vSbydfPvL+Qlf+P0qQX/eFQq2KAAAAAElFTkSuQmCC">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
 <style>
 :root{
   --mat:#2D5A4E;
@@ -757,6 +759,45 @@ dialog[open]::backdrop{animation:bdIn .2s ease-out}
 #sideChat .ch-body .ch-scroll{flex:1 1 auto;min-height:0;max-height:none;overflow:auto}
 #sideChat .ch-pick{position:static;flex:none;padding:8px 12px 10px;border-top:1px solid var(--line);background:var(--panel)}
 .sec-list{overflow:auto}
+/* 1.21 品牌 */
+.brand{display:flex;align-items:center;gap:10px;margin-right:18px}
+.brand-mark{display:block;height:32px;width:auto}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text h1{margin:0;font-size:17px;font-weight:700;letter-spacing:.02em;display:flex;align-items:baseline;gap:6px}
+.brand-en{font-size:11.5px;font-weight:500;color:var(--muted);letter-spacing:.04em}
+.brand-sub{margin:1px 0 0;font-size:11px;color:var(--muted)}
+.credit{margin:10px 0 0;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.credit a{display:inline-flex;align-items:center;gap:3px;color:var(--mat);font-weight:600;text-decoration:none}
+.credit a:hover{text-decoration:underline}
+.credit svg{width:11px;height:11px}
+.nm-img{align-items:flex-start}
+/* Chatrim：品牌、语言切换、英文排版 */
+.brand{display:flex;align-items:center;gap:10px;margin-right:18px}
+.brand-mark{display:block;width:30px;height:30px;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text h1{margin:0;font-size:17px;font-weight:700;letter-spacing:.01em}
+.brand-sub{margin:1px 0 0;font-size:11px;color:var(--muted)}
+.lang-seg{margin-left:auto;display:inline-grid;grid-auto-flow:column;height:30px;padding:3px;border-radius:8px;background:var(--paper);border:1px solid var(--line)}
+.lang-seg button{border:0;background:transparent;padding:0 10px;border-radius:5px;font-size:12.5px;cursor:pointer;color:var(--muted);transition:background-color .18s ease,color .18s ease}
+.lang-seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(24,34,30,.14)}
+.credit{margin:10px 0 0;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+/* 英文比中文长：标签列加宽，按钮字号略小 */
+html[lang="en"] .settings.lay,html[lang="en"] .priv-more{grid-template-columns:78px minmax(0,1fr)}
+html[lang="en"] .side-bottom .seg button,html[lang="en"] .side-foot .seg button{font-size:12px;padding:0 6px}
+html[lang="en"] .rail-btn{width:62px;font-size:10.5px}
+html[lang="en"] .tool-rail{left:8px}
+html[lang="en"] .sort-btn,html[lang="en"] .clear-btn{font-size:12px}
+html[lang="en"] .sort-menu{width:280px}
+html[lang="en"] .view-tabs button{padding:0 14px}
+html[lang="en"] .priv-row{gap:12px}
+html[lang="en"] .chk{font-size:12.5px}
+html[lang="en"] .mode-seg button{padding:0 12px}
+/* 工具栏：缩放不再绝对居中，避免和右侧按钮重叠（英文按钮更长） */
+.toolbar .zoom-step{position:static;transform:none;margin:0 auto}
+.toolbar .spacer{flex:0 0 0}
+.sort-btn{overflow:hidden}
+.sort-btn #sortLabel{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.clear-btn{flex:none}
 
 /* 弹窗 */
 dialog::backdrop{background:rgba(14,28,24,.6)}
@@ -797,10 +838,20 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
 <body data-mode="crop" data-view="shot">
 
 <header class="top">
-  <h1>截图裁拼</h1>
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#2D5A4E"/><rect x="7" y="8" width="18" height="4" rx="2" fill="#fff"/><rect x="7" y="14" width="13" height="4" rx="2" fill="#fff" opacity=".85"/><rect x="7" y="20" width="16" height="4" rx="2" fill="#F4C430"/></svg>
+    <div class="brand-text">
+      <h1 data-no-i18n>Chatrim</h1>
+      <p class="brand-sub">MMORPG 智能长图小工具</p>
+    </div>
+  </div>
   <div id="modeSeg" class="mode-seg" role="group" aria-label="模式">
     <button type="button" data-mode="crop" aria-pressed="true">普通裁切</button>
-    <button type="button" data-mode="chat" aria-pressed="false">聊天记录</button>
+    <button type="button" data-mode="chat" aria-pressed="false">游戏聊天记录</button>
+  </div>
+  <div class="lang-seg" role="group" aria-label="Language" data-no-i18n>
+    <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
   </div>
 </header>
 
@@ -915,6 +966,7 @@ dialog.confirm p{margin:0 0 16px;font-size:13px;color:#3B4843}
             <dt>马赛克</dt><dd>工具栏打开后在图上拖出区域</dd>
             <dt><kbd class="mod">Ctrl</kbd> + <kbd>Z</kbd></dt><dd>撤销，加 <kbd>Shift</kbd> 重做</dd>
           </dl>
+          <p class="credit">设计与制作 · Lynn Huang</p>
           <div class="help-foot">
             <span class="note">第一次用？</span>
             <button id="replayGuide" class="replay" type="button"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7a4.5 4.5 0 1 0 1.4-3.3M2.5 1.8v2.4h2.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>重看引导</button>
@@ -1882,6 +1934,116 @@ function orderByTime(items) {
 
 return { privScan, privMatch, privFindAll, privTemplateAt, glyphs, pixels, tsStrip, detect, segment, overlap, parseTime, cleanTimes, unwrapDay, orderByTime, hex2rgb, textMask };
 })();
+</script>
+<script>
+/* ===== 中英文切换：界面文字按词表翻译，用户内容（文件名、识别出的聊天文字）不动 ===== */
+const I18N = (() => {
+  const D = new Map([["MMORPG 智能长图小工具", "Smart chat-log stitcher for MMORPGs"], ["游戏聊天记录", "Game Chat Log"], ["MB，只需要下载这一次", "MB, a one-time download"], ["MB，只需要这一次", "MB, one time only"], ["[图片，没有识别到文字]", "[Image, no text found]"], ["[图片]", "[Image]"], ["px，在图上拖动可以重新框选", "px. Drag on the image to reselect"], ["px，超过浏览器画布上限。可以改成「按最窄」、调小宽度，或分成两张。", "px, larger than the browser can render. Try \"Narrowest\", a smaller width, or export in two parts."], ["。可能有错字，可以直接改或用「查找替换」。", ". Some characters may be wrong; edit them directly or use Find & Replace."], ["」是同一种颜色", "\" is the same color"], ["一次拖进好几张也行，会按时间戳自动排好顺序。", "Drop in as many as you like. They will be sorted by timestamp."], ["上一步", "Back"], ["上传图片后将自动按时间排序。若识别有误，请点击右上角「裁切聊天区域」，框选完整时间戳，以优化结果。", "Screenshots are sorted by time automatically. If the order looks wrong, click \"Crop chat area\" at the top right and include the full timestamps."], ["上移", "Move up"], ["下一步", "Next"], ["下次打开会从停下的地方接着识别，不用从头来。", "Next time it picks up where it stopped instead of starting over."], ["下移", "Move down"], ["下载中", "Downloading"], ["下载", "Download"], ["个，拆开", "merged, split"], ["也可以按", "You can also press"], ["从上往下拖一下，拖过的消息都会保留", "Drag down over messages to keep them all"], ["从上往下拖一下，拖过的消息都会排除", "Drag down over messages to exclude them all"], ["从名单里删掉", "Remove from list"], ["从图上取色，新建频道", "Pick a color from the image to add a channel"], ["从图上框一个名字", "Select a name on the image"], ["代称", "Alias"], ["任何时候都可以直接在列表里拖动截图调整先后。", "You can always drag screenshots in the list to reorder them."], ["会删除", "This will delete"], ["会移除", "This will remove"], ["保留未识别的行", "Keep unrecognized lines"], ["保留", "Keep"], ["先在截图上拖出一个选区", "Drag a selection on the screenshot first"], ["全部替换", "Replace all"], ["全部清除", "Clear all"], ["关闭引导", "Close guide"], ["关闭", "Close"], ["准备识别模型", "Preparing the recognition model"], ["出现", "Count"], ["分钟", "min"], ["切到「长图」视图看拼接结果，拖动插图调整位置，设置好后点", "Switch to the long image view to check the result and drag inserted images into place, then click"], ["删掉这张", "Delete this image"], ["删掉这段裁切", "Delete this crop"], ["删除这个频道", "Delete this channel"], ["删除这段", "Delete this segment"], ["别的截图聊天窗口位置不一样的话，选「只用于这张」。", "If the chat window sits elsewhere in other screenshots, choose \"This screenshot only\"."], ["制作采集信息", "Crafting & gathering"], ["加入右侧列表。选区会保留，切到下一张截图能复用同一位置。", "to add it to the list on the right. The selection stays, so you can reuse it on the next screenshot."], ["加入裁切后会显示输出尺寸", "Output size appears once you add crops"], ["加入裁切，选区保留可复用", "Add crop; the selection stays for reuse"], ["加入裁切", "Add crop"], ["加速", "faster"], ["去掉这块马赛克", "Remove this mosaic"], ["取消 Esc", "Cancel Esc"], ["取消选区", "Clear selection"], ["取消选取", "Deselect"], ["取消", "Cancel"], ["只用于这张", "This screenshot only"], ["可以直接输入宽高。", "to type a width and height."], ["名单", "Name list"], ["名字加粗、按频道上色", "Bold names, colored by channel"], ["名字截图", "Name snapshot"], ["名字", "Name"], ["呼喊", "Yell"], ["和上一张重复的", "duplicate lines with the previous screenshot"], ["和上一张重复", "Duplicate of previous screenshot"], ["喊话", "Shout"], ["四周", "Edge"], ["回到原图重新裁", "Back to the original to re-crop"], ["图片太大，超过浏览器画布上限", "The image is too large for the browser to render"], ["图片转文本", "Image to text"], ["在图上拖出要插入的范围", "Drag on the image to choose what to insert"], ["在图上拖出选区，拖边角调整。点选区上方的", "Drag a selection on the image and adjust it by its corners. Click the size label above the selection"], ["在图上拖动鼠标框选", "Drag on the image to select"], ["在整张截图上拖出聊天框的范围（从最上面一条到最下面一条）", "Drag over the chat area on the full screenshot, from the top message to the bottom one"], ["在这里再加一张", "Add another image here"], ["在这里插入图片", "Insert image here"], ["复制图片", "Copy image"], ["复制纯文本", "Copy plain text"], ["复制（带格式）", "Copy with formatting"], ["它有", "It has"], ["完成", "Done"], ["定位", "Locate"], ["宽度", "Width"], ["对齐", "Align"], ["导出格式", "Format"], ["导出长图", "Export long image"], ["小时", "h"], ["小队", "Party"], ["工具栏打开后在图上拖出区域", "Turn it on in the toolbar, then drag on the image"], ["工具", "Tools"], ["左侧截图", "Screenshot list"], ["已从名单删掉，可以撤销", "Removed from the list. You can undo this."], ["已从时间戳识别出这段时间", "Time range read from timestamps"], ["已加入名单，所有截图里同样的名字都会遮上", "Added to the list. This name is now hidden in every screenshot."], ["已取消。识别好的部分已经记下，下次接着来", "Canceled. Finished parts are saved for next time."], ["已合并，共用同一个代称和颜色", "Merged. They now share one alias and color."], ["已合并", "merged"], ["已复制纯文本", "Plain text copied"], ["已复制，可以直接粘贴到聊天或文档里", "Copied. Paste it into a chat or document."], ["已复制，粘贴到文档里会保留粗体和颜色", "Copied. Bold and colors are kept when pasted into a document."], ["已就绪", "Ready"], ["已恢复成自动扫描的结果，可以撤销", "Restored to the auto-detected list. You can undo this."], ["已按导入时的顺序排列", "Sorted by import order"], ["已按文件名排序", "Sorted by file name"], ["已按时间戳重新排序", "Sorted by timestamp"], ["已按时间重新排序", "Sorted by time"], ["已插入", "Inserted"], ["已撤销这次替换", "Replacement undone"], ["已替换", "Replaced"], ["已添加", "Added"], ["已清除全部截图", "All screenshots cleared"], ["已经识别的内容会缓存", "Finished lines are saved"], ["带时间", "Timestamps"], ["帮助", "Help"], ["应用到全部截图", "Apply to all screenshots"], ["张图。拖动可以换顺序或拖到别的缝，点缩略图重新裁", "images here. Drag to reorder or move them to another gap; click a thumbnail to re-crop"], ["张图", "images"], ["张截图", "screenshots"], ["张插图", "inserted images"], ["张没认出时间，排在了最后，可以拖动调整。", "screenshots without readable timestamps were put at the end. Drag to adjust."], ["张没认出聊天框，可以点「裁切聊天框」手动框一下", "screenshots where the chat area wasn't found. Use \"Crop chat area\" to mark it."], ["张，有", "screenshots; "], ["微调位置，", "nudge,"], ["恢复默认", "Reset"], ["悄悄话", "Tell"], ["悬停某一段可以移除或定位；两段之间可以插入图片", "Hover a segment to remove or locate it; insert images between segments"], ["悬停某一段可以移除或定位；顺序在右侧列表里调整", "Hover a segment to remove or locate it; reorder in the list on the right"], ["截图列表", "Screenshot list"], ["截图素材", "Screenshots"], ["手动顺序", "Manual order"], ["打开取色盘", "Open color picker"], ["打开开关的频道会保留。点色块或色号可以改颜色，点中间图上的某一条可以单独保留或排除。", "Channels that are on are kept. Click a swatch or hex code to change its color, or click a message on the canvas to keep or exclude it."], ["找到", "Found"], ["把截图拖到这里", "Drop screenshots here"], ["把截图拖进来，或者按", "Drop screenshots in, or press"], ["把游戏截图拖到这里", "Drop game screenshots here"], ["把要插入的图片拖到这里", "Drop the image to insert here"], ["投掷信息", "Dice rolls"], ["拖出要打码的区域，悬停已有的马赛克可以去掉", "Drag to mosaic an area; hover an existing one to remove it"], ["拖出要打码的区域", "Drag to mosaic an area"], ["拖到另一个名字上可以合并", "Drag onto another name to merge"], ["拖动排序或合并", "Drag to reorder or merge"], ["拖动鼠标", "Drag"], ["拖过的消息都保留", "Keep every message you drag over"], ["拖过的消息都排除", "Exclude every message you drag over"], ["按住左边的把手拖动可以调整顺序；拖到另一个人的名字截图上可以合并。框错了的名字点右边重新框选或删除。", "Drag the handle on the left to reorder; drop onto another name to merge. Reselect or delete a wrongly selected name with the buttons on the right."], ["按住拖动调整顺序", "Drag to reorder"], ["按你选中、拖进来的先后排", "In the order you selected or dropped them"], ["按导入顺序", "Import order"], ["按截图里的时间戳自动排好。需在游戏聊天设置里开启「显示消息时间」", "Sorted by the timestamps in each screenshot. Turn on message timestamps in the in-game chat settings."], ["按文件名顺序", "File name order"], ["换一张图", "Change image"], ["排除", "Exclude"], ["插了", ""], ["插入图片", "Insert image"], ["插入", "Insert"], ["插图已更新", "Image updated"], ["插图，可拖动", "Inserted image, draggable"], ["插图", "Inserted images"], ["撤销替换", "Undo replace"], ["撤销（Ctrl+Z）", "Undo (Ctrl+Z)"], ["撤销，加", "Undo; add"], ["撤销", "Undo"], ["改为整张", "Use whole image"], ["改色号", "Edit color"], ["改颜色", "Edit color"], ["放大", "Zoom in"], ["整张加入", "Add whole image"], ["整张插入", "Insert whole image"], ["整张", "Full"], ["整理格式", "Formatting"], ["文件名里的数字按大小排，适合按截图编号整理", "Numbers in file names are compared by value, handy for numbered screenshots"], ["新人频道", "Novice Network"], ["新频道", "New channel"], ["方向", "Direction"], ["无法读取", "Can't read"], ["时间识别组件没加载成功（需要联网），先按文件名排序", "The timestamp reader couldn't load (needs internet). Sorted by file name for now."], ["显示范围", "View"], ["普通裁切", "Crop & Stitch"], ["智能时间排序中", "Sorting by time"], ["智能时间顺序", "Smart time order"], ["更多频道", "More channels"], ["更新这段", "Update crop"], ["更新", "Update"], ["替换为", "Replace with"], ["最宽", "Widest"], ["最窄", "Narrowest"], ["未识别", "Unrecognized"], ["条已去掉", "removed"], ["条已", "messages"], ["条聊天", "messages"], ["查找替换", "Find & Replace"], ["查找", "Find"], ["框出一个名字（连服务器名一起框），它会加进名单", "Select a name (include the world name) to add it to the list"], ["框选需要的部分", "Select the part you need"], ["框选", "Select"], ["框里没找到带时间戳的行。聊天设置里要打开时间戳", "No timestamped lines in that area. Turn on timestamps in the chat settings."], ["模型已在浏览器里，直接开始", "Model is already in your browser, starting now"], ["模式", "Mode"], ["横向拼接", "Horizontal"], ["正在估算时间…", "Estimating time…"], ["正在把图片里的文字识别出来", "Reading the text in your images"], ["正在重新裁", "Re-cropping"], ["正确的字", "Correct text"], ["段图片", "image segments"], ["段裁切，会一起从裁切顺序里删掉。", "crops, which will also be removed from the crop order."], ["段裁切，截图本身会保留。", "crops. Screenshots will be kept."], ["段裁切", "crops"], ["段间", "Gap"], ["每个人一种颜色和代称。", "One color and alias per person. "], ["没找到", "No matches"], ["没有可以撤销的操作", "Nothing to undo"], ["没有找到名字。", "No names found."], ["没有找到图片文件", "No image files found"], ["没有找到图片", "No image found"], ["没有识别到文字", "No text found"], ["没有选区时切换截图", "Switch screenshots when nothing is selected"], ["没认出时间", "No timestamp found"], ["没认出聊天框，点「裁切聊天框」", "Chat area not found. Use \"Crop chat area\""], ["没认出聊天框", "Chat area not found"], ["添加截图", "Add screenshots"], ["添加", "Add"], ["清空截图", "Clear"], ["清空裁切顺序？", "Clear the crop order?"], ["清空", "Clear"], ["清除全部截图？", "Clear all screenshots?"], ["点一下图上某条消息的文字，用它的颜色新建频道", "Click the text of a message to create a channel from its color"], ["点一下适应宽度", "Click to fit width"], ["点击保留", "click to keep"], ["点击修改宽高", "Click to edit size"], ["点击排除", "click to exclude"], ["点右侧列表或插图卡片里的缩略图", "Click a thumbnail in the list or the image card"], ["点某一条可以单独保留或排除", "Click a message to keep or exclude it"], ["点选", "Pick"], ["现在是马赛克样式，代称和颜色在「色块 + 代称」样式和图片转文本里使用。", "Mosaic style is on. Aliases and colors are used by the \"Color block + alias\" style and in Image to text. "], ["现在看起来慢，是在下载模型，不是卡住了。", "It's downloading the model, not frozen."], ["生成中…", "Rendering…"], ["生成失败，图片可能超出这个浏览器的画布上限。试试「按最窄」或分成两张。", "Couldn't render. The image may be too large for this browser. Try \"Narrowest\" or export in two parts."], ["生成的长图", "the long image"], ["生成长图", "Generate long image"], ["用户宏", "Custom emote"], ["画出选区，拖边角调整", "Draw a selection, adjust by its corners"], ["的色号", "hex code"], ["的颜色", "color"], ["直接粘贴。", "to paste."], ["直接输入宽高", "Type width and height"], ["相隔", "Gap of"], ["看拼接结果，拖动插图调整位置", "Check the result and drag inserted images into place"], ["知道了", "Got it"], ["确定取消", "Yes, cancel"], ["确定要取消吗？", "Cancel recognition?"], ["第一次使用会慢一些，这是正常的", "The first run is slower, and that's normal"], ["第一次用？", "First time here?"], ["管理代称 ·", "Manage aliases ·"], ["管理代称", "Manage aliases"], ["管理角色代称", "Manage aliases"], ["粘贴截图，也可以直接拖入", "Paste screenshots, or drop them in"], ["粘贴的截图", "Pasted screenshot"], ["粘贴，或点这里选择文件", "to paste, or click here to choose files"], ["系统提示：获得经验", "System: EXP gained"], ["系统默语", "System echo"], ["素材与顺序", "Screenshots & order"], ["纵向长图", "Vertical"], ["统一宽度", "Width"], ["统一高度", "Height"], ["继续识别", "Keep going"], ["编辑截图", "Edit screenshots"], ["缩小", "Zoom out"], ["缩放", "Zoom"], ["聊天两条之间悬停，点「＋ 在这里插入图片」", "Hover between two messages and click \"+ Insert image here\""], ["聊天框只用于这张截图", "Chat area applied to this screenshot only"], ["聊天框已应用到同尺寸的全部截图", "Chat area applied to all screenshots of this size"], ["聊天框", "Chat area"], ["背景颜色取色盘", "Background color picker"], ["背景颜色色号", "Background hex code"], ["背景", "Background"], ["自动识别不准时，手动框出聊天范围", "Mark the chat area by hand when auto-detection is off"], ["自定义", "Custom"], ["色号要写成 #66E5FF 这样的 6 位格式", "Use a 6-digit hex code like #66E5FF"], ["色号要写成 #FFFFFF 这样的 6 位格式", "Use a 6-digit hex code like #FFFFFF"], ["色块 + 代称", "Color block + alias"], ["行图片文字", "lines of image text"], ["行的名字没能自动打码", "lines with names that couldn't be hidden automatically"], ["裁切聊天区域", "Crop chat area"], ["裁切顺序", "Crop order"], ["裁切区", "Crop area"], ["要先下载文字识别模型。模型会保存在浏览器里，之后再用几乎马上就能开始。", "The text recognition model downloads first. It's saved in your browser, so next time starts almost instantly."], ["视图", "View"], ["认错的字", "Wrong text"], ["质量", "Quality"], ["识别中…", "Recognizing…"], ["识别中", "Recognizing"], ["识别时间中…", "Reading timestamps…"], ["识别模型没加载成功。请确认已联网，关掉窗口再试一次。", "The recognition model didn't load. Check your connection, close this window, and try again."], ["说话", "Say"], ["调整选区后按 Enter 更新这段，Esc 取消", "Adjust the selection, then press Enter to update this crop or Esc to cancel"], ["超出原图范围，已限制为", "Out of bounds, limited to"], ["输出", "output"], ["还没有可以拼的内容", "Nothing to stitch yet"], ["还没有可以识别的内容", "Nothing to recognize yet"], ["还没有截图", "No screenshots yet"], ["还没有裁切。先在截图视图里框选、按 Enter 加入。", "No crops yet. Select an area in the screenshot view and press Enter."], ["还没有裁切。框选后按 Enter，会按顺序排在这里。", "No crops yet. Select an area and press Enter; crops line up here in order."], ["还没有要拼的聊天。先导入游戏截图。", "No chat to stitch yet. Import some game screenshots first."], ["这个浏览器不支持复制图片，请用下载", "This browser can't copy images. Please download instead."], ["这个浏览器不让写剪贴板，可以在框里全选后手动复制", "This browser blocks clipboard access. Select all in the box and copy manually."], ["这个聊天框用在哪些截图上？", "Which screenshots should use this chat area?"], ["这张图片读不了", "Can't read this image"], ["这张图片", "this image"], ["这张里没找到带时间戳的行", "No timestamped lines in this screenshot"], ["这段已更新", "Crop updated"], ["这里插入了", ""], ["这里插入的图片", "Images inserted here"], ["这里没找到文字，框在某一行的名字上", "No text here. Select a name on one line."], ["这里没有文字，点在字的笔画上", "No text here. Click right on a character."], ["适应宽度", "Fit width"], ["适应", "Fit"], ["选区宽度", "Selection width"], ["选区高度", "Selection height"], ["选区", "Selection"], ["选取", "Select"], ["逐行识别文字", "Reading text line by line"], ["遮挡方式", "Style"], ["遮挡", "Hide"], ["遮这个人", "Hide this person"], ["重做（Ctrl+Shift+Z）", "Redo (Ctrl+Shift+Z)"], ["重做", "Redo"], ["重新框选这个名字，框好后会替换掉原来那个", "Reselect this name; it replaces the old one"], ["重新框选", "Reselect"], ["重新裁这张插图", "Re-crop this image"], ["重新裁这张", "Re-crop this one"], ["重新裁", "Re-crop"], ["重看引导", "Replay guide"], ["长图-", "long-image-"], ["长图排版", "Layout"], ["长图视图", "Long image view"], ["长图设置", "Export settings"], ["长图预览", "Long image preview"], ["长图", "Long image"], ["间距", "Spacing"], ["隐私处置", "Privacy"], ["隐藏时间", "Hide time"], ["隐藏角色名", "Hide names"], ["预览并生成", "Preview & export"], ["预览长图", "Preview"], ["预计还需约", "About"], ["频道已恢复默认", "Channels reset"], ["频道名", "Channel name"], ["频道", "Channels"], ["颜色不在上面", "Color not listed above"], ["颜色", "Color"], ["首次加载模型需要一些时间", "The first model load takes a while"], ["马上就好", "Almost done"], ["马赛克", "Mosaic"], ["高度", "Height"], ["（只用于这张）", " (this screenshot only)"], ["（手动）", " (manual)"], ["（识别到", " ("], ["，右边可以改名", "; rename it on the right"], ["，已裁", ", cropped"], ["，点一下跳过去，可以在名单里框出这个名字，或用马赛克补", ". Click to jump there, then select the name in the list or cover it with mosaic"], ["，输出", ", output"], ["，这个操作不能撤销。", ". This can't be undone."], ["，这里可能漏截了", ", something may be missing here"], ["聊天记录-", "chat-log-"], ["玩家", "Player"], ["条", "msgs"], ["张", ""], ["段", "segments"], ["次", "×"], ["秒", "s"], ["分", "min"], ["钟", ""], ["处", "matches"], ["行", "lines"], ["人", "people"], ["第", "#"], ["个", ""], ["约", "about"], ["有", ""], ["和", "and"], ["点", "click"], ["按", "Press"], ["上", "Up"], ["下", "Down"], ["左", "Left"], ["中", "Center"], ["右", "Right"], ["和「", " and \""], ["条）", " msgs)"], ["条，", " msgs, "], ["显示范围", "View"], ["移除", "Remove"], ["裁切", "Crop"], ["设计与制作 · Lynn Huang", "Designed & built by Lynn Huang"]]);
+  const KEYS = [...D.keys()].sort((a, b) => b.length - a.length);
+  // 语序和中文差得多的句子，整句匹配
+  const PAT = [
+    [/^预计还需约 (\d+) 秒$/, 'About $1 s left'],
+    [/^预计还需约 (\d+) 分钟$/, 'About $1 min left'],
+    [/^预计还需约 (\d+) 分 (\d+) 秒$/, 'About $1 min $2 s left'],
+    [/^已合并 (\d+) 个，拆开$/, '$1 merged · split'],
+    [/^和上一张重复的 (\d+) 条已去掉$/, '$1 duplicate lines removed'],
+    [/^(\d+) 条已保留$/, '$1 messages kept'],
+    [/^(\d+) 条已排除$/, '$1 messages excluded'],
+    [/^第 (\d+) 张$/, 'Screenshot $1'],
+    [/^插了 (\d+) 张图$/, '$1 images'],
+    [/^玩家 ([A-Z]\d*)$/, 'Player $1'],
+    [/^更多频道（识别到 (\d+) 条）$/, 'More channels ($1 msgs)'],
+    [/^下载中 ([\d.]+) \/ ([\d.]+) MB，只需要这一次$/, 'Downloading $1 / $2 MB, one time only'],
+    [/^约 (\d+) MB，只需要下载这一次$/, 'About $1 MB, a one-time download'],
+    [/^智能时间排序中 (\d+) \/ (\d+)$/, 'Sorting by time $1 / $2']
+  ];
+  const HAN = /[\u3400-\u9fff\u3000-\u303f\uff01-\uff1f]/;   // 汉字和中文标点
+  const KEY = 'chatrim.lang';
+  let lang = 'en';
+  try { lang = localStorage.getItem(KEY) || ((navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en'); } catch { /* 默认英文 */ }
+  function tr(s) {
+    if (!s || !HAN.test(s)) return s;
+    const lead = s.match(/^\s*/)[0], trail = s.match(/\s*$/)[0];
+    let t = s.trim();
+    for (const [re, rep] of PAT) if (re.test(t)) return lead + t.replace(re, rep) + trail;
+    if (D.has(t)) return lead + D.get(t) + trail;
+    for (const k of KEYS) if (t.includes(k)) t = t.split(k).join(' ' + D.get(k) + ' ');
+    t = t.replace(/，/g, ', ').replace(/。/g, '. ').replace(/；/g, '; ').replace(/：/g, ': ').replace(/（/g, ' (').replace(/）/g, ') ')
+      .replace(/「|」|“|”/g, '"').replace(/、/g, ', ').replace(/？/g, '?').replace(/！/g, '!')
+      .replace(/\s{2,}/g, ' ').replace(/\s+([,.;:)!?])/g, '$1').replace(/\(\s+/g, '(').replace(/"\s+([^"]*?)\s+"/g, '"$1"').trim();
+    return lead + t + trail;
+  }
+  const T = s => lang === 'en' ? tr(s) : s;
+  // 不翻译的地方：文件名、识别出来的聊天文字、名字截图、语言按钮本身
+  const SKIP = '#txBody, .src-name, .c-src, #curName, .nm-img, [data-no-i18n], script, style, textarea';
+  const orig = new WeakMap();
+  const ATTRS = ['title', 'aria-label', 'placeholder', 'alt'];
+  function doNode(n) {
+    if (n.nodeType !== 3 || !HAN.test(n.data)) return;
+    const p = n.parentElement;
+    if (!p || p.closest(SKIP)) return;
+    orig.set(n, n.data);
+    const t = tr(n.data);
+    if (t !== n.data) n.data = t;
+  }
+  function doEl(el) {
+    if (el.closest && el.closest('#txBody, [data-no-i18n]')) return;
+    for (const a of ATTRS) {
+      const v = el.getAttribute && el.getAttribute(a);
+      if (v && HAN.test(v)) {
+        const t = tr(v);
+        if (t === v) continue;                      // 翻不了的（比如带中文文件名）就别再写，免得触发无限循环
+        if (!el.hasAttribute('data-zh-' + a)) el.setAttribute('data-zh-' + a, v);
+        el.setAttribute(a, t);
+      }
+    }
+  }
+  function apply(root) {
+    if (lang !== 'en' || !root) return;
+    if (root.nodeType === 3) { doNode(root); return; }
+    if (root.nodeType !== 1) return;
+    doEl(root);
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    while (w.nextNode()) doNode(w.currentNode);
+    root.querySelectorAll('[title],[aria-label],[placeholder],[alt]').forEach(doEl);
+  }
+  function restore() {
+    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (w.nextNode()) { const n = w.currentNode, o = orig.get(n); if (o !== undefined && n.data === tr(o)) n.data = o; }
+    ATTRS.forEach(a => document.querySelectorAll('[data-zh-' + a + ']').forEach(el => { el.setAttribute(a, el.getAttribute('data-zh-' + a)); el.removeAttribute('data-zh-' + a); }));
+  }
+  let mo = null;
+  function syncChrome() {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+    document.title = lang === 'en' ? 'Chatrim · Smart chat-log stitcher for MMORPGs' : 'Chatrim · MMORPG 智能长图小工具';
+    document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  }
+  function start(rerender) {
+    syncChrome();
+    apply(document.body);
+    mo = new MutationObserver(recs => {
+      if (lang !== 'en') return;
+      for (const r of recs) {
+        if (r.type === 'characterData') doNode(r.target);
+        else if (r.type === 'attributes') doEl(r.target);
+        else r.addedNodes.forEach(apply);
+      }
+    });
+    mo.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+    document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => set(b.dataset.lang, rerender)));
+  }
+  function set(l, rerender) {
+    if (l === lang) return;
+    lang = l;
+    try { localStorage.setItem(KEY, l); } catch { /* 无痕模式 */ }
+    if (l === 'zh') restore();
+    syncChrome();
+    if (rerender) rerender();
+    apply(document.body);
+  }
+  return { T, tr, start, get lang() { return lang; } };
+})();
+const T = I18N.T;
 </script>
 <script>
 (() => {
@@ -3601,7 +3763,7 @@ async function make() {
     const blob = await new Promise(r => cv.toBlob(r, mime, S.opt.quality / 100));
     if (!blob) throw new Error('toBlob failed');
     showPreview(blob, cv, L);
-    if (L.nMsg) S.out.name = `聊天记录-${stamp()}.${S.opt.format === 'jpeg' ? 'jpg' : 'png'}`;
+    if (L.nMsg) S.out.name = `${T('聊天记录-')}${stamp()}.${S.opt.format === 'jpeg' ? 'jpg' : 'png'}`;
   } catch (err) {
     console.error(err);
     toast('生成失败，图片可能超出这个浏览器的画布上限。试试「按最窄」或分成两张。');
@@ -3615,7 +3777,7 @@ function showPreview(blob, canvas, L) {
   if (S.out) URL.revokeObjectURL(S.out.url);
   const url = URL.createObjectURL(blob);
   const ext = blob.type === 'image/jpeg' ? 'jpg' : 'png';
-  S.out = { blob, url, canvas, name: `长图-${stamp()}.${ext}` };
+  S.out = { blob, url, canvas, name: `${T('长图-')}${stamp()}.${ext}` };
   el.pvImg.src = url;
   el.pvInfo.textContent = `${L.W} × ${L.H} px，${fmtSize(blob.size)}`;
   el.preview.showModal();
@@ -4484,7 +4646,7 @@ async function openTextCopy() {
         html += `<p style="margin:0 0 2px;color:${col}">${ts}${txEsc(p.pre)}${p.name ? `<b>${txEsc(p.name)}</b>` : ''}${txEsc(p.post)}${txEsc(p.body)}</p>`;
       } else {
         const lines = await recCrop(u);
-        html += `<div class="tx-crop" style="margin:8px 0">${lines.length ? lines.map(l => `<p style="margin:0 0 2px;color:#2B2B2B">${txEsc(l)}</p>`).join('') : '<p class="tx-img" style="margin:0;color:#9AA7A1">[图片，没有识别到文字]</p>'}</div>`;
+        html += `<div class="tx-crop" style="margin:8px 0">${lines.length ? lines.map(l => `<p style="margin:0 0 2px;color:#2B2B2B">${txEsc(l)}</p>`).join('') : '<p class="tx-img" style="margin:0;color:#9AA7A1">' + T('[图片，没有识别到文字]') + '</p>'}</div>`;
         nLine += lines.length;
       }
     }
@@ -4673,7 +4835,7 @@ function cfgOf(key) {
     const usedA = new Set(), usedC = new Set();
     PV.names.forEach((c, k) => { if (live.has(k)) { usedA.add(c.alias); usedC.add(c.color); } });
     let i = 0, alias;
-    do { alias = `玩家 ${String.fromCharCode(65 + (i % 26))}${i >= 26 ? Math.floor(i / 26) : ''}`; i++; } while (usedA.has(alias));
+    do { alias = `${T('玩家')} ${String.fromCharCode(65 + (i % 26))}${i >= 26 ? Math.floor(i / 26) : ''}`; i++; } while (usedA.has(alias));
     const color = PV_COLORS.find(c => !usedC.has(c)) || PV_COLORS[usedC.size % PV_COLORS.length];
     cfg = { alias, color, on: true };
     PV.names.set(r, cfg);
@@ -5145,6 +5307,7 @@ syncBg();
 syncSettings();
 syncAddBtn();
 syncUndoBtns();
+I18N.start(() => renderAll());
 if (storageGet(MODE_KEY) === 'chat') setMode('chat'); else renderAll();
 if (storageGet(GUIDE_KEY)) el.help.hidden = false; else openGuide();
 })();
