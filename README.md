@@ -1,6 +1,6 @@
 # Chatrim
 
-**A smart chat-log stitcher for FFXIV.** Drop in a pile of chat screenshots and get back one clean, correctly ordered long image, with player names hidden if you want them to be.
+**A smart chat-log stitcher for MMORPGs.** Drop in a pile of chat screenshots and get back one clean, correctly ordered long image, with player names hidden if you want them to be.
 
 ### 👉 [Try it in your browser](https://lynnhuangdesigner-sys.github.io/Chatrim/)
 
@@ -13,7 +13,7 @@ Everything runs locally. Your screenshots never leave your computer.
 
 ## Why I made it
 
-FFXIV players share chat logs all the time: a funny party moment, a roleplay scene, proof of what someone actually said. The usual process is painful. You take a dozen screenshots, they come out of order, half of each one is game UI, system spam is mixed in with the conversation, and everyone's character name is visible.
+MMORPG players share chat logs all the time: a funny party moment, a roleplay scene, proof of what someone actually said. The usual process is painful. You take a dozen screenshots, they come out of order, half of each one is game UI, system spam is mixed in with the conversation, and everyone's character name is visible.
 
 Chatrim handles all of that in one place.
 
@@ -62,4 +62,4 @@ Text recognition uses these open-source projects: PaddleOCR (Apache-2.0), ONNX R
 
 Designed by **Lynn Huang**. Released under the [MIT License](LICENSE).
 
-<sub>FINAL FANTASY XIV is a registered trademark of Square Enix. Chatrim is an unofficial fan-made tool and is not affiliated with Square Enix.</sub>
+<sub>Chatrim is an unofficial fan-made tool and is not affiliated with any game publisher.</sub>
